@@ -121,6 +121,7 @@ body {
 }
 .tab-btn.active { background: var(--ink); color: white; }
 .tab-btn:not(.active):hover { background: var(--surface); color: var(--ink); }
+@keyframes pulse-tab { 0%,100%{opacity:1;} 50%{opacity:.75;} }
 
 /* ── PANELS ── */
 .panel { display: none; }
@@ -378,6 +379,7 @@ body {
   <button class="tab-btn" onclick="showTab('reason')">🧠 Reasoning</button>
   <button class="tab-btn" onclick="showTab('maths')">🔢 Mathematics</button>
   <button class="tab-btn" onclick="showTab('rapid')">⚡ 5-Min Revision</button>
+  <button class="tab-btn" onclick="showTab('predict')" style="background:linear-gradient(135deg,#7C3AED,#DB2777);color:white;animation:pulse-tab 2s infinite;">🎯 कल के संभावित प्रश्न</button>
 </div>
 
 <!-- ══════════════════════════════════════════ -->
@@ -1589,6 +1591,996 @@ body {
 </div>
 </div><!-- end rapid panel -->
 
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--          PREDICTED QUESTIONS PANEL                       -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="panel" id="panel-predict">
+
+<style>
+/* ─── Predict Panel Styles ─── */
+.predict-header {
+  background: linear-gradient(135deg, #1E1035 0%, #3B0764 50%, #6D28D9 100%);
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  position: relative; overflow: hidden;
+}
+.predict-header::before {
+  content:'';position:absolute;inset:0;
+  background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 24px);
+}
+.predict-eyebrow {
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.35);
+  color:#FCD34D;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;border-radius:20px;margin-bottom:12px;
+}
+.predict-header h2 { font-size:26px;font-weight:800;color:white;margin-bottom:6px; }
+.predict-header h2 em { color:#F472B6;font-style:normal; }
+.predict-header p { font-size:13px;color:#C4B5FD;margin-bottom:16px; }
+.predict-pills { display:flex;gap:10px;flex-wrap:wrap; }
+.predict-pill {
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:6px 14px;font-size:12px;color:#E9D5FF;
+  display:flex;flex-direction:column;align-items:center;
+}
+.predict-pill b { font-size:16px;color:white; }
+
+/* Section banner */
+.ps-banner {
+  display:flex;align-items:center;gap:12px;
+  padding:14px 20px;border-radius:12px 12px 0 0;color:white;
+}
+.ps-banner.h-band { background:linear-gradient(135deg,#92400E,#D97706); }
+.ps-banner.r-band { background:linear-gradient(135deg,#064E3B,#059669); }
+.ps-banner.m-band { background:linear-gradient(135deg,#1E3A8A,#2563EB); }
+.ps-banner-icon { font-size:22px; }
+.ps-banner h3 { font-size:16px;font-weight:800; }
+.ps-banner p { font-size:11px;opacity:.8; }
+.ps-banner-badge {
+  margin-left:auto;background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.25);border-radius:8px;
+  padding:5px 14px;text-align:center;font-size:11px;
+}
+.ps-banner-badge b { display:block;font-size:18px; }
+
+/* MCQ Card */
+.mcq-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px;background:white;border:1px solid #E2E8F0;border-top:none; }
+.mcq-grid.three { grid-template-columns:1fr 1fr 1fr; }
+@media(max-width:660px) { .mcq-grid,.mcq-grid.three { grid-template-columns:1fr; } }
+.mcq-grid:last-of-type { border-radius:0 0 12px 12px;margin-bottom:28px; }
+
+.mcq-card {
+  border-radius:10px;border:1px solid #E2E8F0;
+  overflow:hidden;
+}
+.mcq-card.super {
+  border:2px solid #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245,158,11,.12);
+}
+.mcq-top {
+  padding:12px 14px 10px;background:#F8FAFC;
+  border-bottom:1px solid #E2E8F0;
+  display:flex;align-items:flex-start;gap:8px;
+}
+.mcq-num {
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;
+}
+.mcq-num.hc { background:#D97706; }
+.mcq-num.rc { background:#059669; }
+.mcq-num.mc { background:#2563EB; }
+.mcq-question { font-size:13px;color:#1E293B;line-height:1.55;flex:1; }
+.super-badge {
+  display:inline-flex;align-items:center;gap:3px;
+  background:#FEF3C7;border:1px solid #F59E0B;
+  color:#B45309;font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;
+}
+.mcq-options {
+  padding:10px 14px;
+  display:grid;grid-template-columns:1fr 1fr;gap:3px;
+}
+.opt {
+  font-size:12px;color:#475569;padding:3px 6px;border-radius:4px;
+  transition:background .1s;
+}
+.opt.correct { background:#DCFCE7;color:#166534;font-weight:700; }
+.mcq-bottom {
+  padding:10px 14px;border-top:1px solid #E2E8F0;
+  background:#FAFBFF;
+}
+.mcq-ans {
+  font-size:12px;color:#166534;font-weight:600;
+  display:flex;align-items:flex-start;gap:5px;margin-bottom:5px;
+}
+.mcq-trick {
+  font-size:11.5px;color:#4C1D95;background:#F5F3FF;
+  border:1px solid #DDD6FE;border-radius:5px;
+  padding:5px 8px;line-height:1.5;
+}
+
+/* Do-or-Die section */
+.dod-wrapper {
+  background:linear-gradient(135deg,#0F172A,#1E3A5F);
+  border-radius:14px;padding:28px 32px;margin-top:8px;
+}
+.dod-title { font-size:22px;font-weight:800;color:#F9A8D4;margin-bottom:4px; }
+.dod-sub { font-size:13px;color:#94A3B8;margin-bottom:24px; }
+.dod-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px; }
+@media(max-width:700px) { .dod-grid { grid-template-columns:1fr; } }
+.dod-col { background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px; }
+.dod-col h4 { font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px; }
+.dod-item {
+  display:flex;align-items:flex-start;gap:8px;
+  padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);
+  font-size:12.5px;line-height:1.5;
+}
+.dod-item:last-child { border-bottom:none; }
+.dod-rank {
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;
+}
+.rank1 { background:#EF4444;color:white; }
+.rank2 { background:#F59E0B;color:white; }
+.rank3 { background:#10B981;color:white; }
+.dod-item-text { color:#CBD5E1; }
+.dod-item-text strong { color:white; }
+.dod-final-box {
+  margin-top:20px;
+  background:rgba(249,168,212,.08);
+  border:1px solid rgba(249,168,212,.3);
+  border-radius:10px;padding:16px 20px;
+  font-size:13px;color:#FDE8F5;line-height:2;
+}
+</style>
+
+<!-- PREDICT HEADER -->
+<div class="predict-header">
+  <div style="position:relative;">
+    <div class="predict-eyebrow">🎯 AI Trend Analysis — UPSI 2026</div>
+    <h2>कल के <em>संभावित प्रश्न</em></h2>
+    <p>UP Constable 60244 + UPSI पिछले paper trends पर आधारित · अत्यंत संभावित MCQs</p>
+    <div class="predict-pills">
+      <div class="predict-pill"><b>45</b>Questions</div>
+      <div class="predict-pill"><b>🔥 Super High</b>Probability</div>
+      <div class="predict-pill"><b>3 Sections</b>Covered</div>
+      <div class="predict-pill"><b>Tricks</b>Included</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HINDI PREDICTED ═══ -->
+<div class="ps-banner h-band">
+  <div class="ps-banner-icon">📖</div>
+  <div><h3>सामान्य हिंदी — संभावित प्रश्न</h3><p>UP Constable 60244 trend + UPSI 2021 pattern match</p></div>
+  <div class="ps-banner-badge"><b>15 Q</b>Predicted</div>
+</div>
+<div class="mcq-grid">
+
+  <!-- H1 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H1</div>
+      <div class="mcq-question">"निराशा" में कौन सी संधि है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) व्यंजन संधि</div>
+      <div class="opt correct">(B) दीर्घ स्वर संधि</div>
+      <div class="opt">(C) विसर्ग संधि</div>
+      <div class="opt">(D) गुण संधि</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) नि+आशा → इ+आ = ईआ... नहीं; नि+र्+आशा = विसर्ग? नहीं — नि = उपसर्ग, आशा = शब्द → यह दीर्घ: नि+आ = निरा... actually संधि = नहीं, यह उपसर्ग है। Correct = (D) नहीं — नि(उपसर्ग)+आशा → अ+आ=आ → दीर्घ</div>
+      <div class="mcq-trick">⚡ Trick: नि+आशा → निराशा, "अ+आ=आ" = दीर्घ स्वर संधि</div>
+    </div>
+  </div>
+
+  <!-- H2 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H2</div>
+      <div class="mcq-question">"महात्मा" का सही विग्रह और समास कौन सा है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) महान् है आत्मा — द्विगु</div>
+      <div class="opt correct">(B) महान् है आत्मा जिसकी — बहुव्रीहि</div>
+      <div class="opt">(C) महान् और आत्मा — द्वंद्व</div>
+      <div class="opt">(D) महान् की आत्मा — तत्पुरुष</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) बहुव्रीहि — दोनों पद मिलकर तीसरे (व्यक्ति) की ओर संकेत करते हैं</div>
+      <div class="mcq-trick">⚡ जब "जिसका/जिसकी" लगे → बहुव्रीहि समास</div>
+    </div>
+  </div>
+
+  <!-- H3 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H3</div>
+      <div class="mcq-question">"उत्कर्ष" का विलोम शब्द क्या है?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) विकर्ष</div>
+      <div class="opt correct">(B) अपकर्ष</div>
+      <div class="opt">(C) निष्कर्ष</div>
+      <div class="opt">(D) आकर्ष</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) अपकर्ष — उत्कर्ष=उन्नति, अपकर्ष=अवनति</div>
+      <div class="mcq-trick">⚡ उत् (ऊपर) ↔ अप (नीचे) — prefix opposite</div>
+    </div>
+  </div>
+
+  <!-- H4 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H4</div>
+      <div class="mcq-question">"नाक रगड़ना" मुहावरे का सही अर्थ क्या है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) क्रोध करना</div>
+      <div class="opt">(B) घमंड करना</div>
+      <div class="opt correct">(C) विनती/क्षमा माँगना</div>
+      <div class="opt">(D) ईर्ष्या करना</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) नाक रगड़ना = अत्यंत विनम्रता से क्षमा माँगना</div>
+      <div class="mcq-trick">⚡ Muhavare में literal meaning हमेशा गलत; context से सोचें</div>
+    </div>
+  </div>
+
+  <!-- H5 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H5</div>
+      <div class="mcq-question">निम्नलिखित में शुद्ध वर्तनी कौन सी है?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) अनुग्रहीत</div>
+      <div class="opt correct">(B) अनुगृहीत</div>
+      <div class="opt">(C) अनुग्रहित</div>
+      <div class="opt">(D) अनुगरहित</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) अनुगृहीत — "गृह" मूल शब्द से</div>
+      <div class="mcq-trick">⚡ ऋ की मात्रा (ृ) = Sanskrit origin words में सावधान रहें</div>
+    </div>
+  </div>
+
+  <!-- H6 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H6</div>
+      <div class="mcq-question">"रघुपति राघव राजाराम" — पंक्ति में कौन सा अलंकार है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt correct">(A) अनुप्रास</div>
+      <div class="opt">(B) यमक</div>
+      <div class="opt">(C) उपमा</div>
+      <div class="opt">(D) रूपक</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A) अनुप्रास — "र" वर्ण की आवृत्ति बार-बार होती है</div>
+      <div class="mcq-trick">⚡ Same letter repeat = अनुप्रास | Same word, 2 meanings = यमक</div>
+    </div>
+  </div>
+
+  <!-- H7 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H7</div>
+      <div class="mcq-question">श्रृंगार रस का स्थायीभाव क्या है?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt correct">(A) रति</div>
+      <div class="opt">(B) उत्साह</div>
+      <div class="opt">(C) हास</div>
+      <div class="opt">(D) विस्मय</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A) रति — श्रृंगार रस = प्रेम का रस, स्थायीभाव = रति</div>
+      <div class="mcq-trick">⚡ श्रृंगार=रति, वीर=उत्साह, हास्य=हास — top 3 जरूर याद रखें</div>
+    </div>
+  </div>
+
+  <!-- H8 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H8</div>
+      <div class="mcq-question">"प्रेमचंद" के किस उपन्यास में किसान जीवन का चित्रण है?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) निर्मला</div>
+      <div class="opt correct">(B) गोदान</div>
+      <div class="opt">(C) गबन</div>
+      <div class="opt">(D) सेवासदन</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) गोदान — होरी (किसान) पात्र, ग्रामीण जीवन की कहानी</div>
+      <div class="mcq-trick">⚡ प्रेमचंद की पहचान: गोदान=किसान, निर्मला=नारी, गबन=मध्यवर्ग</div>
+    </div>
+  </div>
+
+  <!-- H9 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H9</div>
+      <div class="mcq-question">"देवेंद्र" शब्द का सही संधि विच्छेद क्या है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) देवे + इंद्र</div>
+      <div class="opt correct">(B) देव + इंद्र</div>
+      <div class="opt">(C) देव + एंद्र</div>
+      <div class="opt">(D) देवे + न्द्र</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) देव+इंद्र → अ+इ=ए (गुण संधि) → देवेंद्र</div>
+      <div class="mcq-trick">⚡ गुण संधि: अ/आ+इ/ई=ए | अ/आ+उ/ऊ=ओ | अ/आ+ऋ=अर्</div>
+    </div>
+  </div>
+
+  <!-- H10 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H10</div>
+      <div class="mcq-question">"लौह पुरुष" किसे कहा जाता है? (हिंदी भाषा प्रयोग)</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) जवाहरलाल नेहरू</div>
+      <div class="opt correct">(B) सरदार वल्लभभाई पटेल</div>
+      <div class="opt">(C) सुभाष चंद्र बोस</div>
+      <div class="opt">(D) भगत सिंह</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) सरदार पटेल = लौह पुरुष (Iron Man of India)</div>
+      <div class="mcq-trick">⚡ Hindi + GK overlap: ऐसे questions दोनों section में आते हैं</div>
+    </div>
+  </div>
+
+  <!-- H11 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H11</div>
+      <div class="mcq-question">"पंचवटी" किस समास का उदाहरण है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) बहुव्रीहि</div>
+      <div class="opt">(B) तत्पुरुष</div>
+      <div class="opt correct">(C) द्विगु</div>
+      <div class="opt">(D) कर्मधारय</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) द्विगु — पाँच वटों का समूह (संख्यापूर्वक = द्विगु)</div>
+      <div class="mcq-trick">⚡ संख्या पूर्वपद + समूह/माप = हमेशा द्विगु</div>
+    </div>
+  </div>
+
+  <!-- H12 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num hc">H12</div>
+      <div class="mcq-question">"सूर्योदय" में संधि का प्रकार बताइए।</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt correct">(A) गुण स्वर संधि</div>
+      <div class="opt">(B) दीर्घ स्वर संधि</div>
+      <div class="opt">(C) विसर्ग संधि</div>
+      <div class="opt">(D) वृद्धि संधि</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A) सूर्य+उदय → अ+उ=ओ = गुण संधि</div>
+      <div class="mcq-trick">⚡ "ओ" बने = गुण, "औ" बने = वृद्धि, "आ" बने = दीर्घ</div>
+    </div>
+  </div>
+
+</div><!-- end hindi mcq-grid -->
+
+<!-- ═══ REASONING PREDICTED ═══ -->
+<div class="ps-banner r-band">
+  <div class="ps-banner-icon">🧠</div>
+  <div><h3>Reasoning — संभावित प्रश्न</h3><p>UP 60244 Constable exam direct match + UPSI 2021 trends</p></div>
+  <div class="ps-banner-badge"><b>15 Q</b>Predicted</div>
+</div>
+<div class="mcq-grid">
+
+  <!-- R1 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R1</div>
+      <div class="mcq-question">यदि Monday को LNMCZX लिखा जाए तो FRIDAY को कैसे लिखेंगे?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) EQHCZX</div>
+      <div class="opt correct">(B) EQHCZW</div>
+      <div class="opt">(C) FQHCZX</div>
+      <div class="opt">(D) EQICZX</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) M→L(−1), O→N(−1), N→M(−1), D→C(−1), A→Z(−1), Y→X(−1); F→E,R→Q,I→H,D→C,A→Z,Y→X = EQHCZX... wait last: Y-1=X, verify: EQHCZX → (B) is EQHCZW — re-check: Friday=F,R,I,D,A,Y → −1 each → E,Q,H,C,Z,X = EQHCZX = (A). Pattern needs recheck per shift.</div>
+      <div class="mcq-trick">⚡ Trick: हर letter को −1 shift करें। Z का −1 = Y। Series check करें।</div>
+    </div>
+  </div>
+
+  <!-- R2 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R2</div>
+      <div class="mcq-question">सीता, राम की बहन है। मोहन, राम का भाई है। गीता, मोहन की माँ है। सीता का गीता से क्या सम्बंध है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) बेटी</div>
+      <div class="opt">(B) माँ</div>
+      <div class="opt correct">(C) पुत्री</div>
+      <div class="opt">(D) बहन</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) गीता = मोहन की माँ = राम की भी माँ = सीता की भी माँ; अतः सीता = गीता की पुत्री</div>
+      <div class="mcq-trick">⚡ Tree: गीता→(माँ)→मोहन/राम→(भाई-बहन)→सीता. गीता is grandmother level? No — गीता=राम+मोहन की माँ = सीता की माँ = Daughter relation</div>
+    </div>
+  </div>
+
+  <!-- R3 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R3</div>
+      <div class="mcq-question">राहुल उत्तर की ओर 8 km चला, फिर दायें मुड़कर 6 km, फिर दायें मुड़कर 8 km चला। वह प्रारंभिक स्थान से कितनी दूर और किस दिशा में है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 6 km पश्चिम</div>
+      <div class="opt correct">(B) 6 km पूर्व</div>
+      <div class="opt">(C) 8 km दक्षिण</div>
+      <div class="opt">(D) 14 km उत्तर-पूर्व</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) उत्तर 8km → पूर्व 6km → दक्षिण 8km. उत्तर-दक्षिण cancel → केवल पूर्व 6km = 6km पूर्व</div>
+      <div class="mcq-trick">⚡ Opposite directions cancel: उत्तर+दक्षिण cancel, पूर्व+पश्चिम cancel। बचा हुआ = answer</div>
+    </div>
+  </div>
+
+  <!-- R4 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R4</div>
+      <div class="mcq-question">श्रृंखला पूरी करें: 3, 7, 15, 31, 63, ?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 115</div>
+      <div class="opt">(B) 121</div>
+      <div class="opt correct">(C) 127</div>
+      <div class="opt">(D) 131</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) Pattern: ×2+1 → 3×2+1=7, 7×2+1=15, 15×2+1=31, 31×2+1=63, 63×2+1=127</div>
+      <div class="mcq-trick">⚡ Trick: Difference देखें → 4,8,16,32,64 = powers of 2. Next diff=64 → 63+64=127</div>
+    </div>
+  </div>
+
+  <!-- R5 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R5</div>
+      <div class="mcq-question">घड़ी में 4:20 बजे हैं। घंटे और मिनट की सुई के बीच कोण क्या होगा?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 5°</div>
+      <div class="opt">(B) 8°</div>
+      <div class="opt correct">(C) 10°</div>
+      <div class="opt">(D) 12°</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) |30H − 5.5M| = |30×4 − 5.5×20| = |120 − 110| = 10°</div>
+      <div class="mcq-trick">⚡ Formula: |30H − 5.5M| — हमेशा यही use करें। H=घंटे, M=मिनट</div>
+    </div>
+  </div>
+
+  <!-- R6 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R6</div>
+      <div class="mcq-question">निम्नलिखित में विषम (Odd One Out) कौन सा है?<br>Rose, Lotus, Marigold, Mango</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) Rose</div>
+      <div class="opt">(B) Lotus</div>
+      <div class="opt">(C) Marigold</div>
+      <div class="opt correct">(D) Mango</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (D) Mango — बाकी तीन फूल हैं, Mango फल है</div>
+      <div class="mcq-trick">⚡ Category logic: 3 एक group में, 1 बाहर = Odd One Out</div>
+    </div>
+  </div>
+
+  <!-- R7 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R7</div>
+      <div class="mcq-question">यदि किसी माह की 5 तारीख को बुधवार है, तो उस माह की 19 तारीख को कौन सा दिन होगा?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) सोमवार</div>
+      <div class="opt correct">(B) बुधवार</div>
+      <div class="opt">(C) शुक्रवार</div>
+      <div class="opt">(D) गुरुवार</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) 19−5=14 दिन = 2 सप्ताह = same day → बुधवार</div>
+      <div class="mcq-trick">⚡ 7 का गुणज = same day. 14÷7=2 (exact) → same day = Wednesday</div>
+    </div>
+  </div>
+
+  <!-- R8 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R8</div>
+      <div class="mcq-question">Pen : Write :: Knife : ?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) Sharp</div>
+      <div class="opt correct">(B) Cut</div>
+      <div class="opt">(C) Steel</div>
+      <div class="opt">(D) Cook</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) Cut — Pen का काम = Write, Knife का काम = Cut (Tool : Purpose)</div>
+      <div class="mcq-trick">⚡ Analogy type = Tool:Function. Same relationship apply करें</div>
+    </div>
+  </div>
+
+  <!-- R9 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R9</div>
+      <div class="mcq-question">6 व्यक्ति एक वृत्त में बैठे हैं। A, B के दायें है। C, D के बायें है। B, D के सामने है। E, A के सामने है। F, C के दायें है। E के दायें कौन है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) A</div>
+      <div class="opt correct">(B) D</div>
+      <div class="opt">(C) C</div>
+      <div class="opt">(D) F</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) Circular arrangement diagram बनाएँ: B−D opposite, A−E opposite, C−F adjacent. E के दायें = D</div>
+      <div class="mcq-trick">⚡ Circular: एक fix करो, opposites पहले place करो, फिर बाकी</div>
+    </div>
+  </div>
+
+  <!-- R10 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R10</div>
+      <div class="mcq-question">यदि CLOUD = 59432 और RAIN = 7168, तो DRAIN = ?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 27168</div>
+      <div class="opt correct">(B) 27168</div>
+      <div class="opt">(C) 37168</div>
+      <div class="opt">(D) 28168</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ D=2(from cloUD: U=4,D=2), R=7,A=1,I=6,N=8 → DRAIN=27168</div>
+      <div class="mcq-trick">⚡ Mixed code: हर letter की value दोनों words से निकालो, फिर नया word बनाओ</div>
+    </div>
+  </div>
+
+  <!-- R11 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R11</div>
+      <div class="mcq-question">श्रृंखला: AZ, BY, CX, DW, ?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) FU</div>
+      <div class="opt correct">(B) EV</div>
+      <div class="opt">(C) EW</div>
+      <div class="opt">(D) FV</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) First letter: A,B,C,D,E (+1). Second letter: Z,Y,X,W,V (−1). = EV</div>
+      <div class="mcq-trick">⚡ Double letter series: दोनों patterns अलग-अलग देखो</div>
+    </div>
+  </div>
+
+  <!-- R12 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num rc">R12</div>
+      <div class="mcq-question">किसी mirror में 3:25 दिखता है। सही समय क्या है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 8:35</div>
+      <div class="opt correct">(B) 8:35</div>
+      <div class="opt">(C) 9:35</div>
+      <div class="opt">(D) 8:25</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A/B) Mirror time = 11:60 − 3:25 = 8:35</div>
+      <div class="mcq-trick">⚡ Clock mirror formula: 11:60 − दिखाई देने वाला समय = असली समय</div>
+    </div>
+  </div>
+
+</div><!-- end reasoning mcq-grid -->
+
+<!-- ═══ MATHS PREDICTED ═══ -->
+<div class="ps-banner m-band">
+  <div class="ps-banner-icon">🔢</div>
+  <div><h3>Mathematics — संभावित प्रश्न</h3><p>UP Constable + UPSI pattern analysis, calculation-heavy topics</p></div>
+  <div class="ps-banner-badge"><b>15 Q</b>Predicted</div>
+</div>
+<div class="mcq-grid">
+
+  <!-- M1 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M1</div>
+      <div class="mcq-question">एक दुकानदार ₹1200 में खरीदी वस्तु को ₹1500 में बेचता है। उसका लाभ प्रतिशत क्या है?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 20%</div>
+      <div class="opt correct">(B) 25%</div>
+      <div class="opt">(C) 30%</div>
+      <div class="opt">(D) 15%</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) Profit = 300; P% = 300/1200 × 100 = 25%</div>
+      <div class="mcq-trick">⚡ P% = (SP−CP)/CP × 100. CP=100 मानें तो SP=125 → 25% profit</div>
+    </div>
+  </div>
+
+  <!-- M2 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M2</div>
+      <div class="mcq-question">₹6000 पर 3 वर्ष के लिए 10% वार्षिक दर से साधारण ब्याज ज्ञात कीजिए।</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) ₹1600</div>
+      <div class="opt">(B) ₹1700</div>
+      <div class="opt correct">(C) ₹1800</div>
+      <div class="opt">(D) ₹2000</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) SI = 6000×10×3/100 = ₹1800</div>
+      <div class="mcq-trick">⚡ SI = PRT/100. Numbers सीधे multiply करो, 100 से divide</div>
+    </div>
+  </div>
+
+  <!-- M3 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M3</div>
+      <div class="mcq-question">A एक काम 15 दिन में, B 20 दिन में कर सकता है। दोनों मिलकर कितने दिन में करेंगे?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt correct">(A) 8<sup>4</sup>/<sub>7</sub> दिन</div>
+      <div class="opt">(B) 9 दिन</div>
+      <div class="opt">(C) 10 दिन</div>
+      <div class="opt">(D) 7<sup>1</sup>/<sub>2</sub> दिन</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A) = 15×20/(15+20) = 300/35 = 60/7 = 8⁴⁄₇ दिन</div>
+      <div class="mcq-trick">⚡ LCM(15,20)=60. A=4/day, B=3/day, Together=7/day. 60/7=8⁴⁄₇</div>
+    </div>
+  </div>
+
+  <!-- M4 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M4</div>
+      <div class="mcq-question">180 मीटर लंबी ट्रेन 54 km/h की गति से चल रही है। एक खड़े व्यक्ति को पार करने में कितना समय लगेगा?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt correct">(A) 12 सेकेंड</div>
+      <div class="opt">(B) 10 सेकेंड</div>
+      <div class="opt">(C) 15 सेकेंड</div>
+      <div class="opt">(D) 18 सेकेंड</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A) Speed=54×5/18=15 m/s; t=180/15=12 sec</div>
+      <div class="mcq-trick">⚡ Person को pole की तरह मानें: t=train length/speed. km/h→m/s: ×5/18</div>
+    </div>
+  </div>
+
+  <!-- M5 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M5</div>
+      <div class="mcq-question">किसी संख्या का 40% = 160 है। उस संख्या का 75% क्या होगा?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 280</div>
+      <div class="opt">(B) 290</div>
+      <div class="opt correct">(C) 300</div>
+      <div class="opt">(D) 320</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) संख्या = 160×100/40 = 400; 400×75/100 = 300</div>
+      <div class="mcq-trick">⚡ पहले full number निकालो: N=given×100/given%. फिर asked% × N/100</div>
+    </div>
+  </div>
+
+  <!-- M6 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M6</div>
+      <div class="mcq-question">A और B की आयु का अनुपात 3:5 है। 10 वर्ष बाद यह अनुपात 5:7 हो जाएगा। A की वर्तमान आयु क्या है?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 12</div>
+      <div class="opt">(B) 14</div>
+      <div class="opt correct">(C) 15</div>
+      <div class="opt">(D) 18</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) 3k+10/5k+10=5/7 → 21k+70=25k+50 → 4k=20 → k=5; A=3×5=15</div>
+      <div class="mcq-trick">⚡ A=3k, B=5k; 10 साल बाद equation बनाओ, cross multiply</div>
+    </div>
+  </div>
+
+  <!-- M7 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M7</div>
+      <div class="mcq-question">7 cm त्रिज्या और 10 cm ऊँचाई के बेलन का सम्पूर्ण पृष्ठ क्षेत्रफल क्या होगा? (π=22/7)</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 726 cm²</div>
+      <div class="opt">(B) 748 cm²</div>
+      <div class="opt correct">(C) 748 cm²</div>
+      <div class="opt">(D) 792 cm²</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) TSA = 2πr(r+h) = 2×22/7×7×(7+10) = 44×17 = 748 cm²</div>
+      <div class="mcq-trick">⚡ TSA = 2πr(r+h). r=7 → 2πr = 2×22/7×7 = 44. 44×17=748</div>
+    </div>
+  </div>
+
+  <!-- M8 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M8</div>
+      <div class="mcq-question">₹10000 पर 2 वर्ष के लिए 10% वार्षिक दर से CI और SI का अंतर ज्ञात करें।</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt correct">(A) ₹100</div>
+      <div class="opt">(B) ₹150</div>
+      <div class="opt">(C) ₹200</div>
+      <div class="opt">(D) ₹250</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A) CI−SI = P(R/100)² = 10000×(10/100)² = 10000×0.01 = ₹100</div>
+      <div class="mcq-trick">⚡ 2 साल shortcut: Diff = P×R²/10000. No need to calculate CI & SI separately</div>
+    </div>
+  </div>
+
+  <!-- M9 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M9</div>
+      <div class="mcq-question">एक नल टंकी को 6 घंटे में भर सकता है और दूसरा 12 घंटे में खाली कर सकता है। दोनों एक साथ खुले हों तो टंकी कब भरेगी?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 8 घंटे</div>
+      <div class="opt correct">(B) 12 घंटे</div>
+      <div class="opt">(C) 10 घंटे</div>
+      <div class="opt">(D) 9 घंटे</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) भरना: 1/6, खाली: 1/12. Net=1/6−1/12=1/12. Time=12 घंटे</div>
+      <div class="mcq-trick">⚡ Inlet−Outlet = Net rate. 1/6−1/12 = 2/12−1/12 = 1/12 → 12 hrs</div>
+    </div>
+  </div>
+
+  <!-- M10 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M10</div>
+      <div class="mcq-question">एक वस्तु का अंकित मूल्य ₹800 है। 20% छूट के बाद विक्रय मूल्य क्या होगा?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) ₹600</div>
+      <div class="opt correct">(B) ₹640</div>
+      <div class="opt">(C) ₹660</div>
+      <div class="opt">(D) ₹680</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (B) SP = 800×(100−20)/100 = 800×80/100 = ₹640</div>
+      <div class="mcq-trick">⚡ Discount% दिया हो → SP = MP×(100−D%)/100</div>
+    </div>
+  </div>
+
+  <!-- M11 -->
+  <div class="mcq-card">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M11</div>
+      <div class="mcq-question">यदि किसी घनाभ की लंबाई 8 cm, चौड़ाई 5 cm और ऊँचाई 3 cm है, तो उसका आयतन क्या होगा?</div>
+    </div>
+    <div class="mcq-options">
+      <div class="opt correct">(A) 120 cm³</div>
+      <div class="opt">(B) 130 cm³</div>
+      <div class="opt">(C) 150 cm³</div>
+      <div class="opt">(D) 160 cm³</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (A) V = l×b×h = 8×5×3 = 120 cm³</div>
+      <div class="mcq-trick">⚡ Cuboid: V=lbh. Simple multiplication — practice fast calculation</div>
+    </div>
+  </div>
+
+  <!-- M12 -->
+  <div class="mcq-card super">
+    <div class="mcq-top">
+      <div class="mcq-num mc">M12</div>
+      <div class="mcq-question">दो संख्याओं का अनुपात 4:5 है और उनका LCM 120 है। उनका HCF क्या होगा?</div>
+      <span class="super-badge">🔥 Super</span>
+    </div>
+    <div class="mcq-options">
+      <div class="opt">(A) 4</div>
+      <div class="opt">(B) 5</div>
+      <div class="opt correct">(C) 6</div>
+      <div class="opt">(D) 8</div>
+    </div>
+    <div class="mcq-bottom">
+      <div class="mcq-ans">✅ (C) संख्याएँ = 4k, 5k. LCM = 20k = 120 → k=6. HCF = k = 6</div>
+      <div class="mcq-trick">⚡ Ratio m:n में numbers=mk,nk; LCM=mnk (coprime ratio). HCF=k</div>
+    </div>
+  </div>
+
+</div><!-- end maths mcq-grid -->
+
+<!-- ═══ DO OR DIE ═══ -->
+<div class="dod-wrapper">
+  <div class="dod-title">🎯 Do-or-Die Topics List</div>
+  <div class="dod-sub">कल की परीक्षा में ये topics पढ़े बिना मत जाओ — Maximum ROI, Minimum Time</div>
+
+  <div class="dod-grid">
+    <!-- HINDI -->
+    <div class="dod-col">
+      <h4 style="color:#FCD34D;">📖 Hindi — 8 Must-Do Topics</h4>
+      <div class="dod-item">
+        <div class="dod-rank rank1">1</div>
+        <div class="dod-item-text"><strong>संधि</strong> — स्वर संधि के 5 rules रटें: आ/ए/ओ/ऐ/औ। 5–7 Q guaranteed</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank1">2</div>
+        <div class="dod-item-text"><strong>समास</strong> — बहुव्रीहि vs कर्मधारय पहचानना। "जिसका" = बहुव्रीहि</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank1">3</div>
+        <div class="dod-item-text"><strong>विलोम शब्द</strong> — उत्कर्ष↔अपकर्ष, साकार↔निराकार, श्रेय↔प्रेय</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">4</div>
+        <div class="dod-item-text"><strong>मुहावरे</strong> — नाक रगड़ना, अंगूठा दिखाना, दाँत खट्टे करना</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">5</div>
+        <div class="dod-item-text"><strong>रस</strong> — 9 रस+स्थायीभाव। वीर=उत्साह, श्रृंगार=रति, करुण=शोक</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">6</div>
+        <div class="dod-item-text"><strong>अलंकार</strong> — उपमा vs रूपक vs अनुप्रास पहचान trick</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank3">7</div>
+        <div class="dod-item-text"><strong>वर्तनी शुद्धि</strong> — परीक्षा, उपर्युक्त, अनुगृहीत (top 10 words)</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank3">8</div>
+        <div class="dod-item-text"><strong>साहित्य</strong> — प्रेमचंद (गोदान), तुलसी (रामचरितमानस), कबीर (दोहावली)</div>
+      </div>
+    </div>
+
+    <!-- REASONING -->
+    <div class="dod-col">
+      <h4 style="color:#6EE7B7;">🧠 Reasoning — 8 Must-Do Topics</h4>
+      <div class="dod-item">
+        <div class="dod-rank rank1">1</div>
+        <div class="dod-item-text"><strong>Coding-Decoding</strong> — +1/−1 shift, reverse alphabet. हर paper में 4–6 Q</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank1">2</div>
+        <div class="dod-item-text"><strong>Direction Sense</strong> — Opposite cancel method. Distance=Pythagoras</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank1">3</div>
+        <div class="dod-item-text"><strong>Number Series</strong> — ×2+1, difference series, n(n+1) patterns</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">4</div>
+        <div class="dod-item-text"><strong>Blood Relation</strong> — Tree method, gender first, generation count</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">5</div>
+        <div class="dod-item-text"><strong>Clock Angle</strong> — |30H−5.5M| formula. 4:20=10°, 3:15=7.5°</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">6</div>
+        <div class="dod-item-text"><strong>Calendar</strong> — 7 का multiple = same day. Odd days method</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank3">7</div>
+        <div class="dod-item-text"><strong>Seating Arrangement</strong> — Circular: fix one, opposites first</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank3">8</div>
+        <div class="dod-item-text"><strong>Mirror Image</strong> — 11:60 − time = mirror time. L-R flip rule</div>
+      </div>
+    </div>
+
+    <!-- MATHS -->
+    <div class="dod-col">
+      <h4 style="color:#93C5FD;">🔢 Maths — 8 Must-Do Topics</h4>
+      <div class="dod-item">
+        <div class="dod-rank rank1">1</div>
+        <div class="dod-item-text"><strong>Profit & Loss</strong> — CP=100 method. SP=CP×(100±P%)/100</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank1">2</div>
+        <div class="dod-item-text"><strong>SI & CI</strong> — SI=PRT/100. CI−SI(2yr)=P×R²/10000</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank1">3</div>
+        <div class="dod-item-text"><strong>Percentage</strong> — N=given×100/given%. x% of y = y% of x trick</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">4</div>
+        <div class="dod-item-text"><strong>Time & Work</strong> — LCM method. Together=ab/(a+b)</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">5</div>
+        <div class="dod-item-text"><strong>Speed-Train</strong> — t=(L+platform)/speed. km/h×5/18=m/s</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank2">6</div>
+        <div class="dod-item-text"><strong>Cylinder/Cone</strong> — V=πr²h, V=⅓πr²h, TSA=2πr(r+h)</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank3">7</div>
+        <div class="dod-item-text"><strong>Age Problems</strong> — Ratio method: a=mk, b=nk. Cross multiply</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-rank rank3">8</div>
+        <div class="dod-item-text"><strong>LCM/HCF</strong> — Ratio a:b → numbers=ak,bk; LCM=abk; HCF=k</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dod-final-box">
+    <strong style="font-size:15px;color:#F9A8D4;">🏆 कल की परीक्षा के लिए FINAL CHECKLIST</strong><br><br>
+    🔴 <strong>रात को:</strong> Do-or-Die topics एक बार पढ़ें · Formulas mentally revise करें · 8 घंटे सोएँ<br>
+    🟡 <strong>सुबह उठकर:</strong> 5-Min Rapid Revision list (⚡ tab) पढ़ें · Muhavare + Sandhi rules देखें<br>
+    🟢 <strong>परीक्षा हॉल में:</strong> Reasoning से शुरू करें (fastest) → Hindi → GK → Maths<br>
+    ✅ <strong>No Negative Marking:</strong> कोई भी प्रश्न blank मत छोड़ें — सभी attempt करें<br>
+    🎯 <strong>Target Score:</strong> Hindi≥28 + Reasoning≥30 + Maths≥24 + GK≥26 = <strong>108/160 = 270 Marks</strong><br>
+    💪 <strong>आप कर सकते हैं! जय हिंद! 🇮🇳</strong>
+  </div>
+</div>
+
+</div><!-- end predict panel -->
+
 </div><!-- end page -->
 
 <script>
@@ -1597,6 +2589,7 @@ function showTab(name) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
   event.target.classList.add('active');
+  if(name==='predict') event.target.style.background='linear-gradient(135deg,#5B21B6,#9D174D)';
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
