@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSI Complete Revision Sheet 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --ink: #0F172A;
+  --ink2: #1E293B;
+  --ink3: #334155;
+  --muted: #64748B;
+  --border: #E2E8F0;
+  --surface: #F8FAFC;
+  --white: #FFFFFF;
+
+  --fire: #EF4444;
+  --fire-bg: #FEF2F2;
+  --fire-border: #FECACA;
+
+  --hindi-h: #B45309;
+  --hindi: #D97706;
+  --hindi-bg: #FFFBEB;
+  --hindi-border: #FDE68A;
+  --hindi-dark: #92400E;
+
+  --reason-h: #065F46;
+  --reason: #059669;
+  --reason-bg: #F0FDF4;
+  --reason-border: #A7F3D0;
+  --reason-dark: #064E3B;
+
+  --math-h: #1D4ED8;
+  --math: #2563EB;
+  --math-bg: #EFF6FF;
+  --math-border: #BFDBFE;
+  --math-dark: #1E3A8A;
+
+  --trick: #7C3AED;
+  --trick-bg: #F5F3FF;
+  --trick-border: #DDD6FE;
+
+  --example: #0891B2;
+  --example-bg: #ECFEFF;
+  --example-border: #A5F3FC;
+
+  --gold: #B45309;
+  --gold-bg: #FFFBEB;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Sora', 'Noto Sans Devanagari', sans-serif;
+  background: #F1F5F9;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* ── PAGE WRAPPER ── */
+.page { max-width: 1080px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── MASTHEAD ── */
+.masthead {
+  background: var(--ink);
+  color: white;
+  border-radius: 16px;
+  padding: 32px 36px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 10% 50%, rgba(234,179,8,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 90% 20%, rgba(59,130,246,0.1) 0%, transparent 45%),
+    radial-gradient(circle at 70% 80%, rgba(16,185,129,0.08) 0%, transparent 40%);
+}
+.masthead-inner { position: relative; }
+.mast-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(234,179,8,0.15);
+  border: 1px solid rgba(234,179,8,0.3);
+  color: #FCD34D;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 14px;
+}
+.masthead h1 { font-size: 32px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+.masthead h1 em { color: #FCD34D; font-style: normal; }
+.masthead p { color: #94A3B8; font-size: 13px; margin-bottom: 20px; }
+.mast-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+.mast-pill {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px; padding: 7px 16px;
+  font-size: 12px; color: #CBD5E1;
+  display: flex; flex-direction: column; align-items: center;
+}
+.mast-pill b { font-size: 17px; color: white; }
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  display: flex; gap: 8px; margin-bottom: 28px;
+  background: white; padding: 6px; border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.tab-btn {
+  flex: 1; padding: 10px 8px;
+  background: none; border: none;
+  border-radius: 8px; cursor: pointer;
+  font-family: 'Sora', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--muted); transition: all .2s;
+}
+.tab-btn.active { background: var(--ink); color: white; }
+.tab-btn:not(.active):hover { background: var(--surface); color: var(--ink); }
+
+/* ── PANELS ── */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── SUBJECT BANNER ── */
+.subject-banner {
+  border-radius: 12px 12px 0 0;
+  padding: 18px 24px;
+  display: flex; align-items: center; gap: 14px;
+  color: white;
+  margin-bottom: 0;
+}
+.subject-banner.hindi { background: linear-gradient(135deg, #92400E, #B45309 60%, #D97706); }
+.subject-banner.reason { background: linear-gradient(135deg, #064E3B, #065F46 60%, #059669); }
+.subject-banner.maths { background: linear-gradient(135deg, #1E3A8A, #1D4ED8 60%, #3B82F6); }
+.banner-icon { font-size: 28px; }
+.banner-text h2 { font-size: 21px; font-weight: 800; }
+.banner-text p { font-size: 12px; opacity: .8; }
+.banner-score {
+  margin-left: auto;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 8px; padding: 6px 16px;
+  text-align: center; font-size: 12px;
+}
+.banner-score b { display: block; font-size: 20px; }
+
+/* ── TOPIC CARD ── */
+.topic-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.topic-card:last-of-type { border-radius: 0 0 12px 12px; }
+
+.topic-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+  border-bottom: 1px solid var(--border);
+}
+.topic-header:hover { background: var(--surface); }
+
+.topic-num {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0;
+  color: white;
+}
+.hindi .topic-num { background: var(--hindi); }
+.reason .topic-num { background: var(--reason); }
+.maths .topic-num { background: var(--math); }
+
+.topic-name { font-weight: 700; font-size: 14px; flex: 1; }
+.topic-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  font-size: 10px; font-weight: 700; letter-spacing: .5px;
+  padding: 2px 8px; border-radius: 20px;
+}
+.tag-fire { background: var(--fire-bg); color: var(--fire); border: 1px solid var(--fire-border); }
+.tag-q { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
+.chevron { font-size: 12px; color: var(--muted); transition: transform .2s; }
+.topic-header.open .chevron { transform: rotate(90deg); }
+
+.topic-body {
+  display: none;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  background: #FAFBFC;
+}
+.topic-body.open { display: block; }
+
+/* ── BODY SECTIONS ── */
+.body-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+.body-row.three { grid-template-columns: 1fr 1fr 1fr; }
+@media(max-width: 650px) {
+  .body-row, .body-row.three { grid-template-columns: 1fr; }
+}
+
+.mini-card {
+  border-radius: 8px; padding: 14px 16px;
+  border: 1px solid;
+}
+
+/* concept */
+.mini-card.concept {
+  background: var(--surface);
+  border-color: var(--border);
+}
+.mini-card.concept .mc-title { color: var(--ink3); }
+
+/* formula */
+.mini-card.formula {
+  background: var(--ink);
+  border-color: var(--ink2);
+  color: #E2E8F0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+.mini-card.formula .mc-title { color: #FCD34D; font-family: 'Sora', sans-serif; font-size: 11px; }
+.f-line { background: rgba(255,255,255,.06); border-radius: 4px; padding: 5px 8px; margin-bottom: 4px; }
+.f-line:last-child { margin-bottom: 0; }
+
+/* trick */
+.mini-card.trick {
+  background: var(--trick-bg);
+  border-color: var(--trick-border);
+}
+.mini-card.trick .mc-title { color: var(--trick); }
+
+/* example */
+.mini-card.example {
+  background: var(--example-bg);
+  border-color: var(--example-border);
+}
+.mini-card.example .mc-title { color: var(--example); }
+
+.mc-title {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.mc-text { font-size: 13px; line-height: 1.7; }
+.mc-text ul { padding-left: 16px; }
+.mc-text li { margin-bottom: 4px; }
+.mc-text li::marker { color: var(--muted); }
+.mc-text strong { color: var(--ink); }
+
+.q-stem { color: var(--ink2); margin-bottom: 8px; font-size: 13px; }
+.q-options { font-size: 12px; color: var(--ink3); margin-bottom: 8px; }
+.q-ans {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #DCFCE7; color: #166534;
+  border: 1px solid #BBF7D0;
+  border-radius: 6px; padding: 4px 10px;
+  font-size: 12px; font-weight: 600;
+}
+
+/* key points as horizontal pills */
+.key-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.kp {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--ink2);
+}
+
+/* ── RAPID REVISION ── */
+.rapid {
+  background: var(--ink);
+  border-radius: 14px;
+  padding: 28px 32px;
+  color: white;
+  margin-top: 28px;
+}
+.rapid-title {
+  font-size: 20px; font-weight: 800;
+  color: #FCD34D; margin-bottom: 6px;
+}
+.rapid-sub { font-size: 13px; color: #94A3B8; margin-bottom: 24px; }
+.rapid-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media(max-width: 700px) { .rapid-grid { grid-template-columns: 1fr; } }
+.rapid-col {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 16px;
+}
+.rapid-col h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+.rapid-col h4.h { color: #FCD34D; }
+.rapid-col h4.r { color: #6EE7B7; }
+.rapid-col h4.m { color: #93C5FD; }
+.rapid-item {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: 12px; color: #CBD5E1;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  line-height: 1.5;
+}
+.rapid-item:last-child { border-bottom: none; }
+.rapid-item span { color: #FCD34D; flex-shrink: 0; font-size: 11px; margin-top: 2px; }
+.rapid-item span.g { color: #6EE7B7; }
+.rapid-item span.b { color: #93C5FD; }
+
+.strategy-box {
+  margin-top: 20px;
+  background: rgba(234,179,8,.1);
+  border: 1px solid rgba(234,179,8,.3);
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 13px;
+  color: #FEF3C7;
+  line-height: 1.8;
+}
+
+/* ── TOPIC SPACING ── */
+.topic-block + .topic-block { margin-top: 0; }
+.subject-section { margin-bottom: 32px; }
+
+/* ── PROGRESS BAR ── */
+.freq-bar {
+  height: 4px; border-radius: 4px; background: var(--border);
+  margin-top: 6px; overflow: hidden;
+}
+.freq-fill { height: 100%; border-radius: 4px; }
+.hindi .freq-fill { background: var(--hindi); }
+.reason .freq-fill { background: var(--reason); }
+.maths .freq-fill { background: var(--math); }
+
+/* highlight text */
+.hl { background: #FEF9C3; padding: 0 3px; border-radius: 3px; }
+.hl-g { background: #DCFCE7; padding: 0 3px; border-radius: 3px; }
+.hl-b { background: #DBEAFE; padding: 0 3px; border-radius: 3px; }
+
+/* PRINT */
+@media print {
+  body { background: white; }
+  .nav-tabs { display: none; }
+  .panel { display: block !important; }
+  .topic-body { display: block !important; }
+  .chevron { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ══ MASTHEAD ══ -->
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="mast-eyebrow">⚡ UPSI 2026 — Complete Syllabus</div>
+    <h1>Full Rapid <em>Revision Sheet</em></h1>
+    <p>पूर्ण पाठ्यक्रम · प्रत्येक टॉपिक · शॉर्टकट · उदाहरण — सब एक जगह</p>
+    <div class="mast-pills">
+      <div class="mast-pill"><b>160</b>Questions</div>
+      <div class="mast-pill"><b>400</b>Marks</div>
+      <div class="mast-pill"><b>0</b>Negative</div>
+      <div class="mast-pill"><b>35%</b>Per Section</div>
+      <div class="mast-pill"><b>120</b>Minutes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TAB NAV ══ -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('hindi')">📖 सामान्य हिंदी</button>
+  <button class="tab-btn" onclick="showTab('reason')">🧠 Reasoning</button>
+  <button class="tab-btn" onclick="showTab('maths')">🔢 Mathematics</button>
+  <button class="tab-btn" onclick="showTab('rapid')">⚡ 5-Min Revision</button>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--               HINDI PANEL                -->
+<!-- ══════════════════════════════════════════ -->
+<div class="panel active" id="panel-hindi">
+<div class="subject-section hindi">
+
+  <div class="subject-banner hindi">
+    <div class="banner-icon">📖</div>
+    <div class="banner-text">
+      <h2>सामान्य हिंदी</h2>
+      <p>40 प्रश्न · 100 अंक · व्याकरण + साहित्य + भाषा कौशल</p>
+    </div>
+    <div class="banner-score"><b>30–35</b>Target</div>
+  </div>
+
+  <!-- T1: SANDHI -->
+  <div class="topic-card">
+    <div class="topic-header open hindi" onclick="toggle(this)">
+      <div class="topic-num">1</div>
+      <div class="topic-name">संधि (Sandhi)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 5–7 Q</span><span class="tag tag-q">हर साल</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body open">
+      <div class="body-row">
+        <div class="mini-card concept">
+          <div class="mc-title">💡 Concept</div>
+          <div class="mc-text">दो शब्दों के मेल पर होने वाला ध्वनि-परिवर्तन संधि कहलाता है। यह 3 प्रकार की होती है: <strong>स्वर, व्यंजन, विसर्ग</strong>। संधि में अक्षर बदलते हैं — विच्छेद करने पर मूल शब्द मिलते हैं।</div>
+          <div class="key-pills">
+            <span class="kp">स्वर संधि (अच् संधि)</span>
+            <span class="kp">व्यंजन संधि (हल् संधि)</span>
+            <span class="kp">विसर्ग संधि</span>
+          </div>
+        </div>
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Rules</div>
+          <div class="f-line">अ/आ + अ/आ = <strong>आ</strong> → देव+आलय = देवालय</div>
+          <div class="f-line">अ/आ + इ/ई = <strong>ए</strong> → देव+इंद्र = देवेंद्र</div>
+          <div class="f-line">अ/आ + उ/ऊ = <strong>ओ</strong> → सूर्य+उदय = सूर्योदय</div>
+          <div class="f-line">इ/ई + कोई = <strong>य्+</strong> → यदि+अपि = यद्यपि</div>
+          <div class="f-line">उ/ऊ + कोई = <strong>व्+</strong> → मनु+अंतर = मन्वंतर</div>
+          <div class="f-line">अ + ए/ओ = <strong>ऐ/औ</strong> → लोक+एषणा = लोकैषणा</div>
+        </div>
+      </div>
+      <div class="body-row">
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Trick</div>
+          <div class="mc-text">
+            <strong>RULE याद करें:</strong> "आ-ए-ओ-ऐ-औ" = स्वर सीढ़ी<br>
+            • जहाँ <span class="hl">ण् या न्</span> आए = व्यंजन संधि<br>
+            • जहाँ <span class="hl">: (विसर्ग)</span> था = विसर्ग संधि<br>
+            • विच्छेद करते समय शब्द <strong>तोड़कर</strong> लिखें, क्रम सही रखें
+          </div>
+        </div>
+        <div class="mini-card example">
+          <div class="mc-title">📝 Exam Q</div>
+          <div class="q-stem">"विद्यार्थी" में कौन सी संधि है?<br>(A) व्यंजन (B) विसर्ग (C) दीर्घ स्वर (D) गुण</div>
+          <div class="q-ans">✅ (C) विद्या+अर्थी → आ+अ = आ (दीर्घ)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T2: SAMAS -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">2</div>
+      <div class="topic-name">समास (Samas — Compound Words)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card concept">
+          <div class="mc-title">💡 Concept</div>
+          <div class="mc-text">दो या अधिक शब्दों का संक्षिप्त रूप समास है। विभक्ति लोप होती है। 6 प्रकार होते हैं।</div>
+          <div class="key-pills">
+            <span class="kp">तत्पुरुष</span><span class="kp">कर्मधारय</span><span class="kp">द्विगु</span>
+            <span class="kp">द्वंद्व</span><span class="kp">बहुव्रीहि</span><span class="kp">अव्ययीभाव</span>
+          </div>
+        </div>
+        <div class="mini-card formula">
+          <div class="mc-title">📐 6 Types + Trick</div>
+          <div class="f-line"><strong>तत्पुरुष:</strong> दूसरा पद प्रधान · "का/के/की" जोड़ें</div>
+          <div class="f-line"><strong>कर्मधारय:</strong> विशेषण+विशेष्य · "जो है वही"</div>
+          <div class="f-line"><strong>द्विगु:</strong> संख्या पूर्वपद · "त्रिभुज, पंचवटी"</div>
+          <div class="f-line"><strong>द्वंद्व:</strong> दोनों पद प्रधान · "और/या" जोड़ें</div>
+          <div class="f-line"><strong>बहुव्रीहि:</strong> दोनों अप्रधान · तीसरा अर्थ</div>
+          <div class="f-line"><strong>अव्ययीभाव:</strong> पहला अव्यय · "यथाशक्ति"</div>
+        </div>
+      </div>
+      <div class="body-row">
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ TRICK — "तकदबाव"</div>
+          <div class="mc-text">
+            <strong>त</strong>=तत्पुरुष, <strong>क</strong>=कर्मधारय, <strong>द</strong>=द्विगु,<br>
+            <strong>ब</strong>=बहुव्रीहि, <strong>आ</strong>=अव्ययीभाव, <strong>व</strong>=द्वंद्व<br><br>
+            <span class="hl">नीलकमल = कर्मधारय</span> (नीला जो कमल)<br>
+            <span class="hl">दशानन = बहुव्रीहि</span> (दस मुँह वाला = रावण)
+          </div>
+        </div>
+        <div class="mini-card example">
+          <div class="mc-title">📝 Exam Q</div>
+          <div class="q-stem">"चतुर्भुज" किस समास का उदाहरण है?<br>(A) द्वंद्व (B) द्विगु (C) बहुव्रीहि (D) तत्पुरुष</div>
+          <div class="q-ans">✅ (C) बहुव्रीहि — चार भुजाओं वाला (विष्णु)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T3: VILOM -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">3</div>
+      <div class="topic-name">विलोम शब्द (Antonyms)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span><span class="tag tag-q">हर पेपर में</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row three">
+        <div class="mini-card concept">
+          <div class="mc-title">💡 Concept + Key Pairs</div>
+          <div class="mc-text" style="font-size:12.5px;">
+            साकार↔निराकार · सगुण↔निर्गुण<br>
+            आदि↔अंत · श्रेय↔प्रेय<br>
+            अमृत↔विष · सत्य↔असत्य<br>
+            उत्कर्ष↔अपकर्ष · जड़↔चेतन<br>
+            कृत्रिम↔प्राकृतिक · क्षणिक↔शाश्वत<br>
+            निंदा↔स्तुति · ज्ञान↔अज्ञान
+          </div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ PREFIX Trick</div>
+          <div class="mc-text">
+            <strong>नि/निर/निस्</strong> लगाएँ:<br>
+            दोष → निर्दोष<br>
+            सकाम → निष्काम<br><br>
+            <strong>अ/अन</strong> लगाएँ:<br>
+            सफल → असफल<br>
+            उचित → अनुचित<br><br>
+            <strong>वि/कु/स/सु</strong> लगाएँ:<br>
+            सुपथ ↔ कुपथ
+          </div>
+        </div>
+        <div class="mini-card example">
+          <div class="mc-title">📝 Exam Q</div>
+          <div class="q-stem">"यश" का विलोम क्या है?<br>(A) कीर्ति (B) अपयश (C) नाम (D) गुण</div>
+          <div class="q-ans">✅ (B) अपयश</div>
+          <br>
+          <div class="q-stem">"सरस" का विलोम?<br>(A) रसीला (B) नीरस (C) स्वादिष्ट (D) मधुर</div>
+          <div class="q-ans">✅ (B) नीरस</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T4: MUHAVARE -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">4</div>
+      <div class="topic-name">मुहावरे और लोकोक्तियाँ (Idioms & Proverbs)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–5 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula" style="grid-column: span 2;">
+          <div class="mc-title">📐 Most Repeated Muhavare (Must Memorise)</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+            <div class="f-line">आँखें चुराना = <strong>सामना न करना</strong></div>
+            <div class="f-line">अँगूठा दिखाना = <strong>मना करना</strong></div>
+            <div class="f-line">नाक में दम करना = <strong>परेशान करना</strong></div>
+            <div class="f-line">कान भरना = <strong>चुगली करना</strong></div>
+            <div class="f-line">हाथ धो बैठना = <strong>खो देना</strong></div>
+            <div class="f-line">दाँत खट्टे करना = <strong>हराना</strong></div>
+            <div class="f-line">टेढ़ी खीर = <strong>कठिन काम</strong></div>
+            <div class="f-line">सिर पर सवार होना = <strong>तंग करना</strong></div>
+            <div class="f-line">घी के दीये जलाना = <strong>खुशी मनाना</strong></div>
+            <div class="f-line">पानी-पानी होना = <strong>शर्मिंदा होना</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="body-row">
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Trick</div>
+          <div class="mc-text">
+            मुहावरों में <span class="hl">शरीर के अंग</span> अक्सर आते हैं<br>
+            → आँख, कान, नाक, मुँह, हाथ, पाँव<br><br>
+            लोकोक्ति = पूरी बात/सत्य<br>
+            मुहावरा = अधूरा वाक्यांश<br><br>
+            <strong>Options में Literal meaning = गलत</strong>
+          </div>
+        </div>
+        <div class="mini-card example">
+          <div class="mc-title">📝 Exam Q</div>
+          <div class="q-stem">"अपना उल्लू सीधा करना" का अर्थ?<br>(A) ज्ञान देना (B) स्वार्थ साधना (C) घर बनाना (D) उड़ना</div>
+          <div class="q-ans">✅ (B) अपना स्वार्थ सिद्ध करना</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T5: RAS -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">5</div>
+      <div class="topic-name">रस (Ras — Poetic Sentiment)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 2–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 9 रस + स्थायीभाव</div>
+          <div class="f-line">श्रृंगार → <strong>रति (प्रेम)</strong></div>
+          <div class="f-line">हास्य → <strong>हास</strong></div>
+          <div class="f-line">करुण → <strong>शोक</strong></div>
+          <div class="f-line">रौद्र → <strong>क्रोध</strong></div>
+          <div class="f-line">वीर → <strong>उत्साह</strong></div>
+          <div class="f-line">भयानक → <strong>भय</strong></div>
+          <div class="f-line">वीभत्स → <strong>जुगुप्सा (घृणा)</strong></div>
+          <div class="f-line">अद्भुत → <strong>विस्मय</strong></div>
+          <div class="f-line">शांत → <strong>निर्वेद (वैराग्य)</strong></div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ TRICK — "श हा क रौ वी भ वी अ शां"</div>
+          <div class="mc-text">
+            <strong>श</strong>ृंगार-<strong>हा</strong>स्य-<strong>क</strong>रुण-<strong>रौ</strong>द्र-<strong>वी</strong>र-<strong>भ</strong>यानक-<strong>वी</strong>भत्स-<strong>अ</strong>द्भुत-<strong>शां</strong>त<br><br>
+            याद रखें:<br>
+            🎭 श्रृंगार = प्रेम/सुंदरता<br>
+            ⚔️ वीर = युद्ध/साहस<br>
+            😢 करुण = दुःख/विछोह<br>
+            😂 हास्य = हँसी/मजाक<br><br>
+            <span class="hl">10वाँ रस = वात्सल्य (बाल साहित्य)</span>
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example" style="margin-top:0;">
+        <div class="mc-title">📝 Exam Q (2021 Pattern)</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div>
+            <div class="q-stem">"मैया मोहि दाऊ बहुत खिझायो" — कौन सा रस?<br>(A) श्रृंगार (B) करुण (C) वात्सल्य (D) हास्य</div>
+            <div class="q-ans">✅ (C) वात्सल्य रस</div>
+          </div>
+          <div>
+            <div class="q-stem">वीर रस का स्थायीभाव?<br>(A) रति (B) उत्साह (C) शोक (D) क्रोध</div>
+            <div class="q-ans">✅ (B) उत्साह</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T6: ALANKAR -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">6</div>
+      <div class="topic-name">अलंकार (Alankar — Figures of Speech)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Key Alankar + Identifier</div>
+          <div class="f-line">अनुप्रास = एक वर्ण बार-बार → "चारु चंद्र की चंचल"</div>
+          <div class="f-line">उपमा = <strong>सरिस/जैसे/सा</strong> (explicit comparison)</div>
+          <div class="f-line">रूपक = उपमेय = उपमान (no जैसे) → "मुख-चंद्र"</div>
+          <div class="f-line">यमक = एक शब्द अलग-अलग अर्थ → "काली घटा"</div>
+          <div class="f-line">श्लेष = एक शब्द, दो अर्थ एक साथ</div>
+          <div class="f-line">अतिशयोक्ति = बढ़ा-चढ़ाकर कहना</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Identify Trick</div>
+          <div class="mc-text">
+            <strong>"जैसे/सा/सी/सरिस"</strong> दिखे → उपमा<br>
+            <strong>No comparison word</strong> → रूपक<br>
+            <strong>Same letter repeat</strong> → अनुप्रास<br>
+            <strong>एक शब्द, 2 बार, 2 अर्थ</strong> → यमक<br>
+            <strong>एक शब्द = 2 अर्थ</strong> → श्लेष<br><br>
+            <span class="hl-g">शब्दालंकार: अनु+यमक+श्लेष</span><br>
+            <span class="hl-b">अर्थालंकार: उपमा+रूपक+उत्प्रेक्षा</span>
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">"पीपर पात सरिस मन डोला" — अलंकार?<br>(A) रूपक (B) उपमा (C) यमक (D) अनुप्रास</div><div class="q-ans">✅ (B) उपमा (सरिस = जैसा)</div></div>
+          <div><div class="q-stem">"मुख चंद्रमा है" — अलंकार?<br>(A) उपमा (B) अनुप्रास (C) रूपक (D) श्लेष</div><div class="q-ans">✅ (C) रूपक (A=B, no जैसे)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T7: VARTANI -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">7</div>
+      <div class="topic-name">वर्तनी शुद्धि + शब्द शुद्धि</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Common Errors (Always Asked)</div>
+          <div class="f-line">❌ अनुसरण → ✅ अनुसरण</div>
+          <div class="f-line">❌ परिक्षा → ✅ <strong>परीक्षा</strong></div>
+          <div class="f-line">❌ दुनिया → ✅ <strong>दुनिया</strong> (ि not ी)</div>
+          <div class="f-line">❌ बुद्धिमान → ✅ <strong>बुद्धिमान्</strong></div>
+          <div class="f-line">❌ उपरोक्त → ✅ <strong>उपर्युक्त</strong></div>
+          <div class="f-line">❌ श्रृंगार → ✅ <strong>शृंगार</strong> (एक ही रूप)</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Trick</div>
+          <div class="mc-text">
+            <strong>ई/इ confusion:</strong><br>
+            • Ending में = <span class="hl">ई</span> (feminine/long)<br>
+            • Start/Middle = check original<br><br>
+            <strong>ण vs न:</strong><br>
+            • ण = Sanskrit-origin words<br>
+            • ष vs स/श: same concept<br><br>
+            Options में <strong>3 गलत, 1 सही</strong> — सही चुनें
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T8: KARAK -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">8</div>
+      <div class="topic-name">कारक / उपसर्ग / प्रत्यय</div>
+      <div class="topic-tags"><span class="tag tag-q">2–3 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 8 कारक (Vibhakti)</div>
+          <div class="f-line">कर्ता = <strong>ने</strong> | कर्म = <strong>को</strong></div>
+          <div class="f-line">करण = <strong>से/द्वारा</strong> | संप्रदान = <strong>को/के लिए</strong></div>
+          <div class="f-line">अपादान = <strong>से (अलग)</strong> | संबंध = <strong>का/के/की</strong></div>
+          <div class="f-line">अधिकरण = <strong>में/पर</strong> | संबोधन = <strong>हे/अरे/ओ</strong></div>
+        </div>
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Common Upsarg + Pratyay</div>
+          <div class="f-line"><strong>Upsarg:</strong> अ, आ, वि, नि, प्र, सु, दुर्</div>
+          <div class="f-line">सु+कर्म = सुकर्म | वि+कार = विकार</div>
+          <div class="f-line"><strong>Pratyay:</strong> ता, त्व, वान, मान, इक</div>
+          <div class="f-line">मनुष्य+ता = मनुष्यता | धन+वान = धनवान</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T9: SAHITYA -->
+  <div class="topic-card">
+    <div class="topic-header hindi" onclick="toggle(this)">
+      <div class="topic-num">9</div>
+      <div class="topic-name">हिंदी साहित्य (Literature)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Writers + Works (Most Asked)</div>
+          <div class="f-line">तुलसीदास → <strong>रामचरितमानस, विनय पत्रिका</strong></div>
+          <div class="f-line">कबीर → <strong>दोहावली, बीजक, साखी</strong></div>
+          <div class="f-line">सूरदास → <strong>सूरसागर, सूरसारावली</strong></div>
+          <div class="f-line">मीराबाई → <strong>पदावली, नरसी जी री माहेर</strong></div>
+          <div class="f-line">प्रेमचंद → <strong>गोदान, निर्मला, गबन</strong></div>
+          <div class="f-line">जयशंकर प्रसाद → <strong>कामायनी, आँसू</strong></div>
+          <div class="f-line">निराला → <strong>परिमल, तुलसीदास (कविता)</strong></div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Period Trick</div>
+          <div class="mc-text">
+            <strong>आदिकाल</strong> (650–1400): चंदबरदाई → पृथ्वीराज रासो<br>
+            <strong>भक्तिकाल</strong> (1400–1700): कबीर, तुलसी, सूर<br>
+            <strong>रीतिकाल</strong> (1700–1900): बिहारी → सतसई<br>
+            <strong>आधुनिककाल</strong> (1900-): प्रेमचंद, प्रसाद<br><br>
+            <span class="hl">हिंदी का स्वर्ण युग = भक्तिकाल</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end hindi section -->
+</div><!-- end hindi panel -->
+
+<!-- ══════════════════════════════════════════ -->
+<!--             REASONING PANEL              -->
+<!-- ══════════════════════════════════════════ -->
+<div class="panel" id="panel-reason">
+<div class="subject-section reason">
+
+  <div class="subject-banner reason">
+    <div class="banner-icon">🧠</div>
+    <div class="banner-text">
+      <h2>Reasoning / तार्किक क्षमता</h2>
+      <p>40 प्रश्न · 100 अंक · IQ + Mental Aptitude + Logical Reasoning</p>
+    </div>
+    <div class="banner-score"><b>30–35</b>Target</div>
+  </div>
+
+  <!-- R1: CODING -->
+  <div class="topic-card">
+    <div class="topic-header open reason" onclick="toggle(this)">
+      <div class="topic-num">1</div>
+      <div class="topic-name">Coding-Decoding (कूट लेखन)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span><span class="tag tag-q">हर साल</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body open">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 4 Types of Coding</div>
+          <div class="f-line"><strong>Type 1:</strong> Letter shift → COLD=DPME (+1 each letter)</div>
+          <div class="f-line"><strong>Type 2:</strong> Number code → A=1,B=2...Z=26</div>
+          <div class="f-line"><strong>Type 3:</strong> Reverse alphabet → A=Z,B=Y...Z=A</div>
+          <div class="f-line"><strong>Type 4:</strong> Word/Symbol → अलग key दी होती है</div>
+          <div class="f-line">Reverse word: APPLE → ELPPA</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ STEP-BY-STEP</div>
+          <div class="mc-text">
+            <strong>Step 1:</strong> पहले word देखें, कितना shift है<br>
+            <strong>Step 2:</strong> +1/-1 या ×2 pattern?<br>
+            <strong>Step 3:</strong> Same shift सभी letters पर लगाएँ<br><br>
+            <span class="hl">Z के बाद A आता है (circular)</span><br>
+            A=1 position: Z का reverse = A<br>
+            <strong>Alphabet: EJOTY</strong> = 5,10,15,20,25
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">यदि TEACHER = VGCEJGT, तो STUDENT = ?<br>(A) UVWFGPV (B) UVWFGOV (C) UVWFHPV (D) UVWEHPV</div><div class="q-ans">✅ (A) Each letter +2</div></div>
+          <div><div class="q-stem">यदि CAT=24, DOG=26, तो COT=?<br>(A) 35 (B) 36 (C) 37 (D) 38</div><div class="q-ans">✅ (B) C=3,O=15,T=20 → 3+15+20=38... check position sums</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R2: DIRECTION -->
+  <div class="topic-card">
+    <div class="topic-header reason" onclick="toggle(this)">
+      <div class="topic-num">2</div>
+      <div class="topic-name">Direction Sense (दिशा ज्ञान)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card concept">
+          <div class="mc-title">💡 Concept</div>
+          <div class="mc-text">एक व्यक्ति विभिन्न दिशाओं में चलता है। अंत में: वह किस दिशा में है? कितनी दूर है?<br><br>
+          <strong>Compass:</strong> उत्तर (N), दक्षिण (S), पूर्व (E), पश्चिम (W)<br>
+          Diagonal: NE, NW, SE, SW</div>
+          <div style="text-align:center; margin-top:12px; font-size:18px; line-height:2;">
+            ⬆️ उत्तर<br>⬅️ पश्चिम &nbsp;&nbsp; पूर्व ➡️<br>⬇️ दक्षिण
+          </div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Tricks</div>
+          <div class="mc-text">
+            <strong>Left/Right Turn:</strong><br>
+            उत्तर + दायाँ = पूर्व<br>
+            उत्तर + बायाँ = पश्चिम<br>
+            (घड़ी की दिशा = दायाँ)<br><br>
+            <strong>Distance:</strong> Pythagoras लगाएँ<br>
+            <span class="hl">d = √(horizontal² + vertical²)</span><br><br>
+            <strong>Shadow Rule:</strong><br>
+            🌅 सुबह shadow = पश्चिम में<br>
+            🌇 शाम shadow = पूर्व में
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div class="q-stem">राम उत्तर 10km → पूर्व 6km → दक्षिण 10km चला। वह शुरू से कितना दूर, किस दिशा में?<br>(A) 4km पश्चिम (B) 6km पूर्व (C) 6km पश्चिम (D) 4km पूर्व</div>
+        <div class="q-ans">✅ (B) 6km पूर्व — उत्तर-दक्षिण cancel, केवल पूर्व 6km बचा</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R3: BLOOD -->
+  <div class="topic-card">
+    <div class="topic-header reason" onclick="toggle(this)">
+      <div class="topic-num">3</div>
+      <div class="topic-name">Blood Relations (रक्त संबंध)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Relations Chart</div>
+          <div class="f-line">Father's/Mother's Father = <strong>Grandfather (दादा/नाना)</strong></div>
+          <div class="f-line">Father's Brother = <strong>Uncle (चाचा)</strong></div>
+          <div class="f-line">Mother's Brother = <strong>Mama (मामा)</strong></div>
+          <div class="f-line">Son's Wife = <strong>Daughter-in-law (बहू)</strong></div>
+          <div class="f-line">Daughter's Husband = <strong>Son-in-law (दामाद)</strong></div>
+          <div class="f-line">Uncle's Son = <strong>Cousin (चचेरा भाई)</strong></div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ TREE METHOD</div>
+          <div class="mc-text">
+            हमेशा <strong>Family Tree</strong> बनाएँ:<br>
+            ♂ = पुरुष, ♀ = महिला<br>
+            ↑ = Parent, ↓ = Child<br>
+            ↔ = Sibling (भाई/बहन)<br><br>
+            <span class="hl">Gender hints ढूँढें पहले</span><br>
+            "Son/Brother" = Male<br>
+            "Daughter/Sister/Mother/Wife" = Female<br><br>
+            Puzzle type: सबसे पहले gender fix करें
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div class="q-stem">A की माँ B की बेटी है। C, B का पति है। D, A का भाई है। C का D से क्या संबंध है?<br>(A) पिता (B) नाना (C) दादा (D) चाचा</div>
+        <div class="q-ans">✅ (B) नाना — C→(husband)→B→(daughter)→A's mother→A→(brother)→D. C is D's maternal grandfather (नाना)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R4: SERIES -->
+  <div class="topic-card">
+    <div class="topic-header reason" onclick="toggle(this)">
+      <div class="topic-num">4</div>
+      <div class="topic-name">Number & Letter Series (श्रृंखला)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Series Patterns</div>
+          <div class="f-line"><strong>AP:</strong> +2,+4,+6... → arithmetic progression</div>
+          <div class="f-line"><strong>GP:</strong> ×2,×3... → geometric progression</div>
+          <div class="f-line"><strong>Square:</strong> 1,4,9,16,25,36,49,64,81,100</div>
+          <div class="f-line"><strong>Cube:</strong> 1,8,27,64,125,216,343</div>
+          <div class="f-line"><strong>Prime:</strong> 2,3,5,7,11,13,17,19,23,29</div>
+          <div class="f-line"><strong>Fibonacci:</strong> 1,1,2,3,5,8,13,21,34</div>
+          <div class="f-line"><strong>n(n+1):</strong> 2,6,12,20,30,42,56</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ 3-STEP Method</div>
+          <div class="mc-text">
+            <strong>Step 1:</strong> Difference निकालें (d1)<br>
+            <strong>Step 2:</strong> अगर same → AP<br>
+            <strong>Step 3:</strong> अगर नहीं → d2 निकालें<br><br>
+            Letter Series:<br>
+            <span class="hl">A=1, E=5, I=9, O=15, U=21</span><br>
+            EJOTY = multiples of 5<br>
+            Odd letters: A,C,E,G,I... (+2)<br><br>
+            <strong>Missing term:</strong> pattern दोनों तरफ check करें
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">2, 6, 12, 20, 30, ? <br>(A)40 (B)42 (C)44 (D)46</div><div class="q-ans">✅ (B)42 → n(n+1): 6×7=42</div></div>
+          <div><div class="q-stem">ACE, BDF, CEG, ? <br>(A)DFH (B)DGH (C)EFH (D)EGI</div><div class="q-ans">✅ (A)DFH — each group +1</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R5: ANALOGY -->
+  <div class="topic-card">
+    <div class="topic-header reason" onclick="toggle(this)">
+      <div class="topic-num">5</div>
+      <div class="topic-name">Analogy (सादृश्यता) + Odd One Out</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card concept">
+          <div class="mc-title">💡 Concept</div>
+          <div class="mc-text">Analogy: A:B :: C:? — A और B का relationship ढूँढें, वही C पर apply करें।<br>
+          Odd One Out: 4 में से 3 एक category में हैं, 1 अलग।</div>
+          <div class="key-pills">
+            <span class="kp">Product:Material</span><span class="kp">Tool:Work</span>
+            <span class="kp">Animal:Sound</span><span class="kp">Part:Whole</span>
+            <span class="kp">Word:Meaning</span>
+          </div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Relationship Types</div>
+          <div class="mc-text">
+            <strong>Doctor:Hospital :: Teacher:?</strong> → School (workplace)<br>
+            <strong>Pen:Write :: Knife:?</strong> → Cut (purpose)<br>
+            <strong>Lion:Pride :: Fish:?</strong> → School (group name)<br><br>
+            <span class="hl">Odd One Out: Category से बाहर वाला</span><br>
+            Ex: गाय, भैंस, बकरी, <strong>मुर्गी</strong> → मुर्गी (poultry, not dairy)<br><br>
+            Number Odd: Check prime/square/even
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R6: CLOCK CALENDAR -->
+  <div class="topic-card">
+    <div class="topic-header reason" onclick="toggle(this)">
+      <div class="topic-num">6</div>
+      <div class="topic-name">Clock (घड़ी) + Calendar (कैलेंडर)</div>
+      <div class="topic-tags"><span class="tag tag-q">3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Clock Formulas</div>
+          <div class="f-line">Hour hand: <strong>0.5°</strong> per minute</div>
+          <div class="f-line">Minute hand: <strong>6°</strong> per minute</div>
+          <div class="f-line">Angle = |30H − 5.5M|</div>
+          <div class="f-line">Overlap: every 65<sup>5</sup>/<sub>11</sub> min after 12</div>
+          <div class="f-line">Right angle: 22 times in 12 hrs</div>
+          <div class="f-line">Straight line: 11 times in 12 hrs</div>
+        </div>
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Calendar Odd Days</div>
+          <div class="f-line">Ordinary year = <strong>365 days = 1 odd day</strong></div>
+          <div class="f-line">Leap year = <strong>366 days = 2 odd days</strong></div>
+          <div class="f-line">100 yrs = 5 odd | 200 = 3 | 300 = 1 | 400 = 0</div>
+          <div class="f-line">Jan=3, Feb=0(1), Mar=3, Apr=2, May=3</div>
+          <div class="f-line">Jun=2, Jul=3, Aug=3, Sep=2, Oct=3</div>
+          <div class="f-line">Nov=2, Dec=3 | 0=Sun...6=Sat</div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">3:25 बजे घंटे और मिनट की सुई के बीच कोण?<br>(A)47.5° (B)45° (C)47° (D)48°</div><div class="q-ans">✅ (A) |30×3 − 5.5×25| = |90−137.5| = 47.5°</div></div>
+          <div><div class="q-stem">15 अगस्त 1947 को कौन सा दिन था?<br>(A)शुक्र (B)शनि (C)रवि (D)गुरु</div><div class="q-ans">✅ (A) Friday (शुक्रवार)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R7: SITTING ARRANGEMENT -->
+  <div class="topic-card">
+    <div class="topic-header reason" onclick="toggle(this)">
+      <div class="topic-num">7</div>
+      <div class="topic-name">Seating Arrangement + Syllogism</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Seating Trick</div>
+          <div class="mc-text">
+            <strong>Linear:</strong> Left/Right fix<br>
+            <strong>Circular:</strong> एक fix, बाकी relative<br><br>
+            हमेशा <span class="hl">definite clues पहले</span> लगाएँ<br>
+            फिर conditional clues<br><br>
+            "A के बायीं ओर B है" — diagram बनाएँ<br>
+            Circular: Clockwise = Right
+          </div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Syllogism Rules</div>
+          <div class="mc-text">
+            All A are B + All B are C → <span class="hl-g">All A are C ✓</span><br>
+            Some A are B + All B are C → <span class="hl-g">Some A are C ✓</span><br>
+            All A are B + No B is C → <span class="hl">No A is C ✓</span><br>
+            Some A are B + No B is C → <span class="hl">Some A are not C ✓</span><br><br>
+            <strong>Venn Diagram method सबसे आसान</strong><br>
+            "Either/Or" conclusion = दोनों गलत हों तो
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- R8: MIRROR -->
+  <div class="topic-card">
+    <div class="topic-header reason" onclick="toggle(this)">
+      <div class="topic-num">8</div>
+      <div class="topic-name">Mirror Image + Figure Completion (Non-Verbal)</div>
+      <div class="topic-tags"><span class="tag tag-q">3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Mirror Image Trick</div>
+          <div class="mc-text">
+            <strong>Mirror = Left-Right flip</strong> (top-bottom same)<br>
+            <strong>Water = Top-Bottom flip</strong> (left-right same)<br><br>
+            <span class="hl">Numbers में:</span><br>
+            3 → ε | 5 → 5(flipped) | 7 → L<br>
+            b→d | p→q | d→b<br><br>
+            Clock में mirror: 9:15 का mirror = 2:45<br>
+            Formula: <strong>11:60 − actual time</strong>
+          </div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Figure Tricks</div>
+          <div class="mc-text">
+            <strong>Pattern Matrix:</strong> Row/Column pattern देखें<br>
+            Rotation: 90°, 180°, 270° = CW<br>
+            <span class="hl">Counting Figures:</span><br>
+            Triangles में: छोटे + संयुक्त count करें<br>
+            Formula: n(n+2)(2n+1)/8 (for rows of triangles)<br><br>
+            <strong>Embedded Figures:</strong> outline match करें
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--            MATHEMATICS PANEL             -->
+<!-- ══════════════════════════════════════════ -->
+<div class="panel" id="panel-maths">
+<div class="subject-section maths">
+
+  <div class="subject-banner maths">
+    <div class="banner-icon">🔢</div>
+    <div class="banner-text">
+      <h2>गणित (Numerical Ability)</h2>
+      <p>40 प्रश्न · 100 अंक · अंकगणित + ज्यामिति + बीजगणित</p>
+    </div>
+    <div class="banner-score"><b>25–30</b>Target</div>
+  </div>
+
+  <!-- M1: PERCENTAGE -->
+  <div class="topic-card">
+    <div class="topic-header open maths" onclick="toggle(this)">
+      <div class="topic-num">1</div>
+      <div class="topic-name">प्रतिशत (Percentage)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span><span class="tag tag-q">Profit/Loss से linked</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body open">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Formulas</div>
+          <div class="f-line">x% of y = (x×y)/100</div>
+          <div class="f-line">A is x% of B → A = Bx/100</div>
+          <div class="f-line">% increase = (New−Old)/Old × 100</div>
+          <div class="f-line">% decrease = (Old−New)/Old × 100</div>
+          <div class="f-line">Successive %: a+b + ab/100</div>
+          <div class="f-line">x% of y = y% of x (commutative)</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Fraction-% Table</div>
+          <div class="mc-text" style="font-size:12px;">
+            1/2=50% · 1/3=33.33% · 1/4=25%<br>
+            1/5=20% · 1/6=16.67% · 1/7=14.28%<br>
+            1/8=12.5% · 1/9=11.11% · 1/10=10%<br>
+            3/4=75% · 2/3=66.67% · 3/5=60%<br><br>
+            <strong>Shortcut: x% of y</strong><br>
+            15% of 80 = 80% of 15 = 12 ✓<br>
+            <span class="hl">बड़े % को छोटी संख्या पर लगाएँ</span>
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">किसी संख्या का 35% = 245. उस संख्या का 65% क्या है?<br>(A)450 (B)455 (C)460 (D)465</div><div class="q-ans">✅ (B) संख्या=700; 700×65/100=455</div></div>
+          <div><div class="q-stem">400 का 30% + 600 का 20% = ?<br>(A)220 (B)230 (C)240 (D)250</div><div class="q-ans">✅ (C) 120+120=240</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M2: PROFIT LOSS -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">2</div>
+      <div class="topic-name">लाभ और हानि (Profit & Loss)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Formulas</div>
+          <div class="f-line">Profit = SP − CP | Loss = CP − SP</div>
+          <div class="f-line">Profit% = (Profit/CP) × 100</div>
+          <div class="f-line">SP = CP × (100+P%)/100</div>
+          <div class="f-line">CP = SP × 100/(100+P%)</div>
+          <div class="f-line">CP = SP × 100/(100−L%)</div>
+          <div class="f-line">Discount = MP − SP | D% = D/MP × 100</div>
+          <div class="f-line">SP = MP × (100−D%)/100</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ CP=100 Method</div>
+          <div class="mc-text">
+            <strong>हमेशा CP=100 मानें</strong><br>
+            P%=20% → SP=120, Profit=20<br>
+            L%=25% → SP=75, Loss=25<br><br>
+            <span class="hl">Two articles trick:</span><br>
+            दोनों same SP, P% और L% equal<br>
+            → हमेशा <strong>हानि होती है</strong><br>
+            Loss% = (common%)²/100<br><br>
+            Dishonest seller:<br>
+            Gain% = (True−False wt)/False wt × 100
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">₹480 में बेचने पर 20% लाभ। CP क्या है?<br>(A)₹360 (B)₹380 (C)₹400 (D)₹420</div><div class="q-ans">✅ (C) CP=480×100/120=₹400</div></div>
+          <div><div class="q-stem">₹720 में बेचने पर 10% हानि। SP क्या हो कि 15% लाभ हो?<br>(A)₹880 (B)₹900 (C)₹920 (D)₹940</div><div class="q-ans">✅ (C) CP=720×100/90=800; SP=800×115/100=₹920</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M3: SI CI -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">3</div>
+      <div class="topic-name">साधारण व चक्रवृद्धि ब्याज (SI & CI)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 SI & CI Formulas</div>
+          <div class="f-line">SI = P×R×T/100</div>
+          <div class="f-line">Amount = P + SI = P(1 + RT/100)</div>
+          <div class="f-line">CI = P[(1+R/100)ⁿ − 1]</div>
+          <div class="f-line">Amount(CI) = P(1+R/100)ⁿ</div>
+          <div class="f-line">CI−SI (2 yrs) = P(R/100)²</div>
+          <div class="f-line">CI−SI (3 yrs) = P(R/100)²(R/100+3)</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Tricks</div>
+          <div class="mc-text">
+            <strong>R unknown trick:</strong><br>
+            R = (SI×100)/(P×T)<br><br>
+            <strong>2 साल में CI vs SI:</strong><br>
+            Difference = P×R²/10000<br><br>
+            <span class="hl">Rule of 72:</span><br>
+            Double होने में साल = 72/R<br>
+            R=8% → 72/8=9 साल में double<br><br>
+            <strong>Half-yearly:</strong> R→R/2, T→2T लगाएँ
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">₹5000 पर 4 वर्ष में 8% प्रतिवर्ष SI?<br>(A)₹1400 (B)₹1500 (C)₹1600 (D)₹1800</div><div class="q-ans">✅ (C) 5000×8×4/100=₹1600</div></div>
+          <div><div class="q-stem">₹8000 पर 2 वर्ष 10% CI − SI का अंतर?<br>(A)₹80 (B)₹120 (C)₹160 (D)₹240</div><div class="q-ans">✅ (A) 8000×(10/100)²=8000×0.01=₹80</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M4: RATIO -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">4</div>
+      <div class="topic-name">अनुपात-समानुपात + मिश्रण (Ratio & Mixture)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Formulas</div>
+          <div class="f-line">a:b :: c:d → ad = bc (product of means = extremes)</div>
+          <div class="f-line">Compounded ratio: a:b and c:d → ac:bd</div>
+          <div class="f-line">Duplicate: a²:b² | Sub-duplicate: √a:√b</div>
+          <div class="f-line">Partnership: Profit ∝ Capital × Time</div>
+          <div class="f-line">Alligation: (d−m):(m−c) = ratio to mix</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Alligation Trick</div>
+          <div class="mc-text">
+            <strong>Cross Difference Rule:</strong><br>
+            Dearer price (d) &nbsp;Cheaper price (c)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↘ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↙<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mean (m)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↙ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↘<br>
+            (m−c) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(d−m)<br><br>
+            Ratio = (m−c) : (d−m)<br>
+            <span class="hl">Mixture में यही सबसे fast method</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M5: TIME WORK -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">5</div>
+      <div class="topic-name">समय और कार्य + नल-हौज (Time-Work & Pipe)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Formulas</div>
+          <div class="f-line">A+B together = ab/(a+b) days</div>
+          <div class="f-line">Work done in 1 day = 1/n (if n days total)</div>
+          <div class="f-line">Pipe: Fill A + Fill B = 1/a + 1/b</div>
+          <div class="f-line">Inlet+Outlet: 1/a − 1/b (b=outlet)</div>
+          <div class="f-line">MDH = constant (Man×Day×Hour)</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ LCM Method (Fastest)</div>
+          <div class="mc-text">
+            <strong>A=12 days, B=15 days</strong><br>
+            LCM(12,15) = 60 = Total Work<br>
+            A's efficiency = 60/12 = 5<br>
+            B's efficiency = 60/15 = 4<br>
+            Together = 5+4=9 per day<br>
+            Time = 60/9 = <span class="hl">6⅔ days</span><br><br>
+            Pipe: Same LCM method<br>
+            Outlet: subtract efficiency
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div class="q-stem">A=20 days, B=30 days, C=60 days में काम करते हैं। तीनों साथ कितने दिन में करेंगे?<br>(A)8 (B)9 (C)10 (D)12</div>
+        <div class="q-ans">✅ (C) LCM=60; A=3, B=2, C=1; Total=6/day; 60/6=10 days</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M6: SPEED TIME -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">6</div>
+      <div class="topic-name">गति-दूरी-समय + रेलगाड़ी (Speed-Distance-Time)</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Formulas</div>
+          <div class="f-line">Distance = Speed × Time</div>
+          <div class="f-line">1 km/h = 5/18 m/s | 1 m/s = 18/5 km/h</div>
+          <div class="f-line">Average speed = 2xy/(x+y) (equal distance)</div>
+          <div class="f-line">Train cross pole: t = L/v</div>
+          <div class="f-line">Train cross platform: t = (L+P)/v</div>
+          <div class="f-line">Same dir: v₁−v₂ | Opposite: v₁+v₂</div>
+          <div class="f-line">Relative speed (boat): u±v (stream)</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Train Tricks</div>
+          <div class="mc-text">
+            Train A & B, opposite: cross time = (L₁+L₂)/(v₁+v₂)<br>
+            Train A & B, same: = (L₁+L₂)/(v₁−v₂)<br><br>
+            <span class="hl">Boat in river:</span><br>
+            Downstream = u+v<br>
+            Upstream = u−v<br>
+            Speed of boat = (D+U)/2<br>
+            Speed of stream = (D−U)/2<br><br>
+            <strong>km/h → m/s: ×5/18</strong>
+          </div>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div class="q-stem">200m लंबी ट्रेन 60km/h से चल रही है। 300m लंबे platform को पार करने में समय?<br>(A)25s (B)28s (C)30s (D)32s</div>
+        <div class="q-ans">✅ (C) Speed=60×5/18=50/3 m/s; t=(200+300)÷(50/3)=500×3/50=30s</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M7: AGE -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">7</div>
+      <div class="topic-name">आयु सम्बंधी प्रश्न (Age Problems)</div>
+      <div class="topic-tags"><span class="tag tag-q">2–3 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Method</div>
+          <div class="mc-text">
+            <strong>Present age = x मानें</strong><br>
+            n साल बाद = x+n<br>
+            n साल पहले = x−n<br><br>
+            Ratio A:B = m:n → A=mk, B=nk<br><br>
+            <span class="hl">Equation बनाएँ, solve करें</span><br><br>
+            Ex: पिता की उम्र पुत्र की 3 गुना है। 10 साल बाद 2 गुना होगी।<br>
+            3x−x=10×(3−2) → x=10 → पुत्र=10, पिता=30
+          </div>
+        </div>
+        <div class="mini-card example">
+          <div class="mc-title">📝 Exam Q</div>
+          <div class="q-stem">A और B की वर्तमान आयु का अनुपात 5:3 है। 4 वर्ष बाद 3:2 होगा। A की वर्तमान आयु?<br>(A)16 (B)20 (C)24 (D)28</div>
+          <div class="q-ans">✅ (B) 5k+4/3k+4=3/2 → 10k+8=9k+12 → k=4; A=20</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M8: GEOMETRY -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">8</div>
+      <div class="topic-name">क्षेत्रमिति (Mensuration) — 2D & 3D</div>
+      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 2D Formulas</div>
+          <div class="f-line">Square: A=a², P=4a</div>
+          <div class="f-line">Rectangle: A=l×b, P=2(l+b)</div>
+          <div class="f-line">Triangle: A=½bh | Heron: √[s(s-a)(s-b)(s-c)]</div>
+          <div class="f-line">Equilateral △: A=√3/4×a², h=√3/2×a</div>
+          <div class="f-line">Circle: A=πr², C=2πr</div>
+          <div class="f-line">Trapezium: A=½(a+b)h</div>
+        </div>
+        <div class="mini-card formula">
+          <div class="mc-title">📐 3D Formulas</div>
+          <div class="f-line">Cube: V=a³, SA=6a², diagonal=a√3</div>
+          <div class="f-line">Cuboid: V=lbh, SA=2(lb+bh+lh)</div>
+          <div class="f-line">Cylinder: V=πr²h, CSA=2πrh, TSA=2πr(r+h)</div>
+          <div class="f-line">Cone: V=⅓πr²h, l=√(r²+h²), CSA=πrl</div>
+          <div class="f-line">Sphere: V=4/3πr³, SA=4πr²</div>
+          <div class="f-line">Hemisphere: V=2/3πr³, CSA=2πr², TSA=3πr²</div>
+        </div>
+      </div>
+      <div class="mini-card trick">
+        <div class="mc-title">⚡ Memory Tricks</div>
+        <div class="mc-text">
+          <strong>π=22/7 ≈ 3.14</strong><br>
+          Cylinder vs Cone: <span class="hl">Cone Volume = ⅓ Cylinder</span><br>
+          Sphere vs Hemisphere: <span class="hl">half volume, not half SA</span><br><br>
+          <strong>Scaling rule:</strong><br>
+          Dimensions double → Area × 4, Volume × 8<br>
+          <span class="hl-g">2D: scale² | 3D: scale³</span>
+        </div>
+      </div>
+      <div class="mini-card example">
+        <div class="mc-title">📝 Exam Q</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div><div class="q-stem">7cm त्रिज्या और 10cm ऊँचाई के बेलन का आयतन?<br>(A)1540cm³ (B)1440cm³ (C)1480cm³ (D)1620cm³</div><div class="q-ans">✅ (A) π×49×10=22/7×490=1540</div></div>
+          <div><div class="q-stem">14m × 10m आयत के चारों ओर 2m चौड़ा रास्ता। रास्ते का क्षेत्रफल?<br>(A)112m² (B)120m² (C)124m² (D)128m²</div><div class="q-ans">✅ (A) (18×14)−(14×10)=252−140=112m²</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M9: ALGEBRA -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">9</div>
+      <div class="topic-name">सरलीकरण + LCM/HCF + बीजगणित</div>
+      <div class="topic-tags"><span class="tag tag-q">4–5 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Key Identities + Rules</div>
+          <div class="f-line">BODMAS: B→O→D→M→A→S</div>
+          <div class="f-line">(a+b)² = a²+2ab+b²</div>
+          <div class="f-line">(a−b)² = a²−2ab+b²</div>
+          <div class="f-line">(a+b)(a−b) = a²−b²</div>
+          <div class="f-line">(a+b)³ = a³+3a²b+3ab²+b³</div>
+          <div class="f-line">HCF×LCM = Product of two numbers</div>
+          <div class="f-line">If a+b+c=0 → a³+b³+c³=3abc</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Squares to Remember</div>
+          <div class="mc-text" style="font-size:12px;">
+            11²=121 · 12²=144 · 13²=169<br>
+            14²=196 · 15²=225 · 16²=256<br>
+            17²=289 · 18²=324 · 19²=361<br>
+            20²=400 · 21²=441 · 25²=625<br><br>
+            Cubes: 5³=125 · 6³=216 · 7³=343<br>
+            8³=512 · 9³=729 · 10³=1000<br><br>
+            <span class="hl">Simplification: पहले brackets, फिर division</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M10: AVERAGE -->
+  <div class="topic-card">
+    <div class="topic-header maths" onclick="toggle(this)">
+      <div class="topic-num">10</div>
+      <div class="topic-name">औसत + आँकड़ा व्याख्या (Average + DI)</div>
+      <div class="topic-tags"><span class="tag tag-q">2–3 Q</span></div>
+      <span class="chevron">›</span>
+    </div>
+    <div class="topic-body">
+      <div class="body-row">
+        <div class="mini-card formula">
+          <div class="mc-title">📐 Formulas</div>
+          <div class="f-line">Average = Sum / Count</div>
+          <div class="f-line">Sum = Average × Count</div>
+          <div class="f-line">New avg (add x): Old avg + (x−old avg)/(n+1)</div>
+          <div class="f-line">Consecutive n numbers avg = (first+last)/2</div>
+          <div class="f-line">1 to n average = (n+1)/2</div>
+        </div>
+        <div class="mini-card trick">
+          <div class="mc-title">⚡ Trick</div>
+          <div class="mc-text">
+            <strong>Assumed Mean Method:</strong><br>
+            Roughly middle value मान लो<br>
+            Deviations निकालो → average deviation<br>
+            Actual avg = Assumed + avg deviation<br><br>
+            <span class="hl">छात्र replacement:</span><br>
+            नए छात्र की उम्र = पुराना avg + n×change in avg
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!--            RAPID REVISION PANEL          -->
+<!-- ══════════════════════════════════════════ -->
+<div class="panel" id="panel-rapid">
+<div class="rapid">
+  <div class="rapid-title">⚡ 5-मिनट Rapid Revision List</div>
+  <div class="rapid-sub">परीक्षा से ठीक पहले — सिर्फ इतना पढ़ें, बाकी सब याद हो जाएगा</div>
+
+  <div class="rapid-grid">
+    <!-- HINDI -->
+    <div class="rapid-col">
+      <h4 class="h">📖 सामान्य हिंदी</h4>
+      <div class="rapid-item"><span>🔥</span>अ/आ+इ/ई=ए, अ/आ+उ/ऊ=ओ (गुण संधि)</div>
+      <div class="rapid-item"><span>🔥</span>बहुव्रीहि = दोनों अप्रधान, तीसरा अर्थ</div>
+      <div class="rapid-item"><span>🔥</span>वीर रस = उत्साह, करुण = शोक, श्रृंगार = रति</div>
+      <div class="rapid-item"><span>🔥</span>उपमा = सरिस/जैसे, रूपक = no जैसे</div>
+      <div class="rapid-item"><span>🔥</span>आँखें चुराना = सामना न करना</div>
+      <div class="rapid-item"><span>🔥</span>नीलकमल = कर्मधारय, चतुर्भुज = बहुव्रीहि</div>
+      <div class="rapid-item"><span>⬛</span>तुलसी→रामचरितमानस, कबीर→दोहावली</div>
+      <div class="rapid-item"><span>⬛</span>भक्तिकाल = हिंदी का स्वर्ण युग</div>
+      <div class="rapid-item"><span>⬛</span>हिंदी राजभाषा = अनुच्छेद 343</div>
+      <div class="rapid-item"><span>⬛</span>परीक्षा (✓) परिक्षा (✗), उपर्युक्त (✓)</div>
+    </div>
+
+    <!-- REASONING -->
+    <div class="rapid-col">
+      <h4 class="r">🧠 Reasoning</h4>
+      <div class="rapid-item"><span class="g">🔥</span>Coding: पहले shift/pattern identify करें</div>
+      <div class="rapid-item"><span class="g">🔥</span>Direction: उत्तर+दायाँ=पूर्व, distance=Pythagoras</div>
+      <div class="rapid-item"><span class="g">🔥</span>Blood Relation: tree बनाओ, gender first</div>
+      <div class="rapid-item"><span class="g">🔥</span>Series: difference → difference of difference</div>
+      <div class="rapid-item"><span class="g">🔥</span>Analogy: relationship type identify करो</div>
+      <div class="rapid-item"><span class="g">⬛</span>Clock angle = |30H − 5.5M|</div>
+      <div class="rapid-item"><span class="g">⬛</span>Mirror = L-R flip, Water = T-B flip</div>
+      <div class="rapid-item"><span class="g">⬛</span>Syllogism: Venn diagram बनाओ</div>
+      <div class="rapid-item"><span class="g">⬛</span>Odd one out: category से बाहर वाला</div>
+      <div class="rapid-item"><span class="g">⬛</span>Shadow सुबह = पश्चिम, शाम = पूर्व</div>
+    </div>
+
+    <!-- MATHS -->
+    <div class="rapid-col">
+      <h4 class="m">🔢 Mathematics</h4>
+      <div class="rapid-item"><span class="b">🔥</span>CP = SP×100/(100±P/L%)</div>
+      <div class="rapid-item"><span class="b">🔥</span>SI = PRT/100 | CI−SI(2yr) = P(R/100)²</div>
+      <div class="rapid-item"><span class="b">🔥</span>A+B work = ab/(a+b) days</div>
+      <div class="rapid-item"><span class="b">🔥</span>Train+platform: t=(L+P)/speed</div>
+      <div class="rapid-item"><span class="b">🔥</span>Cylinder V=πr²h, Cone V=⅓πr²h</div>
+      <div class="rapid-item"><span class="b">⬛</span>1km/h = 5/18 m/s</div>
+      <div class="rapid-item"><span class="b">⬛</span>Successive %: a+b+ab/100</div>
+      <div class="rapid-item"><span class="b">⬛</span>(a+b)²=a²+2ab+b², a²−b²=(a+b)(a−b)</div>
+      <div class="rapid-item"><span class="b">⬛</span>HCF×LCM = P×Q</div>
+      <div class="rapid-item"><span class="b">⬛</span>Average = Sum/n, Sphere SA=4πr²</div>
+    </div>
+  </div>
+
+  <div class="strategy-box">
+    <strong style="color:#FCD34D; font-size:15px;">🏆 परीक्षा में Maximum Score की Strategy</strong><br><br>
+    ⏱️ <strong>Time Plan:</strong> Hindi=25min · Reasoning=30min · Maths=38min · GK=22min · Revision=5min<br>
+    ✅ <strong>पहले करें:</strong> Reasoning (fastest) → Hindi → GK → Maths (last — calculations take time)<br>
+    🎯 <strong>Skip करें:</strong> Complex Maths/Geometry जो 2+ min लें — वापस आएँ अगर time हो<br>
+    📌 <strong>No Negative:</strong> सभी 160 प्रश्नों के उत्तर दें — guess भी सही हो सकता है!<br>
+    💡 <strong>Elimination:</strong> 2 options clear गलत हों तो 50-50 chance लें<br>
+    🔥 <strong>Target:</strong> Hindi≥30 + Reasoning≥32 + Maths≥25 + GK≥28 = <strong>115/160 ≈ 287 अंक</strong>
+  </div>
+</div>
+</div><!-- end rapid panel -->
+
+</div><!-- end page -->
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggle(header) {
+  const body = header.nextElementSibling;
+  header.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// Open first topic in each panel by default (already done inline)
+// Auto-open all on print
+window.onbeforeprint = function() {
+  document.querySelectorAll('.topic-body').forEach(b => b.classList.add('open'));
+  document.querySelectorAll('.topic-header').forEach(h => h.classList.add('open'));
+};
+</script>
+</body>
+</html>
