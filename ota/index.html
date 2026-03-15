@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTA — Other Transaction Agreement | govmates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & TOKENS ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #0B2545;
+      --navy-light: #133A6B;
+      --blue:       #1A5FB4;
+      --accent:     #2E86DE;
+      --accent-lt:  #5BA4F5;
+      --sky:        #EBF4FF;
+      --light:      #F6F8FC;
+      --border:     #DDE3EE;
+      --grey:       #64748B;
+      --dark:       #1E293B;
+      --white:      #FFFFFF;
+      --amber:      #D97706;
+      --amber-lt:   #FEF3C7;
+      --shadow-sm:  0 1px 3px rgba(11,37,69,.08), 0 1px 2px rgba(11,37,69,.06);
+      --shadow-md:  0 4px 16px rgba(11,37,69,.10), 0 2px 6px rgba(11,37,69,.06);
+      --shadow-lg:  0 12px 40px rgba(11,37,69,.14), 0 4px 12px rgba(11,37,69,.08);
+      --radius:     12px;
+      --radius-lg:  20px;
+      --container:  1200px;
+      --font-head:  'Space Grotesk', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--dark); background: var(--white); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── UTILITIES ─────────────────────────────────────────────────── */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); background: var(--sky); border: 1px solid #C3D9F7;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-head); font-size: clamp(24px, 2.8vw, 40px);
+      font-weight: 700; line-height: 1.15; color: var(--navy); margin-bottom: 20px;
+    }
+    .section-body { font-size: 17px; line-height: 1.78; color: var(--grey); }
+    .section-divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-lt));
+      border-radius: 2px; margin-bottom: 20px;
+    }
+    .prose { font-size: 16px; line-height: 1.85; color: var(--grey); }
+    .prose + .prose { margin-top: 18px; }
+
+    /* ─── FADE-UP ────────────────────────────────────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── TOPBAR ─────────────────────────────────────────────────────── */
+    .topbar { background: var(--navy); color: rgba(255,255,255,.72); font-size: 13px; font-weight: 500; padding: 8px 0; }
+    .topbar .container { display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
+    .topbar a { display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .topbar a:hover { color: var(--white); }
+    .topbar svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ─── NAVBAR ──────────────────────────────────────────────────────── */
+    .navbar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(221,227,238,.6); transition: background .3s, box-shadow .3s; }
+    .navbar.scrolled { background: rgba(255,255,255,.98); box-shadow: var(--shadow-sm); }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+    .nav-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -.02em; flex-shrink: 0; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--dark); padding: 7px 14px; border-radius: 7px; transition: all .2s; }
+    .nav-links a:hover { color: var(--blue); background: var(--sky); }
+    .nav-links a.nav-cta { background: var(--blue); color: var(--white); font-weight: 600; padding: 8px 18px; }
+    .nav-links a.nav-cta:hover { background: var(--navy-light); }
+    .nav-links a.nav-active { color: var(--blue); background: var(--sky); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       1. HERO
+    ══════════════════════════════════════════════════════════════════ */
+    .hero {
+      background: var(--navy); overflow: hidden;
+      padding: 96px 0 80px; position: relative;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero::after {
+      content: ''; position: absolute; top: -15%; right: -5%;
+      width: 640px; height: 640px;
+      background: radial-gradient(circle, rgba(46,134,222,.18) 0%, rgba(11,37,69,0) 65%);
+      pointer-events: none;
+    }
+    .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 20px; }
+    .hero-breadcrumb a { color: rgba(255,255,255,.5); transition: color .2s; }
+    .hero-breadcrumb a:hover { color: var(--white); }
+    .hero-breadcrumb svg { width: 12px; height: 12px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-lt); margin-bottom: 18px; }
+    .hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent-lt); border-radius: 2px; }
+    .hero h1 { font-family: var(--font-head); font-size: clamp(34px, 4.2vw, 56px); font-weight: 700; line-height: 1.08; color: var(--white); letter-spacing: -.02em; margin-bottom: 24px; }
+    .hero h1 em { font-style: normal; color: var(--accent-lt); }
+    .hero-desc { font-size: 17px; line-height: 1.74; color: rgba(255,255,255,.65); max-width: 500px; margin-bottom: 36px; }
+    .hero-stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+    .hero-stat-pill {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px; padding: 10px 18px;
+    }
+    .hero-stat-pill svg { width: 16px; height: 16px; color: var(--accent-lt); flex-shrink: 0; }
+    .hero-stat-pill span { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.75); }
+    .scroll-indicator { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.3); }
+    .scroll-indicator .sl { width: 36px; height: 1px; background: rgba(255,255,255,.15); }
+    .scroll-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: sdot 1.8s ease-in-out infinite; }
+    @keyframes sdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.6)} }
+    /* Hero illustration */
+    .hero-illus {
+      background: linear-gradient(135deg, rgba(255,255,255,.05) 0%, rgba(46,134,222,.1) 100%);
+      border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-lg);
+      aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .hero-illus::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .hero-illus-inner { position: relative; z-index: 2; padding: 32px; width: 100%; }
+    /* Floating chips on hero illus */
+    .hero-chips { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .hchip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+      border-radius: 8px; padding: 9px 14px; backdrop-filter: blur(6px);
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,.75);
+    }
+    .hchip svg { width: 13px; height: 13px; color: var(--accent-lt); flex-shrink: 0; }
+    .hchip.gold { border-color: rgba(217,119,6,.3); color: #FDE68A; }
+    .hchip.gold svg { color: #FCD34D; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       2. WHAT IS AN OTA — definition block
+    ══════════════════════════════════════════════════════════════════ */
+    .definition {
+      background: var(--white); padding: 96px 0;
+    }
+    .definition-inner { max-width: 800px; margin: 0 auto; }
+    .definition .section-divider { margin-bottom: 20px; }
+    .definition .section-title { font-size: clamp(24px, 2.6vw, 36px); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       3. Q&A — Authority vs Agreement
+    ══════════════════════════════════════════════════════════════════ */
+    .qa-section { background: var(--light); padding: 96px 0; }
+    .qa-header { max-width: 700px; margin-bottom: 48px; }
+    .qa-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px;
+      box-shadow: var(--shadow-sm); margin-bottom: 24px;
+      transition: box-shadow .3s;
+    }
+    .qa-card:hover { box-shadow: var(--shadow-md); }
+    .qa-question {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px;
+    }
+    .qa-q-badge {
+      flex-shrink: 0; width: 32px; height: 32px;
+      background: var(--navy); color: var(--white);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-size: 13px; font-weight: 700; margin-top: 2px;
+    }
+    .qa-q-text { font-family: var(--font-head); font-size: 18px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+    .qa-answer-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--sky); border: 1px solid #C3D9F7;
+      border-radius: 8px; padding: 8px 14px;
+      font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 28px;
+    }
+    .qa-answer-badge svg { width: 14px; height: 14px; }
+    .qa-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 4px; }
+    .qa-col {
+      background: var(--light); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .qa-col-head {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .qa-col-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .qa-col-head h4 { font-family: var(--font-head); font-size: 14px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: .06em; }
+    .qa-col p { font-size: 14px; line-height: 1.7; color: var(--grey); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       4. WHY USE OTA — stats + bullets
+    ══════════════════════════════════════════════════════════════════ */
+    .why-ota { background: var(--white); padding: 96px 0; }
+    .why-ota .container { display: grid; grid-template-columns: 1fr 1.4fr; gap: 72px; align-items: start; }
+    .why-stats {}
+    .why-stats-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--grey); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .why-stats-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .stat-panel {
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      margin-bottom: 16px; position: relative; overflow: hidden;
+    }
+    .stat-panel-primary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--blue) 100%);
+    }
+    .stat-panel-secondary {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--accent) 100%);
+    }
+    .stat-panel::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .stat-panel-inner { position: relative; z-index: 2; }
+    .stat-amount {
+      font-family: var(--font-head); font-size: clamp(36px, 4vw, 52px);
+      font-weight: 700; color: var(--white); letter-spacing: -.02em;
+      line-height: 1; margin-bottom: 8px;
+    }
+    .stat-desc { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+    /* Bullets right side */
+    .why-content {}
+    .why-content .section-title { margin-bottom: 8px; }
+    .why-content .tag { margin-bottom: 16px; }
+    .why-bullets { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .why-bullet {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 18px; background: var(--light); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: all .25s;
+    }
+    .why-bullet:hover { border-color: #C3D9F7; background: var(--sky); transform: translateX(4px); }
+    .why-bullet-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+      flex-shrink: 0; margin-top: 6px;
+    }
+    .why-bullet p { font-size: 15px; line-height: 1.65; color: var(--dark); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       5. OTA vs FAR
+    ══════════════════════════════════════════════════════════════════ */
+    .ota-vs-far { background: var(--light); padding: 96px 0; }
+    .ota-vs-far .head { margin-bottom: 48px; }
+    .comparison-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-bottom: 16px;
+    }
+    .comp-col-head {
+      padding: 14px 24px; font-family: var(--font-head);
+      font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+    }
+    .comp-col-head.ota { background: var(--navy); color: var(--white); border-radius: var(--radius) var(--radius) 0 0; margin-right: 8px; display: flex; align-items: center; gap: 8px; }
+    .comp-col-head.far { background: var(--border); color: var(--grey); border-radius: var(--radius) var(--radius) 0 0; margin-left: 8px; display: flex; align-items: center; gap: 8px; }
+    .comp-col-head svg { width: 15px; height: 15px; }
+    .comp-rows { display: flex; flex-direction: column; gap: 8px; }
+    .comp-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .comp-cell {
+      padding: 18px 22px; border-radius: var(--radius);
+      font-size: 15px; line-height: 1.65;
+    }
+    .comp-cell.ota-cell {
+      background: var(--white); border: 1px solid #C3D9F7;
+      color: var(--dark); font-weight: 500;
+      border-left: 3px solid var(--accent);
+    }
+    .comp-cell.far-cell { background: var(--white); border: 1px solid var(--border); color: var(--grey); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       6. ELIGIBILITY — When to Use
+    ══════════════════════════════════════════════════════════════════ */
+    .eligibility { background: var(--white); padding: 96px 0; }
+    .eligibility .head { max-width: 680px; margin-bottom: 48px; }
+    .elig-intro { font-size: 16px; line-height: 1.75; color: var(--grey); margin-bottom: 36px; }
+    .elig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .elig-card {
+      background: var(--light); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: all .25s;
+    }
+    .elig-card:hover { border-color: #C3D9F7; box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .elig-num {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--sky); border: 1px solid #C3D9F7;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-size: 13px; font-weight: 700; color: var(--blue);
+    }
+    .elig-card-body { flex: 1; }
+    .elig-card-body p { font-size: 15px; line-height: 1.68; color: var(--dark); font-weight: 500; }
+    /* Sub-bullets inside elig card */
+    .elig-subbullets { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .elig-subbullet {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; line-height: 1.6; color: var(--grey);
+    }
+    .elig-subbullet::before { content: '—'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       7. LEGAL DEFINITION BLOCK
+    ══════════════════════════════════════════════════════════════════ */
+    .legal-def { background: var(--light); padding: 96px 0; }
+    .legal-def .head { max-width: 700px; margin-bottom: 40px; }
+    .legal-panel {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .legal-panel-header {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--navy); padding: 16px 28px;
+    }
+    .legal-panel-header svg { width: 16px; height: 16px; color: var(--accent-lt); }
+    .legal-panel-header span {
+      font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,.65); letter-spacing: .04em;
+    }
+    .legal-panel-body { padding: 32px 36px; }
+    .legal-code-ref {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--amber-lt); border: 1px solid #FCD34D;
+      border-radius: 6px; padding: 5px 12px;
+      font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+      color: var(--amber); margin-bottom: 20px;
+    }
+    .legal-panel-body p { font-size: 15px; line-height: 1.88; color: var(--dark); }
+    .legal-panel-body p + p { margin-top: 16px; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       8. OT CATEGORIES — 3 cards
+    ══════════════════════════════════════════════════════════════════ */
+    .ot-categories { background: var(--white); padding: 96px 0; }
+    .ot-categories .head { margin-bottom: 52px; }
+    .ot-cats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .ot-cat-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 36px 28px;
+      transition: all .3s; position: relative; overflow: hidden;
+    }
+    .ot-cat-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      transform: scaleX(0); transform-origin: left; transition: transform .35s ease;
+    }
+    .ot-cat-card.research::after { background: linear-gradient(90deg, #0E9F8C, #5BA4F5); }
+    .ot-cat-card.prototype::after { background: linear-gradient(90deg, var(--blue), var(--accent)); }
+    .ot-cat-card.production::after { background: linear-gradient(90deg, var(--navy), var(--blue)); }
+    .ot-cat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #C3D9F7; }
+    .ot-cat-card:hover::after { transform: scaleX(1); }
+    .ot-cat-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+    }
+    .ot-cat-icon.teal { background: #D1F5F0; }
+    .ot-cat-icon.blue { background: var(--sky); }
+    .ot-cat-icon.navy { background: #E8EDF6; }
+    .ot-cat-icon svg { width: 24px; height: 24px; }
+    .ot-cat-icon.teal svg { color: #0E9F8C; }
+    .ot-cat-icon.blue svg { color: var(--blue); }
+    .ot-cat-icon.navy svg { color: var(--navy); }
+    .ot-cat-card h3 { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .ot-cat-badge {
+      display: inline-block; font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      color: var(--grey); background: var(--light); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2px 8px; margin-bottom: 14px;
+    }
+    .ot-cat-card p { font-size: 14px; line-height: 1.75; color: var(--grey); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       9. AWARD STRUCTURES
+    ══════════════════════════════════════════════════════════════════ */
+    .award-structures { background: var(--light); padding: 96px 0; }
+    .award-structures .head { margin-bottom: 52px; }
+    .award-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .award-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 40px 36px;
+      transition: all .3s; position: relative; overflow: hidden;
+    }
+    .award-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .award-card-num {
+      font-family: var(--font-head); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .award-card-num::before { content: ''; width: 20px; height: 2px; background: var(--accent); border-radius: 2px; }
+    .award-card h3 { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 16px; line-height: 1.25; }
+    .award-card p { font-size: 15px; line-height: 1.75; color: var(--grey); }
+    .award-connector {
+      display: flex; align-items: center; justify-content: center;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 32px; height: 32px;
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 50%; z-index: 2;
+    }
+    .award-connector svg { width: 14px; height: 14px; color: var(--grey); }
+
+    /* ══════════════════════════════════════════════════════════════════
+       10. CONSORTIUM MODEL
+    ══════════════════════════════════════════════════════════════════ */
+    .consortium { background: var(--white); padding: 96px 0; }
+    .consortium .head { max-width: 700px; margin-bottom: 56px; }
+    /* OT in Action highlight */
+    .ot-action-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, #1A5FB4 100%);
+      border-radius: var(--radius-lg); padding: 36px 40px;
+      display: flex; align-items: flex-start; gap: 20px;
+      margin-bottom: 48px; position: relative; overflow: hidden;
+    }
+    .ot-action-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .ot-action-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: rgba(255,255,255,.1); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .ot-action-icon svg { width: 22px; height: 22px; color: var(--accent-lt); }
+    .ot-action-body { position: relative; z-index: 2; }
+    .ot-action-body h4 {
+      font-family: var(--font-head); font-size: 13px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent-lt); margin-bottom: 6px;
+    }
+    .ot-action-body p { font-size: 15px; line-height: 1.72; color: rgba(255,255,255,.72); }
+    /* Consortium body copy */
+    .consortium-body { max-width: 820px; }
+    .consortium-body .prose { font-size: 16px; }
+    /* CMF role list */
+    .cmf-roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+    .cmf-role {
+      background: var(--light); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 18px;
+      display: flex; align-items: flex-start; gap: 12px; transition: all .25s;
+    }
+    .cmf-role:hover { border-color: #C3D9F7; background: var(--sky); }
+    .cmf-role-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 5px; }
+    .cmf-role p { font-size: 13px; line-height: 1.6; color: var(--dark); font-weight: 500; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       11. CURRENT CONSORTIA
+    ══════════════════════════════════════════════════════════════════ */
+    .current-consortia { background: var(--light); padding: 96px 0; }
+    .current-consortia .head { margin-bottom: 48px; }
+    /* Sponsor tabs */
+    .consortia-tabs {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px;
+    }
+    .consortia-tab {
+      padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      border: 1px solid var(--border); background: var(--white);
+      color: var(--grey); cursor: default; transition: all .2s;
+    }
+    .consortia-tab.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    /* Consortia logo wall */
+    .consortia-wall {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+    }
+    .consortia-tile {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px 12px;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      min-height: 64px; font-size: 12px; font-weight: 600;
+      color: var(--navy); line-height: 1.3; transition: all .2s;
+    }
+    .consortia-tile:hover { border-color: #C3D9F7; background: var(--sky); box-shadow: var(--shadow-sm); }
+    .consortia-wall--logos { grid-template-columns: repeat(4, 1fr); }
+    .consortia-tile-img {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 12px;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 88px; transition: all .2s; overflow: hidden;
+    }
+    .consortia-tile-img:hover { border-color: #C3D9F7; box-shadow: var(--shadow-sm); }
+    .consortia-tile-img img { max-width: 100%; max-height: 56px; object-fit: contain; display: block; }
+
+    /* ══════════════════════════════════════════════════════════════════
+       12. OT HISTORY
+    ══════════════════════════════════════════════════════════════════ */
+    .ot-history { background: var(--white); padding: 96px 0; }
+    .ot-history .head { max-width: 720px; margin-bottom: 52px; }
+
+    /* 2×2 milestone cards */
+    .hist-milestone-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 64px;
+    }
+    .hist-milestone-card {
+      background: var(--light); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      border-left: 3px solid var(--accent);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .hist-milestone-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .hist-milestone-era {
+      font-family: var(--font-head); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
+      display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+    }
+    .hist-milestone-era::before { content: ''; width: 20px; height: 2px; background: var(--accent); border-radius: 2px; }
+    .hist-milestone-year {
+      font-family: var(--font-head); font-size: clamp(36px, 3.5vw, 48px);
+      font-weight: 700; color: var(--navy); letter-spacing: -.03em;
+      line-height: 1; margin-bottom: 14px;
+    }
+    .hist-milestone-card p { font-size: 14px; line-height: 1.75; color: var(--grey); }
+    .hist-born-tag {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+      font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--blue); background: var(--sky); border: 1px solid #C3D9F7;
+      border-radius: 100px; padding: 5px 14px;
+    }
+
+    /* Agency authority grid */
+    .hist-agency-section { border-top: 1px solid var(--border); padding-top: 52px; }
+    .hist-agency-lead {
+      font-size: 17px; line-height: 1.75; color: var(--dark);
+      font-weight: 500; margin-bottom: 24px;
+    }
+    .hist-agency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .hist-agency-card {
+      background: var(--light); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 16px; transition: all .2s;
+    }
+    .hist-agency-card:hover { border-color: #C3D9F7; background: var(--sky); box-shadow: var(--shadow-sm); }
+    .hist-agency-abbr {
+      font-family: var(--font-head); font-size: 20px; font-weight: 700;
+      color: var(--navy); margin-bottom: 8px; line-height: 1;
+    }
+    .hist-agency-codes { display: flex; flex-direction: column; gap: 4px; }
+    .hist-code {
+      font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+      color: var(--blue); background: var(--sky); border: 1px solid #C3D9F7;
+      border-radius: 4px; padding: 2px 6px; display: inline-block; width: fit-content;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────────────────── */
+    footer { background: #0A1E3D; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -.02em; margin-bottom: 14px; }
+    .footer-logo span { color: var(--accent-lt); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,.5); transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; font-size: 13px; }
+    .footer-bottom a { color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero .container { grid-template-columns: 1fr; gap: 48px; }
+      .why-ota .container { grid-template-columns: 1fr; gap: 48px; }
+      .hero-stat-row { flex-direction: column; gap: 12px; }
+      .ot-cats-grid { grid-template-columns: 1fr 1fr; }
+      .consortia-wall { grid-template-columns: repeat(4, 1fr); }
+      .consortia-wall--logos { grid-template-columns: repeat(3, 1fr); }
+      .cmf-roles { grid-template-columns: 1fr 1fr; }
+      .hist-agency-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .topbar { display: none; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .qa-cols { grid-template-columns: 1fr; }
+      .elig-grid { grid-template-columns: 1fr; }
+      .ot-cats-grid { grid-template-columns: 1fr; }
+      .award-grid { grid-template-columns: 1fr; }
+      .consortia-wall { grid-template-columns: repeat(3, 1fr); }
+      .consortia-wall--logos { grid-template-columns: repeat(2, 1fr); }
+      .cmf-roles { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .comp-header { grid-template-columns: 1fr; }
+      .hist-milestone-grid { grid-template-columns: 1fr; }
+      .hist-agency-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .consortia-wall { grid-template-columns: repeat(2, 1fr); }
+      .consortia-wall--logos { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .comparison-header { grid-template-columns: 1fr; gap: 8px; }
+      .comp-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TOPBAR ──────────────────────────────────────────────────── -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:matchmaker@govmates.com">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 5.5l7.5 5 7.5-5M2.5 5.5h15v9h-15z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        matchmaker@govmates.com
+      </a>
+      <a href="tel:2028549468">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l2.5 2.5-1.5 3L7 12l3.5 3 3-1.5L16 16l-2 2c-5-1-10-6-11-11l2-4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        (202) 854-9GOV
+      </a>
+    </div>
+  </div>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">gov<span>mates</span></a>
+      <ul class="nav-links">
+        <li><a href="/membership">Membership</a></li>
+        <li><a href="/accelerator">Accelerator</a></li>
+        <li><a href="/collaborate">Collaborate</a></li>
+        <li><a href="/insights">Insights</a></li>
+        <li><a href="/ati">ATI</a></li>
+        <li><a href="/ota">OTA</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 1. HERO                                                        -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="container">
+      <div class="fade-up">
+        <div class="hero-breadcrumb">
+          <a href="/">Home</a>
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2l4 4-4 4"/></svg>
+          <span>OTA</span>
+        </div>
+        <div class="hero-eyebrow">Federal Acquisition · Innovation Contracting</div>
+        <h1>Other Transaction <em>Agreement</em></h1>
+        <p class="hero-desc">A legal agreement with the federal government that is not a cooperative agreement, grant, or standard federal contract — enabling flexible R&amp;D and prototyping partnerships with industry and academia.</p>
+        <div class="hero-stat-row">
+          <div class="hero-stat-pill">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 2l2.4 5.2 5.6.8-4 4 .9 5.5-5-2.7-5 2.7.9-5.5-4-4 5.6-.8z"/></svg>
+            <span>In use since NASA Space Act 1958</span>
+          </div>
+          <div class="hero-stat-pill">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2 8h16"/></svg>
+            <span>Not subject to FAR regulations</span>
+          </div>
+        </div>
+        <a href="#definition" class="btn-hero" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;padding:13px 26px;border-radius:8px;font-size:15px;font-weight:600;transition:all .2s;text-decoration:none;" onmouseover="this.style.background='#5BA4F5'" onmouseout="this.style.background='#2E86DE'">
+          Explore OTA Guide
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="scroll-indicator" style="margin-top:36px">
+          <div class="sl"></div><div class="scroll-dot"></div> Scroll to explore
+        </div>
+      </div>
+      <div class="fade-up" style="transition-delay:.15s">
+        <div class="hero-illus">
+          <div class="hero-illus-inner">
+            <div class="hero-chips">
+              <div class="hchip">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="14" height="10" rx="2"/><path d="M1 7h14"/></svg>
+                Other Transaction Authority
+              </div>
+              <div class="hchip">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 1l2 4 4 .5-3 3 .7 4L8 11l-3.7 1.5.7-4-3-3 4-.5z"/></svg>
+                Non-Traditional Defense Contractors
+              </div>
+              <div class="hchip gold">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12L8 4l5 8H3z"/></svg>
+                $13.5B spent in FY21
+              </div>
+              <div class="hchip">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12zM8 5v3l2 2"/></svg>
+                Research · Prototype · Production OTs
+              </div>
+              <div class="hchip">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/><path d="M5 8h6M8 5v6"/></svg>
+                Consortia Facilitated Awards
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 2. DEFINITION — What is an OTA?                               -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="definition" id="definition">
+    <div class="container">
+      <div class="definition-inner fade-up">
+        <div class="section-divider"></div>
+        <div class="tag">Federal Acquisition</div>
+        <h2 class="section-title">What is an Other Transaction Agreement (OTA)?</h2>
+        <p class="prose">An "Other Transaction Agreement" (OTA) is a legal agreement with the federal government that is not a cooperative agreement, grant, or standard federal contract. OTA contract types have been around since the NASA Space Act Agreement of 1958, but their use is fast growing. Both the number of OT awards granted by the DoD and the dollar amount per award have increased substantially since inception. In short, Government OTAs are legally binding instruments that may be used to engage industry and academia for research and development or prototyping activities.</p>
+        <p class="prose" style="margin-top:22px">More than what they ARE, OTAs are typically better defined as what they are NOT. OTAs are not standard procurement contracts, grants, or cooperative agreements. Therefore, they are not typically subject to FAR regulations YET they are still legal and encouraged.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 3. Q&A — Authority vs Agreement                               -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="qa-section" id="authority">
+    <div class="container">
+      <div class="qa-header fade-up">
+        <div class="tag">Key Concepts</div>
+        <h2 class="section-title">Authority vs. Agreement</h2>
+      </div>
+      <div class="qa-card fade-up" style="transition-delay:.1s">
+        <div class="qa-question">
+          <div class="qa-q-badge">Q</div>
+          <p class="qa-q-text">Authority or Agreement – Which is correct?</p>
+        </div>
+        <div class="qa-answer-badge">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l4 4 6-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          A: Trick question! BOTH are utilized in the OTA Community.
+        </div>
+        <div class="qa-cols">
+          <div class="qa-col">
+            <div class="qa-col-head">
+              <div class="qa-col-dot" style="background:var(--accent)"></div>
+              <h4>Other Transaction AUTHORITY</h4>
+            </div>
+            <p>Refers to the agencies who have the lawful ability to enter into contracts that bring commercial technology solutions to the government to solve federal problems.</p>
+          </div>
+          <div class="qa-col">
+            <div class="qa-col-head">
+              <div class="qa-col-dot" style="background:#0E9F8C"></div>
+              <h4>Other Transaction AGREEMENT</h4>
+            </div>
+            <p>The contract used to identify requirements and stipulations regarding deliverables, IP &amp; Data Rights, etc. that are included within the solutions being delivered.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 4. WHY USE AN OTA — stats + bullets                           -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="why-ota" id="why">
+    <div class="container">
+      <!-- Stats left -->
+      <div class="why-stats fade-up">
+        <div class="why-stats-label">OTA Opportunities by the Numbers</div>
+        <div class="stat-panel stat-panel-primary">
+          <div class="stat-panel-inner">
+            <div class="stat-amount">$13.5B</div>
+            <div class="stat-desc">Total Spent on OTAs in FY21</div>
+          </div>
+        </div>
+        <div class="stat-panel stat-panel-secondary">
+          <div class="stat-panel-inner">
+            <div class="stat-amount">$37B</div>
+            <div class="stat-desc">Total Spent by DoD on OTAs in FY19–21</div>
+          </div>
+        </div>
+      </div>
+      <!-- Bullets right -->
+      <div class="why-content fade-up" style="transition-delay:.15s">
+        <div class="tag">When OTAs Apply</div>
+        <h2 class="section-title">Why Use an Other Transaction?</h2>
+        <div class="why-bullets">
+          <div class="why-bullet">
+            <div class="why-bullet-dot"></div>
+            <p>The customer needs a flexible option to provide commercial-type term contracts to organizations who have innovative solutions (almost exclusively in the R&amp;D space)</p>
+          </div>
+          <div class="why-bullet">
+            <div class="why-bullet-dot"></div>
+            <p>The team is developing and researching processes, prototypes, or technologies for the advancement and testing of the feasibility of a technology</p>
+          </div>
+          <div class="why-bullet">
+            <div class="why-bullet-dot"></div>
+            <p>A non-traditional company has a solution that the federal customer can utilize but needs to circumvent flexible IP rights and to lower the barrier to entry for the non-traditional</p>
+          </div>
+          <div class="why-bullet">
+            <div class="why-bullet-dot"></div>
+            <p>There is an emphasis on trying to attract and recruit innovative, non-traditional companies to participate in government R&amp;D projects</p>
+          </div>
+          <div class="why-bullet">
+            <div class="why-bullet-dot"></div>
+            <p>The customer is looking for a reduction in program costs: streamlined management and processes of OT projects can result in accelerated timelines and reduced administrative cost</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 5. OTA vs FAR                                                 -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="ota-vs-far" id="comparison">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Procurement Comparison</div>
+        <h2 class="section-title">Other Transaction Agreements (OTA) VS Federal Acquisition Regulations (FAR) Contracts</h2>
+        <p class="section-body">What's the Difference?</p>
+      </div>
+      <div class="fade-up" style="transition-delay:.1s">
+        <div class="comparison-header">
+          <div class="comp-col-head ota">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8l4 4 6-7"/></svg>
+            OTA — Other Transaction Agreement
+          </div>
+          <div class="comp-col-head far">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="6"/><path d="M5.5 8h5M8 5.5v5"/></svg>
+            FAR — Federal Acquisition Regulation
+          </div>
+        </div>
+        <div class="comp-rows">
+          <div class="comp-row">
+            <div class="comp-cell ota-cell">OTAs have a $500 Million cap (or require special approval) but are typically less expensive to implement</div>
+            <div class="comp-cell far-cell">FAR contracts are subject to full cost accounting standards and may require more complex administration</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-cell ota-cell">OTAs have a better opportunity for negotiating clauses such as IP &amp; Data Rights for both the customer and the small business</div>
+            <div class="comp-cell far-cell">FAR contract IP &amp; Data Rights are governed by standard clauses with less flexibility for negotiation</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-cell ota-cell">OTAs are more accessible to Non-traditionals and Small Businesses without the strain of the technicalities associated with a FAR-Contract, allowing the government to source solutions from commercial enterprises</div>
+            <div class="comp-cell far-cell">FAR contracts often present barriers to entry for non-traditional companies unfamiliar with procurement compliance requirements</div>
+          </div>
+          <div class="comp-row">
+            <div class="comp-cell ota-cell">OTAs have far more flexibility than FAR Contracts for the government in sourcing innovative solutions</div>
+            <div class="comp-cell far-cell">FAR contracts follow rigid regulatory frameworks designed for traditional procurement processes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 6. ELIGIBILITY — When to Use an OTA                          -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="eligibility" id="eligibility">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Qualification Criteria</div>
+        <h2 class="section-title">When to Use an Other Transaction Agreement (OTA)?</h2>
+        <p class="elig-intro">To be eligible to utilize OT Authority one of the following two criteria must be met:</p>
+      </div>
+      <div class="elig-grid">
+        <div class="elig-card fade-up">
+          <div class="elig-num">01</div>
+          <div class="elig-card-body">
+            <p>The company being awarded is a <strong>NTDC*</strong> (Nontraditional Defense Contractor)</p>
+          </div>
+        </div>
+        <div class="elig-card fade-up" style="transition-delay:.1s">
+          <div class="elig-num">02</div>
+          <div class="elig-card-body">
+            <p>The company being awarded is a <strong>traditional defense contractor</strong> with one of the following additional criteria:</p>
+            <div class="elig-subbullets">
+              <div class="elig-subbullet">One or more non-traditionals and/or nonprofit research institutions are participating to a "significant extent"</div>
+              <div class="elig-subbullet">All participants other than the Federal Government are small businesses (this applies to SBIR/STTR participants as well) or non-traditionals</div>
+              <div class="elig-subbullet">The organization being awarded has a financial or in-kind cost share of at least 1/3. (Noting that in general, the Government does not mandate cost-sharing requirements for specific defense items)</div>
+              <div class="elig-subbullet">The Senior Procurement Executive of the agency provides a written determination that justifies the use of an OTA due to needs set outside the bounds of a FAR-based contract (rarely used, if ever).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 7. LEGAL DEFINITION                                           -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="legal-def" id="legal">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Statutory Reference</div>
+        <h2 class="section-title">Other Transaction AUTHORITY</h2>
+        <p class="section-body">Nontraditional Defense Contractor — Legal Definition</p>
+      </div>
+      <div class="legal-panel fade-up" style="transition-delay:.1s">
+        <div class="legal-panel-header">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h8l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M14 2v4h4M8 13h4M8 9h4"/></svg>
+          <span>10 U.S. Code § 3014 — Statutory Definition</span>
+        </div>
+        <div class="legal-panel-body">
+          <div class="legal-code-ref">10 U.S. Code § 3014</div>
+          <p>*As defined 10 U.S. Code § 3014, a "nontraditional defense contractor" means an entity that is not currently performing and has not performed, for at least the one-year period preceding the solicitation of sources by the Department of Defense for the procurement or transaction, any contract or subcontract for the Department of Defense that is subject to full coverage under the cost accounting standards prescribed pursuant to section 1502 of title 41 and the regulations implementing such section.</p>
+          <p>10 U.S. Code § 3014, a "nontraditional defense contractor" means an entity that is not currently performing and has not performed, for at least the one-year period preceding the solicitation of sources by the Department of Defense for the procurement or transaction, any contract or subcontract for the Department of Defense that is subject to full coverage under the cost accounting standards prescribed pursuant to section 1502 of title 41 and the regulations implementing such section.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 8. OT CATEGORIES                                              -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="ot-categories" id="categories">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Program Types</div>
+        <h2 class="section-title">What are the Types of Other Transactions?</h2>
+        <p class="section-body" style="margin-top:4px">OT Categories</p>
+      </div>
+      <div class="ot-cats-grid">
+        <div class="ot-cat-card research fade-up">
+          <div class="ot-cat-icon teal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
+          </div>
+          <h3>Research OTs</h3>
+          <span class="ot-cat-badge">10 U.S. Code 4021</span>
+          <p>Science and Technology OTs; Funding for applied and advanced research projects. Research OTs apply to basic, applied, and advanced projects in order to continue or develop dual-use technology solutions. They do not provide for follow-on production contracts within the terms of the agreement.</p>
+        </div>
+        <div class="ot-cat-card prototype fade-up" style="transition-delay:.1s">
+          <div class="ot-cat-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <h3>Prototype OTs</h3>
+          <span class="ot-cat-badge">10 U.S. Code 4022</span>
+          <p>Formerly section 845 OTs; Can be follow up from successful Research OTs. They are typically utilized for R&amp;D and prototype activities needed for military challenges. Prototype OTs CAN provide opportunities for direct award follow-on work without the need to engage in the re-compete process.</p>
+        </div>
+        <div class="ot-cat-card production fade-up" style="transition-delay:.2s">
+          <div class="ot-cat-icon navy">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 20h20M4 20V10l8-7 8 7v10"/><path d="M10 20v-6h4v6"/></svg>
+          </div>
+          <h3>Production OTs</h3>
+          <span class="ot-cat-badge">10 U.S. Code 4022 (f) 3</span>
+          <p>Follow up to successful Prototype OTs. As stated above, Production OTs typically can be directly awarded without the need of a re-compete as the Prototype OT has been proven effective and necessary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 9. AWARD STRUCTURES                                           -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="award-structures" id="awards">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Procurement Pathways</div>
+        <h2 class="section-title">Award Structures</h2>
+        <p class="section-body">Two primary pathways for OTA awards — each serving distinct procurement needs and participant structures.</p>
+      </div>
+      <div style="position:relative">
+        <div class="award-grid">
+          <div class="award-card fade-up">
+            <div class="award-card-num">Pathway 01</div>
+            <h3>Direct Awards</h3>
+            <p>Direct Awards are openly competed within the GovCon Industry. The RFP is accessible publicly and can accept proposals from anyone eligible.</p>
+          </div>
+          <div class="award-card fade-up" style="transition-delay:.12s">
+            <div class="award-card-num">Pathway 02</div>
+            <h3>Consortia Facilitated Awards</h3>
+            <p>These awards flow down from Government Customers through the Consortia Management Firms (CMF) to specific consortia that fit the requirements for the technology under the OTA and are available to those consortia members only.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 10. CONSORTIUM MODEL                                          -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="consortium" id="consortium">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Consortium Model</div>
+        <h2 class="section-title">What is the Consortium Model?</h2>
+      </div>
+
+      <!-- OT in Action banner -->
+      <div class="ot-action-banner fade-up" style="transition-delay:.1s">
+        <div class="ot-action-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="ot-action-body">
+          <h4>OT in Action</h4>
+          <p>The Operation Warp Speed Vaccine Prototype was a Consortia Model-Awarded OT used to fund vaccine research and development to quickly and effectively distribute the COVID-19 Vaccines.</p>
+        </div>
+      </div>
+
+      <div class="consortium-body fade-up" style="transition-delay:.15s">
+        <p class="prose">An OTA consortium is an association of industry and academia working with a government sponsor under an OTA vehicle to achieve a common goal. The consortium operates under a common ruleset with a specialization in specific technology areas, designed to minimize barriers to non-traditionals and small businesses. The consortium management firm (CMF) manages the administrative needs and the flow of information to serve as a force multiplier to the government program.</p>
+        <p class="prose">Most CMFs are not-for-profit organizations with expertise in acquisition support. The role of the CMF has evolved from merely supporting government requirements to providing an additional level of compliance and oversight, an ecosystem of resources to its membership, a facilitator of collaboration and SME in alternative acquisition strategy.</p>
+        <div class="cmf-roles">
+          <div class="cmf-role">
+            <div class="cmf-role-dot"></div>
+            <p>Compliance &amp; oversight beyond government requirements</p>
+          </div>
+          <div class="cmf-role">
+            <div class="cmf-role-dot"></div>
+            <p>Ecosystem of resources for membership</p>
+          </div>
+          <div class="cmf-role">
+            <div class="cmf-role-dot"></div>
+            <p>Facilitator of collaboration &amp; SME in alternative acquisition strategy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 11. CURRENT CONSORTIA                                         -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="current-consortia" id="consortia">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Active Programs</div>
+        <h2 class="section-title">What are the Current Consortia?</h2>
+      </div>
+      <div class="consortia-tabs fade-up" style="transition-delay:.08s">
+        <div class="consortia-tab active" data-tab="non-dod">Non-DOD Sponsored</div>
+        <div class="consortia-tab" data-tab="air-force">Air Force Sponsored</div>
+        <div class="consortia-tab" data-tab="osd">OSD Sponsored</div>
+        <div class="consortia-tab" data-tab="navy">Navy Sponsored</div>
+        <div class="consortia-tab" data-tab="army">Army Sponsored</div>
+      </div>
+
+      <!-- Non-DOD Sponsored — logo tiles -->
+      <div class="consortia-wall consortia-wall--logos fade-up" data-wall="non-dod" style="transition-delay:.15s">
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/Corner Stone.png" alt="Corner Stone" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/Countering Weapons of Mass Destruction.png" alt="Countering Weapons of Mass Destruction" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/Defense Electronics Consortium.png" alt="Defense Electronics Consortium" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/DoD Ordnance Technology Consortium.png" alt="DoD Ordnance Technology Consortium" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/National Spectrum Consortium.png" alt="National Spectrum Consortium" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/University Consortium for Applied Hypersonics.png" alt="University Consortium for Applied Hypersonics" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/Vertical Lift Consortium.png" alt="Vertical Lift Consortium" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/SOSSEC.png" alt="SOSSEC" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/HSTech Consortium.png" alt="HSTech Consortium" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/Medical CBRN Defense Consortium.png" alt="Medical CBRN Defense Consortium" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/BioMaP.png" alt="BioMaP" /></div>
+        <div class="consortia-tile-img"><img src="../Images/What are the Current Consortiaota/RRPV.png" alt="RRPV" /></div>
+      </div>
+
+      <!-- Air Force Sponsored -->
+      <div class="consortia-wall fade-up" data-wall="air-force" style="display:none;transition-delay:.15s">
+        <div class="consortia-tile">Space Enterprise Consortium</div>
+        <div class="consortia-tile">SOSSEC SCCI</div>
+        <div class="consortia-tile">SOSSEC AFLCMC PCI</div>
+        <div class="consortia-tile">SOSSEC AFRL OSAI</div>
+        <div class="consortia-tile">AFRL OTAFI</div>
+        <div class="consortia-tile">SOSSEC AFLCMC Consortium Initiative</div>
+        <div class="consortia-tile">TREX</div>
+      </div>
+
+      <!-- OSD Sponsored -->
+      <div class="consortia-wall fade-up" data-wall="osd" style="display:none;transition-delay:.15s">
+        <div class="consortia-tile">SOSSEC COBRA</div>
+        <div class="consortia-tile">SOSSEC ERDC</div>
+      </div>
+
+      <!-- Navy Sponsored -->
+      <div class="consortia-wall fade-up" data-wall="navy" style="display:none;transition-delay:.15s">
+        <div class="consortia-tile">SCEC</div>
+        <div class="consortia-tile">NAMC</div>
+        <div class="consortia-tile">MTEC</div>
+        <div class="consortia-tile">DATC</div>
+        <div class="consortia-tile">CEED</div>
+        <div class="consortia-tile">C5</div>
+        <div class="consortia-tile">AMTC</div>
+      </div>
+
+      <!-- Army Sponsored -->
+      <div class="consortia-wall fade-up" data-wall="army" style="display:none;transition-delay:.15s">
+        <div class="consortia-tile">NSTIC</div>
+        <div class="consortia-tile">IWRP</div>
+        <div class="consortia-tile">S2Marts Research</div>
+        <div class="consortia-tile">S2Marts</div>
+        <div class="consortia-tile">NASC</div>
+        <div class="consortia-tile">MSTIC</div>
+        <div class="consortia-tile">UTIC</div>
+        <div class="consortia-tile">emc2</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <!-- 12. OT HISTORY                                                -->
+  <!-- ══════════════════════════════════════════════════════════════ -->
+  <section class="ot-history" id="history">
+    <div class="container">
+
+      <div class="head fade-up">
+        <div class="section-divider"></div>
+        <div class="tag">Historical Context</div>
+        <h2 class="section-title">What is the History of Other Transactions?</h2>
+      </div>
+
+      <!-- Milestone cards -->
+      <div class="hist-milestone-grid">
+
+        <div class="hist-milestone-card fade-up">
+          <div class="hist-milestone-era">Origin</div>
+          <div class="hist-milestone-year">1958</div>
+          <p>The National Aeronautics and Space Act was created by Congress to develop a national space program. NASA was granted broad authority to enter into contracts, leases, cooperative agreements, or <em>other transactions</em> as may be necessary to accomplish its mission.</p>
+          <div class="hist-born-tag">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1l2 4 4 .5-3 3 .7 4L8 11l-3.7 1.5.7-4-3-3 4-.5z"/></svg>
+            Thus, the OTA was born!
+          </div>
+        </div>
+
+        <div class="hist-milestone-card fade-up" style="transition-delay:.08s">
+          <div class="hist-milestone-era">DARPA Authority</div>
+          <div class="hist-milestone-year">1989</div>
+          <p>The Defense Advanced Research Project Agency (DARPA) was first granted its authority for advanced research projects in 1989, with expanded prototype authority following by 1993.</p>
+        </div>
+
+        <div class="hist-milestone-card fade-up" style="transition-delay:.14s">
+          <div class="hist-milestone-era">DoD-Wide Expansion</div>
+          <div class="hist-milestone-year">1996</div>
+          <p>The rest of the DoD received authority with Section 845 of FY94 NDAA, with subsequent modifications adding follow-on production authority, a pilot program for follow-on contracting for the production of commercial items, and more.</p>
+        </div>
+
+        <div class="hist-milestone-card fade-up" style="transition-delay:.2s">
+          <div class="hist-milestone-era">Permanent Codification</div>
+          <div class="hist-milestone-year">2015</div>
+          <p>An important milestone for OTs — the permanent codification of OTs in 10 U.S. Code 2371b, now re-named 10 U.S. Code 4022.</p>
+        </div>
+
+      </div>
+
+      <!-- Agency authority reference -->
+      <div class="hist-agency-section fade-up">
+        <p class="hist-agency-lead">At present, 11 agencies have OT authority to date:</p>
+        <div class="hist-agency-grid">
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">ARPA-E</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">42 U.S.C. § 16538</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">DHS</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">6 U.S.C. § 391</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">DNDO</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">6 U.S.C. § 596</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">DOD</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">10 U.S.C. § 4021</span>
+              <span class="hist-code">10 U.S.C. § 4022</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">DOE</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">42 U.S.C. § 7256</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">DOT</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">49 U.S.C. § 5312</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">FAA</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">49 U.S.C. § 106(l)</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">HHS</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">42 U.S.C. § 247-7e</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">NASA</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">51 U.S.C. § 20113(e)</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">NIH</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">42 U.S.C. § 285b-3</span>
+              <span class="hist-code">42 U.S.C. § 284n</span>
+              <span class="hist-code">42 U.S.C. § 287a</span>
+            </div>
+          </div>
+
+          <div class="hist-agency-card">
+            <div class="hist-agency-abbr">TSA</div>
+            <div class="hist-agency-codes">
+              <span class="hist-code">49 U.S.C. § 114(m)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">gov<span>mates</span></div>
+          <p>A technology scouting platform merging best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="/membership">Membership</a></li>
+            <li><a href="/accelerator">Accelerator</a></li>
+            <li><a href="/collaborate">Collaborate</a></li>
+            <li><a href="/insights">Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/ati">ATI</a></li>
+            <li><a href="/ota">OTA</a></li>
+            <li><a href="mailto:matchmaker@govmates.com">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>@ govmates llc 2026. All Rights Reserved.</span>
+        <span>
+          <a href="mailto:matchmaker@govmates.com">matchmaker@govmates.com</a>
+          &nbsp;·&nbsp;
+          <a href="tel:2028549468">(202) 854-9GOV</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 20); }, { passive: true });
+
+    // Fade-up observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.style.display === 'flex';
+      navLinks.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#fff;padding:16px 20px;border-bottom:1px solid #DDE3EE;box-shadow:0 4px 16px rgba(11,37,69,.1);gap:4px;z-index:99;';
+    });
+
+    // Consortia tab switching
+    document.querySelectorAll('.consortia-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.consortia-tab').forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        var wall = tab.dataset.tab;
+        document.querySelectorAll('.consortia-wall').forEach(function (w) {
+          w.style.display = w.dataset.wall === wall ? 'grid' : 'none';
+        });
+      });
+    });
+
+    // Active nav – highlight the link matching the current URL path
+    (function () {
+      const path = window.location.pathname.replace(/\/$/, '') || '/';
+      document.querySelectorAll('.nav-links a').forEach(function (a) {
+        if (a.getAttribute('href').replace(/\/$/, '') === path) {
+          a.classList.add('nav-active');
+        }
+      });
+    }());
+  </script>
+</body>
+</html>

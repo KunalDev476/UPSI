@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collaborate — Engage &amp; Network | govmates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #0B2545;
+      --navy-light: #133A6B;
+      --blue:       #1A5FB4;
+      --accent:     #2E86DE;
+      --accent-lt:  #5BA4F5;
+      --sky:        #EBF4FF;
+      --light:      #F6F8FC;
+      --border:     #DDE3EE;
+      --grey:       #64748B;
+      --dark:       #1E293B;
+      --white:      #FFFFFF;
+      --shadow-sm:  0 1px 3px rgba(11,37,69,.08), 0 1px 2px rgba(11,37,69,.06);
+      --shadow-md:  0 4px 16px rgba(11,37,69,.10), 0 2px 6px rgba(11,37,69,.06);
+      --shadow-lg:  0 12px 40px rgba(11,37,69,.14), 0 4px 12px rgba(11,37,69,.08);
+      --radius:     12px;
+      --radius-lg:  20px;
+      --container:  1200px;
+      --font-head:  'Space Grotesk', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── UTILITIES ────────────────────────────────────────────────── */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--sky);
+      border: 1px solid #C3D9F7;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .section-divider {
+      width: 36px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-lt));
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--grey);
+      max-width: 640px;
+    }
+
+    /* ─── FADE-IN ANIMATION ────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── TOPBAR ───────────────────────────────────────────────────── */
+    .topbar {
+      background: var(--navy);
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 0;
+    }
+    .topbar .container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 24px;
+    }
+    .topbar a { display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .topbar a:hover { color: var(--white); }
+    .topbar svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ─── NAVBAR ───────────────────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(221,227,238,.6);
+      transition: background .3s, box-shadow .3s;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,.98);
+      box-shadow: var(--shadow-sm);
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 24px;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -.02em;
+      flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: all .2s;
+    }
+    .nav-links a:hover { color: var(--blue); background: var(--sky); }
+    .nav-links a.nav-cta {
+      background: var(--blue);
+      color: var(--white);
+      font-weight: 600;
+      padding: 8px 18px;
+    }
+    .nav-links a.nav-cta:hover { background: var(--navy-light); color: var(--white); }
+    .nav-links a.nav-active { color: var(--blue); background: var(--sky); font-weight: 600; }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav-hamburger span {
+      width: 22px; height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--navy);
+      overflow: hidden;
+      padding: 88px 0 80px;
+      display: flex;
+      align-items: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -20%; right: -8%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(46,134,222,.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 2px;
+      background: var(--accent-lt);
+      border-radius: 2px;
+    }
+    .hero-breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: rgba(255,255,255,.45); margin-bottom: 20px;
+    }
+    .hero-breadcrumb a { color: rgba(255,255,255,.45); transition: color .2s; }
+    .hero-breadcrumb a:hover { color: var(--accent-lt); }
+    .hero-breadcrumb svg { width: 10px; height: 10px; opacity: .5; }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 4.5vw, 60px);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--white);
+      letter-spacing: -.02em;
+      margin-bottom: 22px;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent-lt); }
+    .hero-desc {
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.68);
+      max-width: 460px;
+      margin-bottom: 36px;
+    }
+    .hero-pills {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,.72);
+      transition: all .2s;
+    }
+    .hero-pill:hover { background: rgba(46,134,222,.18); border-color: rgba(91,164,245,.4); color: var(--white); }
+    .hero-pill svg { width: 13px; height: 13px; color: var(--accent-lt); }
+
+    /* Right side — network graphic */
+    .hero-graphic {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-graphic-bg {
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1;
+      position: relative;
+    }
+    /* SVG network constellation */
+    .network-svg { width: 100%; height: 100%; }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      color: rgba(255,255,255,.32); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      z-index: 2;
+      animation: scrollBob 2.4s ease-in-out infinite;
+    }
+    .scroll-indicator svg { width: 18px; height: 18px; }
+    @keyframes scrollBob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── STATS BAND ───────────────────────────────────────────────── */
+    .stats-band {
+      background: var(--light);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .stats-band .container {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; flex-wrap: wrap;
+    }
+    .stat-item {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0 48px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 32px; font-weight: 700;
+      color: var(--navy); letter-spacing: -.02em;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--grey); margin-top: 2px;
+    }
+
+    /* ─── UPCOMING EVENTS ──────────────────────────────────────────── */
+    .events-section {
+      padding: 96px 0;
+      background: var(--white);
+    }
+    .events-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
+    .events-col {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Event card */
+    .event-card {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all .25s;
+      position: relative;
+    }
+    .event-card::before {
+      content: '';
+      position: absolute; left: 96px; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-lt));
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .event-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: rgba(46,134,222,.3);
+    }
+    .event-card:hover::before { opacity: 1; }
+
+    /* Date badge */
+    .event-date-badge {
+      background: var(--navy);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2px;
+      padding: 24px 12px;
+      flex-shrink: 0;
+    }
+    .event-date-month {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-lt);
+    }
+    .event-date-day {
+      font-family: var(--font-head);
+      font-size: 32px; font-weight: 700;
+      line-height: 1; color: var(--white);
+      letter-spacing: -.02em;
+    }
+    .event-date-year {
+      font-size: 11px; color: rgba(255,255,255,.4);
+      font-weight: 500;
+    }
+
+    /* Event body */
+    .event-body {
+      padding: 24px 28px 24px 32px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .event-meta {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .event-meta-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500;
+      color: var(--grey); letter-spacing: .02em;
+    }
+    .event-meta-item svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--accent); }
+    .event-type-tag {
+      display: inline-flex; align-items: center;
+      background: var(--sky);
+      border: 1px solid #C3D9F7;
+      border-radius: 100px;
+      padding: 2px 10px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--blue);
+    }
+    .event-type-tag.matchmaking { background: #EBF9F6; border-color: #A7E8DE; color: #0E9F8C; }
+    .event-type-tag.education   { background: #FFF7EB; border-color: #F5D9A8; color: #B45309; }
+    .event-type-tag.networking  { background: #F5F3FF; border-color: #DDD6FE; color: #6D28D9; }
+    .event-title {
+      font-family: var(--font-head);
+      font-size: 18px; font-weight: 700;
+      color: var(--navy); line-height: 1.3;
+    }
+    .event-subtitle {
+      font-size: 13px; font-weight: 700;
+      color: var(--accent); letter-spacing: .01em;
+      margin-bottom: -4px;
+    }
+    .event-desc {
+      font-size: 14px; line-height: 1.65;
+      color: var(--grey);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .event-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 4px; flex-wrap: wrap; gap: 10px;
+    }
+    .event-views {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 12px; color: var(--grey);
+    }
+    .event-views svg { width: 13px; height: 13px; }
+    .event-register {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 13px; font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: all .2s;
+    }
+    .event-register:hover { background: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .event-register svg { width: 12px; height: 12px; }
+
+    /* Ticket badge */
+    .event-ticket {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; color: var(--grey); font-weight: 500;
+    }
+    .event-ticket svg { width: 13px; height: 13px; color: var(--accent); }
+
+    /* ─── MATCHMAKING SECTION ──────────────────────────────────────── */
+    .matchmaking-section {
+      background: var(--light);
+      padding: 96px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .matchmaking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .matchmaking-left {}
+    .matchmaking-left .section-body { margin-bottom: 36px; }
+    .matchmaking-intro {
+      font-size: 14px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 20px;
+    }
+    .feature-list {
+      display: flex; flex-direction: column; gap: 0;
+      counter-reset: feat;
+    }
+    .feature-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: all .2s;
+      counter-increment: feat;
+    }
+    .feature-item:last-child { border-bottom: none; }
+    .feature-item:hover .feature-num { background: var(--blue); color: var(--white); }
+    .feature-num {
+      width: 32px; height: 32px; flex-shrink: 0;
+      background: var(--sky);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-size: 13px; font-weight: 700;
+      color: var(--blue);
+      transition: all .2s; margin-top: 1px;
+    }
+    .feature-text {
+      font-size: 15px; font-weight: 500;
+      color: var(--dark); line-height: 1.5;
+      padding-top: 5px;
+    }
+
+    /* Right illustration panel */
+    .matchmaking-right {
+      position: relative;
+    }
+    .matchmaking-panel {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 52px 44px;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .matchmaking-panel::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(46,134,222,.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .matchmaking-panel::after {
+      content: '';
+      position: absolute; bottom: -40px; left: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(14,159,140,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .matchmaking-panel-inner { position: relative; z-index: 2; }
+    .mp-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-lt); margin-bottom: 28px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mp-eyebrow::before {
+      content: ''; width: 18px; height: 2px;
+      background: var(--accent-lt); border-radius: 2px;
+    }
+    .mp-stat {
+      margin-bottom: 28px; padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .mp-stat:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .mp-num {
+      font-family: var(--font-head);
+      font-size: 40px; font-weight: 700;
+      color: var(--white); letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .mp-num span { color: var(--accent-lt); }
+    .mp-desc {
+      font-size: 14px; color: rgba(255,255,255,.5);
+      margin-top: 6px; line-height: 1.55;
+    }
+
+    /* ─── FEATURES GRID ────────────────────────────────────────────── */
+    .features-section {
+      padding: 96px 0;
+      background: var(--white);
+    }
+    .features-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-lt));
+      opacity: 0; transition: opacity .25s;
+    }
+    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: rgba(46,134,222,.25); }
+    .feature-card:hover::after { opacity: 1; }
+    .feature-card-icon {
+      width: 52px; height: 52px;
+      background: var(--sky);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      transition: background .25s;
+    }
+    .feature-card:hover .feature-card-icon { background: var(--blue); }
+    .feature-card-icon svg { width: 24px; height: 24px; color: var(--blue); transition: color .25s; }
+    .feature-card:hover .feature-card-icon svg { color: var(--white); }
+    .feature-card h3 {
+      font-family: var(--font-head);
+      font-size: 16px; font-weight: 700;
+      color: var(--navy); line-height: 1.3;
+    }
+
+    /* ─── VALLEY OF DEATH ──────────────────────────────────────────── */
+    .valley-section {
+      background: var(--light);
+      padding: 96px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .valley-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .valley-sidebar {
+      position: sticky; top: 100px;
+    }
+    .valley-sidebar .section-body { margin-bottom: 0; }
+    .valley-content {
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .valley-block {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      transition: box-shadow .2s;
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .valley-block:hover { box-shadow: var(--shadow-sm); }
+    .valley-block-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--sky);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .valley-block-icon svg { width: 20px; height: 20px; color: var(--blue); }
+    .valley-block-body {}
+    .valley-block-title {
+      font-family: var(--font-head);
+      font-size: 15px; font-weight: 700;
+      color: var(--navy); margin-bottom: 8px;
+    }
+    .valley-block-text {
+      font-size: 14px; line-height: 1.7;
+      color: var(--grey);
+    }
+
+    /* ─── PAST EVENTS ──────────────────────────────────────────────── */
+    .past-events-section {
+      padding: 96px 0;
+      background: var(--white);
+    }
+    .past-events-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+    .past-events-col {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Past event card — compact */
+    .past-event-card {
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 0;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all .2s;
+      opacity: .92;
+    }
+    .past-event-card:hover {
+      opacity: 1;
+      border-color: rgba(46,134,222,.2);
+      box-shadow: var(--shadow-sm);
+    }
+    .past-date-badge {
+      background: var(--light);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1px;
+      padding: 16px 8px;
+    }
+    .past-date-month {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--grey);
+    }
+    .past-date-day {
+      font-family: var(--font-head);
+      font-size: 22px; font-weight: 700;
+      line-height: 1; color: var(--navy);
+    }
+    .past-date-year {
+      font-size: 10px; color: var(--grey); font-weight: 500;
+    }
+    .past-event-body {
+      padding: 16px 22px;
+      display: flex; flex-direction: column;
+      justify-content: center; gap: 4px;
+    }
+    .past-event-title {
+      font-family: var(--font-head);
+      font-size: 15px; font-weight: 700;
+      color: var(--navy); line-height: 1.3;
+    }
+    .past-event-subtitle {
+      font-size: 12px; font-weight: 600;
+      color: var(--accent); margin-bottom: 2px;
+    }
+    .past-event-meta {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .past-event-meta span {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 12px; color: var(--grey);
+    }
+    .past-event-meta svg { width: 12px; height: 12px; color: var(--grey); }
+    .past-event-status {
+      padding: 16px 20px;
+      display: flex; align-items: center;
+    }
+    .closed-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #FEF2F2; border: 1px solid #FECACA;
+      border-radius: 6px; padding: 5px 10px;
+      font-size: 11px; font-weight: 600;
+      color: #DC2626; white-space: nowrap;
+    }
+    .closed-badge svg { width: 11px; height: 11px; }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────── */
+    footer { background: #0A1E3D; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-logo {
+      font-family: var(--font-head);
+      font-size: 22px; font-weight: 700;
+      color: var(--white); letter-spacing: -.02em; margin-bottom: 14px;
+    }
+    .footer-logo span { color: var(--accent-lt); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 {
+      font-family: var(--font-head);
+      font-size: 13px; font-weight: 600;
+      color: var(--white); letter-spacing: .08em;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,.5); transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 28px; font-size: 13px;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero .container { grid-template-columns: 1fr; gap: 48px; }
+      .hero { padding: 72px 0 64px; }
+      .hero-graphic { display: none; }
+      .matchmaking-grid { grid-template-columns: 1fr; gap: 48px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .valley-grid { grid-template-columns: 1fr; gap: 40px; }
+      .valley-sidebar { position: static; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .topbar { display: none; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .event-card { grid-template-columns: 80px 1fr; }
+      .event-date-day { font-size: 26px; }
+      .past-event-card { grid-template-columns: 60px 1fr; }
+      .past-event-status { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .stat-item { padding: 0 24px; }
+    }
+    @media (max-width: 480px) {
+      .event-card { grid-template-columns: 70px 1fr; }
+      .event-body { padding: 18px 16px 18px 20px; }
+      .event-title { font-size: 16px; }
+      .stats-band .container { gap: 0; }
+      .stat-item { padding: 12px 16px; border-right: none; border-bottom: 1px solid var(--border); width: 50%; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TOPBAR ──────────────────────────────────────────────────── -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:matchmaker@govmates.com">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 5.5l7.5 5 7.5-5M2.5 5.5h15v9h-15z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        matchmaker@govmates.com
+      </a>
+      <a href="tel:2028549468">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l2.5 2.5-1.5 3L7 12l3.5 3 3-1.5L16 16l-2 2c-5-1-10-6-11-11l2-4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        (202) 854-9GOV
+      </a>
+    </div>
+  </div>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">gov<span>mates</span></a>
+      <ul class="nav-links">
+        <li><a href="/membership">Membership</a></li>
+        <li><a href="/accelerator">Accelerator</a></li>
+        <li><a href="/collaborate">Collaborate</a></li>
+        <li><a href="/insights">Insights</a></li>
+        <li><a href="/ati">ATI</a></li>
+        <li><a href="/ota">OTA</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 1. HERO — ENGAGE & NETWORK                                       -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="container">
+
+      <!-- Left -->
+      <div class="fade-up">
+        <div class="hero-breadcrumb">
+          <a href="/">Home</a>
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2l4 4-4 4"/></svg>
+          <span>Collaborate</span>
+        </div>
+        <div class="hero-eyebrow">Engage &amp; Network</div>
+        <h1>Live <em>Collaboration</em> Hub</h1>
+        <p class="hero-desc">Connect with government agencies, large primes, and innovative defense contractors at govmates matchmaking events — virtual and in-person.</p>
+        <div class="hero-pills">
+          <div class="hero-pill">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+            Upcoming Events
+          </div>
+          <div class="hero-pill">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 20H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2z"/><path d="M13 2v4M7 2v4M3 10h14"/></svg>
+            2026 Calendar
+          </div>
+          <div class="hero-pill">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+            Virtual &amp; In-Person
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — network illustration -->
+      <div class="hero-graphic fade-up" style="transition-delay:.2s">
+        <div class="hero-graphic-bg">
+          <svg class="network-svg" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Connection lines -->
+            <line x1="230" y1="230" x2="100" y2="130" stroke="rgba(91,164,245,.18)" stroke-width="1.5"/>
+            <line x1="230" y1="230" x2="360" y2="130" stroke="rgba(91,164,245,.18)" stroke-width="1.5"/>
+            <line x1="230" y1="230" x2="80"  y2="310" stroke="rgba(91,164,245,.18)" stroke-width="1.5"/>
+            <line x1="230" y1="230" x2="380" y2="310" stroke="rgba(91,164,245,.18)" stroke-width="1.5"/>
+            <line x1="230" y1="230" x2="230" y2="70"  stroke="rgba(91,164,245,.18)" stroke-width="1.5"/>
+            <line x1="230" y1="230" x2="160" y2="380" stroke="rgba(91,164,245,.12)" stroke-width="1.5"/>
+            <line x1="230" y1="230" x2="310" y2="370" stroke="rgba(91,164,245,.12)" stroke-width="1.5"/>
+            <!-- Secondary connections -->
+            <line x1="100" y1="130" x2="230" y2="70"  stroke="rgba(91,164,245,.1)" stroke-width="1"/>
+            <line x1="360" y1="130" x2="230" y2="70"  stroke="rgba(91,164,245,.1)" stroke-width="1"/>
+            <line x1="80"  y1="310" x2="160" y2="380" stroke="rgba(91,164,245,.1)" stroke-width="1"/>
+            <line x1="380" y1="310" x2="310" y2="370" stroke="rgba(91,164,245,.1)" stroke-width="1"/>
+            <line x1="100" y1="130" x2="80"  y2="310" stroke="rgba(91,164,245,.08)" stroke-width="1"/>
+            <line x1="360" y1="130" x2="380" y2="310" stroke="rgba(91,164,245,.08)" stroke-width="1"/>
+            <!-- Center hub -->
+            <circle cx="230" cy="230" r="38" fill="rgba(46,134,222,.15)" stroke="rgba(46,134,222,.4)" stroke-width="1.5"/>
+            <circle cx="230" cy="230" r="24" fill="rgba(46,134,222,.25)" stroke="rgba(91,164,245,.6)" stroke-width="1.5"/>
+            <circle cx="230" cy="230" r="10" fill="rgba(91,164,245,.9)"/>
+            <!-- Outer nodes -->
+            <circle cx="100" cy="130" r="18" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="100" cy="130" r="8"  fill="rgba(91,164,245,.7)"/>
+            <circle cx="360" cy="130" r="22" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="360" cy="130" r="10" fill="rgba(91,164,245,.7)"/>
+            <circle cx="80"  cy="310" r="16" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="80"  cy="310" r="7"  fill="rgba(91,164,245,.7)"/>
+            <circle cx="380" cy="310" r="20" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="380" cy="310" r="9"  fill="rgba(91,164,245,.7)"/>
+            <circle cx="230" cy="70"  r="16" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="230" cy="70"  r="7"  fill="rgba(91,164,245,.7)"/>
+            <circle cx="160" cy="380" r="13" fill="rgba(46,134,222,.1)" stroke="rgba(46,134,222,.25)" stroke-width="1"/>
+            <circle cx="160" cy="380" r="6"  fill="rgba(91,164,245,.5)"/>
+            <circle cx="310" cy="370" r="14" fill="rgba(46,134,222,.1)" stroke="rgba(46,134,222,.25)" stroke-width="1"/>
+            <circle cx="310" cy="370" r="6"  fill="rgba(91,164,245,.5)"/>
+            <!-- Pulse rings -->
+            <circle cx="230" cy="230" r="55" fill="none" stroke="rgba(46,134,222,.08)" stroke-width="1" stroke-dasharray="4 4"/>
+            <circle cx="230" cy="230" r="80" fill="none" stroke="rgba(46,134,222,.05)" stroke-width="1" stroke-dasharray="3 6"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- ─── STATS BAND ────────────────────────────────────────────── -->
+  <div class="stats-band">
+    <div class="container">
+      <div class="stat-item">
+        <div class="stat-num">10<span>+</span></div>
+        <div class="stat-label">Events in 2026</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1×1</div>
+        <div class="stat-label">Matchmaking Sessions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">Virtual <span>&amp;</span> Live</div>
+        <div class="stat-label">Event Formats</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span>#</span>NotYourMothers</div>
+        <div class="stat-label">Matchmaking</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 2. UPCOMING EVENTS                                               -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="events-section" id="events">
+    <div class="container">
+
+      <div class="events-header fade-up">
+        <div class="section-divider" style="margin: 0 auto 20px"></div>
+        <div class="tag">Engage &amp; Network</div>
+        <h2 class="section-title">Collaborate</h2>
+      </div>
+
+      <div class="events-col">
+
+        <!-- EVENT 1 -->
+        <article class="event-card fade-up">
+          <div class="event-date-badge">
+            <span class="event-date-month">Apr</span>
+            <span class="event-date-day">20</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag matchmaking">Matchmaking</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Monday, April 20, 2026 &nbsp;·&nbsp; 2:00pm – 4:00pm ET
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Gaylord National Harbor
+              </span>
+            </div>
+            <div class="event-title">govmates Sea Air Space Matchmaking 2026</div>
+            <div class="event-desc">Attending Navy's Sea Air Space conference at the Gaylord National Harbor? Join us for matchmaking on Monday, April 20 from 2–4pm ET. You must be registered for the Sea Air Space conference to participate in matchmaking.</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                343 people viewed this event
+              </span>
+              <a href="https://govmates.com/event/govmates-sas-mm-2026/" class="event-register" target="_blank" rel="noopener">
+                Register for matchmaking
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 2 -->
+        <article class="event-card fade-up" style="transition-delay:.06s">
+          <div class="event-date-badge">
+            <span class="event-date-month">Apr</span>
+            <span class="event-date-day">21</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag education">Education</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Tuesday, April 21, 2026
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+            </div>
+            <div class="event-subtitle">ATI Education</div>
+            <div class="event-title">Scaling in the OTA Space</div>
+            <div class="event-desc">Scaling in the OTA Space: Growth Paths for Small and Nontraditional Contractors. Focus: Moving from single-project wins to sustained growth. Key Takeaways: Leveraging OTA work for follow-on production contracts · Building past performance credibility for federal bids · Funding growth—cash flow strategies for fast-moving OTA awards.</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,411 people viewed this event
+              </span>
+              <a href="https://us02web.zoom.us/webinar/register/WN_Nznpst0QRja45qN26_z_qQ" class="event-register" target="_blank" rel="noopener">
+                Register Here
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 3 -->
+        <article class="event-card fade-up" style="transition-delay:.1s">
+          <div class="event-date-badge">
+            <span class="event-date-month">May</span>
+            <span class="event-date-day">13</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag matchmaking">Matchmaking</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Wednesday, May 13, 2026 &nbsp;·&nbsp; 1:00pm – 3:00pm ET
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Gaylord National Harbor
+              </span>
+              <span class="event-ticket">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h14M3 13h14M7 3v14M13 3v14"/></svg>
+                CWMD MCDC Matchmaking 2026 — $0.00
+              </span>
+            </div>
+            <div class="event-title">CWMD MCDC Matchmaking 2026</div>
+            <div class="event-desc">Attending the CWMD MCDC Membership Meeting on May 12–13? Join us for matchmaking! You must be registered for the membership meeting to participate in matchmaking.</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                470 people viewed this event
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 4 -->
+        <article class="event-card fade-up" style="transition-delay:.13s">
+          <div class="event-date-badge">
+            <span class="event-date-month">May</span>
+            <span class="event-date-day">20</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag matchmaking">Matchmaking</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Wednesday, May 20, 2026 &nbsp;·&nbsp; 9:30am – 11:30am ET
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Marriott Water Street — Level 2 — Grand Ballroom
+              </span>
+              <span class="event-ticket">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h14M3 13h14M7 3v14M13 3v14"/></svg>
+                SOF Week Industry Matchmaking 2026 — $0.00
+              </span>
+            </div>
+            <div class="event-title">SOF Week Industry Matchmaking 2026</div>
+            <div class="event-desc">Join us for SOF Week Industry Matchmaking in Tampa, FL. You must be registered to attend SOF Week in order to participate in matchmaking.</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                2,425 people viewed this event
+              </span>
+              <a href="https://govmates.com/event/sofweek2026mm/" class="event-register" target="_blank" rel="noopener">
+                Register for matchmaking
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 5 -->
+        <article class="event-card fade-up" style="transition-delay:.16s">
+          <div class="event-date-badge">
+            <span class="event-date-month">Jun</span>
+            <span class="event-date-day">03</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag networking">Networking</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Wednesday, June 03, 2026 &nbsp;·&nbsp; 5:30pm – 7:30pm
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Tysons, VA
+              </span>
+            </div>
+            <div class="event-title">Prime Another Day Networking</div>
+            <div class="event-desc">govmates members (government contractors) only! Join us for our fifth annual Prime Another Day networking event with fellow members and teaming partners. We'll bring the drinks and food – you bring the business cards and get ready to mingle! We'll also be joined by representatives from large defense primes and integrators. Cost: $25</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,259 people viewed this event
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 6 -->
+        <article class="event-card fade-up" style="transition-delay:.18s">
+          <div class="event-date-badge">
+            <span class="event-date-month">Jun</span>
+            <span class="event-date-day">09</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag education">Education</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Tuesday, June 09, 2026
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+            </div>
+            <div class="event-subtitle">ATI Education</div>
+            <div class="event-title">Maximizing Consortia Membership Benefits</div>
+            <div class="event-desc">ATI offers a suite of member benefits as part of a consortia membership. In this webinar we will discuss how to best utilize these benefits including: Which consortia do I join? · How do I collaborate? · What are the tools at my disposal? · What collaboration opportunities are there? …and more!</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,369 people viewed this event
+              </span>
+              <a href="https://us02web.zoom.us/webinar/register/WN_D5sZwnJeRxmWnk55ig6i1Q" class="event-register" target="_blank" rel="noopener">
+                Register Here
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 7 -->
+        <article class="event-card fade-up" style="transition-delay:.2s">
+          <div class="event-date-badge">
+            <span class="event-date-month">Aug</span>
+            <span class="event-date-day">18</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag education">Education</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Tuesday, August 18, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+            </div>
+            <div class="event-subtitle">ATI Education</div>
+            <div class="event-title">Mastering the OTA Pitch</div>
+            <div class="event-desc">Mastering the OTA Pitch: Communicating Innovation to Federal Decision Makers. As the expert in your field, you hold the keys to strategic innovation. Join ATI and govmates as we explore the art of crafting winning technical and business narratives that resonate with program managers and evaluators.</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,410 people viewed this event
+              </span>
+              <a href="https://us02web.zoom.us/webinar/register/WN_9nziLY43QzOllrP3VG-NKg" class="event-register" target="_blank" rel="noopener">
+                Register Here
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 8 -->
+        <article class="event-card fade-up" style="transition-delay:.22s">
+          <div class="event-date-badge">
+            <span class="event-date-month">Sep</span>
+            <span class="event-date-day">15</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag education">Education</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Tuesday, September 15, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+            </div>
+            <div class="event-subtitle">ATI Education</div>
+            <div class="event-title">The OTA Advantage</div>
+            <div class="event-desc">The OTA Advantage: Turning Flexibility Into Competitive Edge. OTAs stand proudly by their characteristics of speed and flexibility. Join govmates and ATI as we talk about how to leverage the unique benefits of OTAs—speed, flexibility, and innovation—to outmaneuver traditional contractors.</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,412 people viewed this event
+              </span>
+              <a href="https://us02web.zoom.us/webinar/register/WN_CJ6DWLHVSXqwwO2e2vltxw" class="event-register" target="_blank" rel="noopener">
+                Register Here
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 9 -->
+        <article class="event-card fade-up" style="transition-delay:.24s">
+          <div class="event-date-badge">
+            <span class="event-date-month">Sep</span>
+            <span class="event-date-day">30</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag networking">Networking</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Wednesday, September 30, 2026 &nbsp;·&nbsp; 5:30pm – 7:30pm
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Womble Bond Dickinson Office, Tysons, VA
+              </span>
+            </div>
+            <div class="event-title">Fiscal Year End Fiesta</div>
+            <div class="event-desc">govmates members (government contractors) only! Join us for our Fifth Annual Fiscal Year End Fiesta networking event with fellow members and teaming partners. We'll bring the drinks and food – you bring the business cards and get ready to mingle! We'll also be joined by representatives from large defense primes and integrators. Location: Womble Bond Dickinson Office, 8350 Broad Street #Ste 1500 Tysons, VA 22102. Cost: $25. Register Here: TBD</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,262 people viewed this event
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- EVENT 10 -->
+        <article class="event-card fade-up" style="transition-delay:.26s">
+          <div class="event-date-badge">
+            <span class="event-date-month">Dec</span>
+            <span class="event-date-day">02</span>
+            <span class="event-date-year">2026</span>
+          </div>
+          <div class="event-body">
+            <div class="event-meta">
+              <span class="event-type-tag networking">Networking</span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Wednesday, December 02, 2026 &nbsp;·&nbsp; 5:30pm – 7:30pm
+              </span>
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Tysons, VA
+              </span>
+            </div>
+            <div class="event-title">Holiday Bash</div>
+            <div class="event-desc">govmates members (government contractors) only! Join us for our fourth annual Holiday Bash, an evening of networking with fellow members and teaming partners. We'll bring the drinks and food – you bring the business cards and get ready to mingle! We'll also be joined by representatives from large defense primes and integrators. Cost: $25</div>
+            <div class="event-footer">
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,369 people viewed this event
+              </span>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /.events-col -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 3. MATCHMAKING EVENTS                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="matchmaking-section" id="matchmaking">
+    <div class="container">
+      <div class="matchmaking-grid">
+
+        <!-- Left -->
+        <div class="fade-up">
+          <div class="section-divider"></div>
+          <div class="tag">Matchmaking Events</div>
+          <h2 class="section-title">Matchmaking Events</h2>
+          <p class="section-body">govmates provides both virtual and in-person matchmaking sessions that are focused on results. Our matchmaking platform enables government agencies and large primes to connect 1×1 with non-traditional defense contractors in support of small business outreach, market research, sources sought and supplier diversity initiatives. We've incorporated elements of human-centered design to build a platform that meets your outreach needs in both a virtual and physical environment.</p>
+
+          <p class="matchmaking-intro" style="margin-top:36px">What govmates can do for your matchmaking event:</p>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-num">1</div>
+              <div class="feature-text">Custom Conference Matchmaking Website</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-num">2</div>
+              <div class="feature-text">Project Management of Matchmaking Process</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-num">3</div>
+              <div class="feature-text">Detailed Profiles of Small Business Participants</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-num">4</div>
+              <div class="feature-text">Marketing and Social Media Promotion of Conference</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-num">5</div>
+              <div class="feature-text">Formulaic and Methodical Matchmaking Using Relevance Scoring</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-num">6</div>
+              <div class="feature-text">Scheduling Tool to Efficiently Calendar Meetings</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right — dark panel -->
+        <div class="matchmaking-right fade-up" style="transition-delay:.18s">
+          <div class="matchmaking-panel">
+            <div class="matchmaking-panel-inner">
+              <div class="mp-eyebrow">Platform Capability</div>
+              <div class="mp-stat">
+                <div class="mp-num">1<span>×</span>1</div>
+                <div class="mp-desc">Direct matchmaking sessions between government agencies, large primes, and non-traditional defense contractors.</div>
+              </div>
+              <div class="mp-stat">
+                <div class="mp-num">Virtual <span>&</span> Live</div>
+                <div class="mp-desc">Hybrid event infrastructure supporting both physical and remote participation with equal fidelity.</div>
+              </div>
+              <div class="mp-stat">
+                <div class="mp-num" style="font-size:28px">Human-<span>Centered</span></div>
+                <div class="mp-desc">Human-centered design principles baked into every touchpoint of the matchmaking platform.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 4. WHAT GOVMATES CAN DO — FEATURE GRID                          -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="features-section">
+    <div class="container">
+      <div class="features-header fade-up">
+        <div class="section-divider" style="margin: 0 auto 20px"></div>
+        <div class="tag">Platform Capabilities</div>
+        <h2 class="section-title" style="text-align:center">What govmates can do for your matchmaking event</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card fade-up">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>Custom Conference Matchmaking Website</h3>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay:.06s">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3>Project Management of Matchmaking Process</h3>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay:.1s">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Detailed Profiles of Small Business Participants</h3>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay:.13s">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 4s-3 5-8 5-8-5-8-5"/><path d="M6 12a6 6 0 1 0 12 0"/><path d="M12 12v8M9 19h6"/></svg>
+          </div>
+          <h3>Marketing and Social Media Promotion of Conference</h3>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay:.16s">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+          </div>
+          <h3>Formulaic and Methodical Matchmaking Using Relevance Scoring</h3>
+        </div>
+        <div class="feature-card fade-up" style="transition-delay:.2s">
+          <div class="feature-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+          </div>
+          <h3>Scheduling Tool to Efficiently Calendar Meetings</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 5. VALLEY OF DEATH COMBAT                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="valley-section" id="valley">
+    <div class="container">
+      <div class="valley-grid">
+
+        <!-- Left sidebar -->
+        <div class="valley-sidebar fade-up">
+          <div class="section-divider"></div>
+          <div class="tag">Advisory Resources</div>
+          <h2 class="section-title">Valley of Death Combat</h2>
+          <p class="section-body">Securing the supply chain is an issue of national security. We understand the requirements and challenges faced by non-traditionals. Our resources enable small businesses to work with the government in a safe, compliant manner.</p>
+        </div>
+
+        <!-- Right content blocks -->
+        <div class="valley-content">
+
+          <div class="valley-block fade-up">
+            <div class="valley-block-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="valley-block-body">
+              <div class="valley-block-title">Compliance &amp; Regulatory Support</div>
+              <div class="valley-block-text">While OTAs don't have the oversight of the FAR, we want you to grow and scale your company so that you can compete in a FAR-based world. We have access to former DCAA auditors, CPAs, CFOs, Price to Win SMEs, Contracts SMEs, and even HR and Recruiting services. We also have ISO, FedRamp and CMMI support. We have resources that can help you obtain and maintain compliance with the rules and regulations of the industry.</div>
+            </div>
+          </div>
+
+          <div class="valley-block fade-up" style="transition-delay:.08s">
+            <div class="valley-block-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="valley-block-body">
+              <div class="valley-block-title">Intellectual Property Rights</div>
+              <div class="valley-block-text">Intellectual Property (IP) rights are critical for innovative technologists. OTA's allow for enhanced IP protection, and we have built a bench of legal experts prepared to support our membership.</div>
+            </div>
+          </div>
+
+          <div class="valley-block fade-up" style="transition-delay:.14s">
+            <div class="valley-block-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="valley-block-body">
+              <div class="valley-block-title">Capital Access &amp; Financing</div>
+              <div class="valley-block-text">We understand that capital is the lifeblood of a business. Our deep knowledge of the financial markets coupled with an unparalleled rolodex of capital providers means our members can always count on access to a multitude of capital sources – from venture capital to off-balance sheet structures to acquisition financing.</div>
+            </div>
+          </div>
+
+          <div class="valley-block fade-up" style="transition-delay:.2s">
+            <div class="valley-block-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div class="valley-block-body">
+              <div class="valley-block-title">Mergers &amp; Acquisitions Advisory</div>
+              <div class="valley-block-text">As innovators that are building cutting-edge technologies, we appreciate the value our membership can bring to the federal and commercial sectors. We work with the best advisors in the industry who have represented both buy- and sell-side engagements in the Mergers &amp; Acquisitions world.</div>
+            </div>
+          </div>
+
+          <div class="valley-block fade-up" style="transition-delay:.26s">
+            <div class="valley-block-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="valley-block-body">
+              <div class="valley-block-title">Small Business Growth Resources</div>
+              <div class="valley-block-text">We understand the needs of growing small businesses. From pursuing new work (proposal support, recruiting), to contract mobilization (human capital, benefits) to resource planning (risk management, SCIF space, and more), we have resources that small businesses need to thrive.</div>
+            </div>
+          </div>
+
+        </div><!-- /.valley-content -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 6. PAST EVENTS                                                   -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="past-events-section" id="past-events">
+    <div class="container">
+
+      <div class="past-events-header fade-up">
+        <div class="section-divider" style="margin: 0 auto 20px"></div>
+        <div class="tag">Archive</div>
+        <h2 class="section-title">Past Events</h2>
+      </div>
+
+      <div class="past-events-col">
+
+        <!-- PAST EVENT 1 -->
+        <article class="past-event-card fade-up">
+          <div class="past-date-badge">
+            <span class="past-date-month">Mar</span>
+            <span class="past-date-day">05</span>
+            <span class="past-date-year">2026</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-title">SECAF Matchmaking Event 2026</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Thursday, March 05, 2026 &nbsp;·&nbsp; 1:00pm – 3:00pm ET
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                2,404 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">Save the date for Virtual SECAF Matchmaking. Ticket: SECAF Virtual Matchmaking Event — $0.00</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 2 -->
+        <article class="past-event-card fade-up" style="transition-delay:.05s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Mar</span>
+            <span class="past-date-day">03</span>
+            <span class="past-date-year">2026</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-subtitle">ATI Education</div>
+            <div class="past-event-title">Cracking the OTA Code</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Tuesday, March 03, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,393 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">Proven Strategies to Win Your First (or Next) OTA Award. Focus: Practical, step-by-step guidance for identifying OTA opportunities, crafting competitive proposals, and positioning your business for selection.</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 3 -->
+        <article class="past-event-card fade-up" style="transition-delay:.08s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Feb</span>
+            <span class="past-date-day">26</span>
+            <span class="past-date-year">2026</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-title">BioMaP-Consortium Matchmaking Event</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Thursday, February 26, 2026 &nbsp;·&nbsp; 11:00am – 1:00pm ET
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Crystal Gateway Marriott, Arlington, VA
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,719 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">Join us for matchmaking at the BioMaP-Consortium General Membership Meeting in Arlington, VA. In order to participate, you must be registered for the General Membership Meeting. Ticket: BioMap Matchmaking Event — $0.00</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 4 -->
+        <article class="past-event-card fade-up" style="transition-delay:.1s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Feb</span>
+            <span class="past-date-day">24</span>
+            <span class="past-date-year">2026</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-title">Rocket City Rendezvous</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Tuesday, February 24, 2026 &nbsp;·&nbsp; 5:00pm – 7:00pm CT
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                200 Davis Circle, Huntsville, AL
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                5,068 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">Join govmates at the Womble Bond Dickinson office in Huntsville, AL for a govcon exclusive networking event. Tickets: $25.00. Government Contractors only.</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 5 -->
+        <article class="past-event-card fade-up" style="transition-delay:.12s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Jan</span>
+            <span class="past-date-day">20</span>
+            <span class="past-date-year">2026</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-subtitle">ATI Education</div>
+            <div class="past-event-title">Building High-Impact Teams</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Tuesday, January 20, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,273 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">From Partner to Powerhouse: Building High-Impact Teams in the OTA Ecosystem. Best practices for identifying capability gaps, negotiating teaming agreements, and IP considerations in OTAs.</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 6 -->
+        <article class="past-event-card fade-up" style="transition-delay:.14s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Dec</span>
+            <span class="past-date-day">03</span>
+            <span class="past-date-year">2025</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-title">Holiday Bash Networking Event</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Wednesday, December 03, 2025 &nbsp;·&nbsp; 5:30pm – 7:30pm
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                McLean
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                11,065 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">govmates members (government contractors) only! Third annual Holiday Bash — evening of networking with fellow members and teaming partners. Cost: $25. Location: 1676 International Drive, Penthouse.</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 7 -->
+        <article class="past-event-card fade-up" style="transition-delay:.16s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Oct</span>
+            <span class="past-date-day">23</span>
+            <span class="past-date-year">2025</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-title">MAC2025: Midwest Aerospace Conference</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Thursday, October 23, 2025 &nbsp;·&nbsp; 3:00pm – 5:00pm CT
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Embassy Suites, Rockford, IL
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                5,439 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">Interested in matchmaking? You must first register for the Midwest Aerospace Conference. Ticket: MAC 2025 Matchmaking — $0.00</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 8 -->
+        <article class="past-event-card fade-up" style="transition-delay:.18s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Oct</span>
+            <span class="past-date-day">13</span>
+            <span class="past-date-year">2025</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-title">govmates Matchmaking at AUSA</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Monday, October 13, 2025 &nbsp;·&nbsp; 2:00pm – 4:00pm ET
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Room 209B, Walter E. Washington Convention Center
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                9,366 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">Attending AUSA? Register for industry matchmaking here.</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 9 -->
+        <article class="past-event-card fade-up" style="transition-delay:.2s">
+          <div class="past-date-badge">
+            <span class="past-date-month">Sep</span>
+            <span class="past-date-day">10</span>
+            <span class="past-date-year">2025</span>
+          </div>
+          <div class="past-event-body">
+            <div class="past-event-title">Fiscal Year End Fiesta Networking</div>
+            <div class="past-event-meta">
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                Wednesday, September 10, 2025 &nbsp;·&nbsp; 5:30pm – 7:30pm
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Womble Bond Dickinson Office, Tysons, VA
+              </span>
+              <span>
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                10,792 views
+              </span>
+            </div>
+            <div style="font-size:13px;color:var(--grey);margin-top:4px;line-height:1.55">govmates members (government contractors) only! Fourth Annual Fiscal Year End Fiesta networking event. Womble Bond Dickinson Office, 8350 Broad Street #Ste 1500 Tysons, VA 22102. Cost: $25.</div>
+          </div>
+          <div class="past-event-status">
+            <span class="closed-badge">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
+              Registrations have closed
+            </span>
+          </div>
+        </article>
+
+      </div><!-- /.past-events-col -->
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">gov<span>mates</span></div>
+          <p>A technology scouting platform merging best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="/membership">Membership</a></li>
+            <li><a href="/accelerator">Accelerator</a></li>
+            <li><a href="/collaborate">Collaborate</a></li>
+            <li><a href="/insights">Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/ati">ATI</a></li>
+            <li><a href="/ota">OTA</a></li>
+            <li><a href="mailto:matchmaker@govmates.com">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>@ govmates llc 2026. All Rights Reserved.</span>
+        <span><a href="mailto:matchmaker@govmates.com">matchmaker@govmates.com</a> &nbsp;·&nbsp; <a href="tel:2028549468">(202) 854-9GOV</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JS ─────────────────────────────────────────────────────── -->
+  <script>
+    // Navbar scroll
+    (function () {
+      const nav = document.getElementById('navbar');
+      const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+
+    // Fade-up observer
+    (function () {
+      const els = document.querySelectorAll('.fade-up');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      els.forEach(el => io.observe(el));
+    })();
+
+    // Active nav – highlight the link matching the current URL path
+    (function () {
+      const path = window.location.pathname.replace(/\/$/, '') || '/';
+      document.querySelectorAll('.nav-links a').forEach(function (a) {
+        if (a.getAttribute('href').replace(/\/$/, '') === path) {
+          a.classList.add('nav-active');
+        }
+      });
+    }());
+  </script>
+
+</body>
+</html>

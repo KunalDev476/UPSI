@@ -1,2610 +1,1542 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UPSI Complete Revision Sheet 2026</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>govmates — We Do Things Differently.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #0B2545;
+      --navy-light: #133A6B;
+      --blue:       #1A5FB4;
+      --accent:     #2E86DE;
+      --accent-lt:  #5BA4F5;
+      --sky:        #EBF4FF;
+      --light:      #F6F8FC;
+      --border:     #DDE3EE;
+      --grey:       #64748B;
+      --dark:       #1E293B;
+      --white:      #FFFFFF;
+      --shadow-sm:  0 1px 3px rgba(11,37,69,.08), 0 1px 2px rgba(11,37,69,.06);
+      --shadow-md:  0 4px 16px rgba(11,37,69,.10), 0 2px 6px rgba(11,37,69,.06);
+      --shadow-lg:  0 12px 40px rgba(11,37,69,.14), 0 4px 12px rgba(11,37,69,.08);
+      --radius:     12px;
+      --radius-lg:  20px;
+      --container:  1200px;
+      --font-head:  'Space Grotesk', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
 
-:root {
-  --ink: #0F172A;
-  --ink2: #1E293B;
-  --ink3: #334155;
-  --muted: #64748B;
-  --border: #E2E8F0;
-  --surface: #F8FAFC;
-  --white: #FFFFFF;
+    /* ─── UTILITIES ────────────────────────────────────────────────── */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--sky);
+      border: 1px solid #C3D9F7;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .2s ease;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue);
+    }
+    .btn-primary:hover { background: var(--navy-light); border-color: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline {
+      background: transparent;
+      color: var(--navy);
+      border-color: var(--border);
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); background: var(--sky); }
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--grey);
+      max-width: 640px;
+    }
 
-  --fire: #EF4444;
-  --fire-bg: #FEF2F2;
-  --fire-border: #FECACA;
+    /* ─── FADE-IN ANIMATION ────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-  --hindi-h: #B45309;
-  --hindi: #D97706;
-  --hindi-bg: #FFFBEB;
-  --hindi-border: #FDE68A;
-  --hindi-dark: #92400E;
+    /* ─── TOPBAR ───────────────────────────────────────────────────── */
+    .topbar {
+      background: var(--navy);
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 0;
+    }
+    .topbar .container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 24px;
+    }
+    .topbar a { display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .topbar a:hover { color: var(--white); }
+    .topbar svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-  --reason-h: #065F46;
-  --reason: #059669;
-  --reason-bg: #F0FDF4;
-  --reason-border: #A7F3D0;
-  --reason-dark: #064E3B;
+    /* ─── NAVBAR ───────────────────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(221,227,238,.6);
+      transition: background .3s, box-shadow .3s;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,.98);
+      box-shadow: var(--shadow-sm);
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 24px;
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -.02em;
+      flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: all .2s;
+    }
+    .nav-links a:hover { color: var(--blue); background: var(--sky); }
+    .nav-links a.nav-cta {
+      background: var(--blue);
+      color: var(--white);
+      font-weight: 600;
+      padding: 8px 18px;
+    }
+    .nav-links a.nav-cta:hover { background: var(--navy-light); color: var(--white); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav-hamburger span {
+      width: 22px; height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all .3s;
+    }
 
-  --math-h: #1D4ED8;
-  --math: #2563EB;
-  --math-bg: #EFF6FF;
-  --math-border: #BFDBFE;
-  --math-dark: #1E3A8A;
+    /* ─── HERO ─────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--navy);
+      overflow: hidden;
+      padding: 100px 0 80px;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+    }
+    /* Grid background pattern */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    /* Radial glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(46,134,222,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-left {}
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 2px;
+      background: var(--accent-lt);
+      border-radius: 2px;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 700;
+      line-height: 1.08;
+      color: var(--white);
+      letter-spacing: -.02em;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent-lt);
+    }
+    .hero-tagline {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      margin-bottom: 28px;
+    }
+    .hero-desc {
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.72);
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-hero-primary {
+      background: var(--accent);
+      color: var(--white);
+      border: 2px solid var(--accent);
+      padding: 13px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .btn-hero-primary:hover { background: var(--accent-lt); border-color: var(--accent-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,134,222,.35); }
+    .btn-hero-outline {
+      background: transparent;
+      color: rgba(255,255,255,.85);
+      border: 2px solid rgba(255,255,255,.25);
+      padding: 13px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .btn-hero-outline:hover { border-color: rgba(255,255,255,.6); color: var(--white); background: rgba(255,255,255,.06); }
 
-  --trick: #7C3AED;
-  --trick-bg: #F5F3FF;
-  --trick-border: #DDD6FE;
+    /* Stats grid */
+    .hero-right {}
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: all .3s;
+      backdrop-filter: blur(8px);
+    }
+    .stat-card:hover {
+      background: rgba(255,255,255,.1);
+      border-color: rgba(46,134,222,.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.2);
+    }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.02em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-num span { color: var(--accent-lt); }
+    .stat-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,.55);
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .stat-icon {
+      width: 36px; height: 36px;
+      background: rgba(46,134,222,.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .stat-icon svg { width: 18px; height: 18px; color: var(--accent-lt); }
 
-  --example: #0891B2;
-  --example-bg: #ECFEFF;
-  --example-border: #A5F3FC;
+    /* ─── ABOUT BAND ───────────────────────────────────────────────── */
+    .about-band {
+      background: var(--white);
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-band .container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-left {}
+    .about-right .section-body { max-width: 100%; font-size: 18px; color: var(--dark); }
 
-  --gold: #B45309;
-  --gold-bg: #FFFBEB;
-}
+    /* ─── WHAT WE DO ───────────────────────────────────────────────── */
+    .what-we-do {
+      background: var(--light);
+      padding: 96px 0;
+    }
+    .what-we-do .inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .what-we-do .section-body { max-width: 100%; margin: 0 auto 40px; text-align: left; }
+    .features-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+      text-align: left;
+    }
+    .trio-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      transition: all .3s;
+    }
+    .trio-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #C3D9F7; }
+    .trio-icon {
+      width: 48px; height: 48px;
+      background: var(--sky);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .trio-icon svg { width: 24px; height: 24px; color: var(--blue); }
+    .trio-card h3 {
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .trio-card p { font-size: 14px; line-height: 1.7; color: var(--grey); }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ─── APPROACH / PILLARS ───────────────────────────────────────── */
+    .approach {
+      background: var(--white);
+      padding: 96px 0;
+    }
+    .approach .head { margin-bottom: 64px; }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .pillar {
+      padding: 36px 32px;
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background .25s;
+    }
+    .pillar:nth-child(3n) { border-right: none; }
+    .pillar:nth-child(4), .pillar:nth-child(5), .pillar:nth-child(6) { border-bottom: none; }
+    .pillar:hover { background: var(--sky); }
+    .pillar-num {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .pillar h3 {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    .pillar p { font-size: 14px; line-height: 1.7; color: var(--grey); }
 
-body {
-  font-family: 'Sora', 'Noto Sans Devanagari', sans-serif;
-  background: #F1F5F9;
-  color: var(--ink);
-  font-size: 14px;
-  line-height: 1.65;
-}
+    /* ─── FEATURE SECTIONS ─────────────────────────────────────────── */
+    .feature {
+      padding: 96px 0;
+    }
+    .feature:nth-child(even) { background: var(--light); }
+    .feature .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .feature.reverse .container { direction: rtl; }
+    .feature.reverse .feature-content { direction: ltr; }
+    .feature.reverse .feature-visual { direction: ltr; }
+    .feature-content {}
+    .feature-content .section-body { max-width: 100%; }
+    .feature-visual {
+      position: relative;
+    }
+    .visual-box {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--blue) 100%);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .visual-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .visual-box-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px;
+    }
+    .visual-box-inner svg { width: 64px; height: 64px; color: rgba(255,255,255,.2); margin: 0 auto 16px; }
+    .visual-box-inner span {
+      display: block;
+      font-size: 13px;
+      color: rgba(255,255,255,.35);
+      font-weight: 500;
+      letter-spacing: .04em;
+    }
+    .visual-badge {
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .visual-badge-num {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .visual-badge-label { font-size: 12px; color: var(--grey); font-weight: 500; }
 
-/* ── PAGE WRAPPER ── */
-.page { max-width: 1080px; margin: 0 auto; padding: 28px 20px 60px; }
+    /* ─── ENTERPRISE TRUST ─────────────────────────────────────────── */
+    .enterprise {
+      background: var(--navy);
+      padding: 96px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .enterprise::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(46,134,222,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,134,222,.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .enterprise .container { position: relative; z-index: 2; }
+    .enterprise .section-title { color: var(--white); }
+    .enterprise .section-body { color: rgba(255,255,255,.65); max-width: 600px; }
+    .enterprise-box {
+      margin-top: 48px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .enterprise-box p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.72);
+    }
+    .enterprise-highlights { display: flex; flex-direction: column; gap: 16px; }
+    .enterprise-highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+    }
+    .enterprise-highlight svg { width: 20px; height: 20px; color: var(--accent-lt); flex-shrink: 0; margin-top: 2px; }
+    .enterprise-highlight span { font-size: 14px; color: rgba(255,255,255,.72); line-height: 1.5; font-weight: 500; }
 
-/* ── MASTHEAD ── */
-.masthead {
-  background: var(--ink);
-  color: white;
-  border-radius: 16px;
-  padding: 32px 36px;
-  margin-bottom: 28px;
-  position: relative;
-  overflow: hidden;
-}
-.masthead::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 10% 50%, rgba(234,179,8,0.12) 0%, transparent 50%),
-    radial-gradient(circle at 90% 20%, rgba(59,130,246,0.1) 0%, transparent 45%),
-    radial-gradient(circle at 70% 80%, rgba(16,185,129,0.08) 0%, transparent 40%);
-}
-.masthead-inner { position: relative; }
-.mast-eyebrow {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(234,179,8,0.15);
-  border: 1px solid rgba(234,179,8,0.3);
-  color: #FCD34D;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase;
-  padding: 4px 12px; border-radius: 20px;
-  margin-bottom: 14px;
-}
-.masthead h1 { font-size: 32px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
-.masthead h1 em { color: #FCD34D; font-style: normal; }
-.masthead p { color: #94A3B8; font-size: 13px; margin-bottom: 20px; }
-.mast-pills { display: flex; gap: 10px; flex-wrap: wrap; }
-.mast-pill {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 8px; padding: 7px 16px;
-  font-size: 12px; color: #CBD5E1;
-  display: flex; flex-direction: column; align-items: center;
-}
-.mast-pill b { font-size: 17px; color: white; }
+    /* ─── TEAM ─────────────────────────────────────────────────────── */
+    .team {
+      background: var(--white);
+      padding: 96px 0;
+    }
+    .team .head { margin-bottom: 56px; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .team-card {
+      text-align: center;
+      padding: 40px 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: all .3s;
+    }
+    .team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #C3D9F7; }
+    .team-avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      border: 3px solid var(--border);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--blue), var(--navy));
+    }
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .team-card h3 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .team-card p { font-size: 14px; color: var(--grey); font-weight: 500; }
 
-/* ── NAV TABS ── */
-.nav-tabs {
-  display: flex; gap: 8px; margin-bottom: 28px;
-  background: white; padding: 6px; border-radius: 12px;
-  border: 1px solid var(--border);
-}
-.tab-btn {
-  flex: 1; padding: 10px 8px;
-  background: none; border: none;
-  border-radius: 8px; cursor: pointer;
-  font-family: 'Sora', sans-serif;
-  font-size: 13px; font-weight: 600;
-  color: var(--muted); transition: all .2s;
-}
-.tab-btn.active { background: var(--ink); color: white; }
-.tab-btn:not(.active):hover { background: var(--surface); color: var(--ink); }
-@keyframes pulse-tab { 0%,100%{opacity:1;} 50%{opacity:.75;} }
+    /* ─── AMBASSADORS SLIDER ────────────────────────────────────────── */
+    .ambassadors {
+      background: var(--light);
+      padding: 96px 0;
+    }
+    .ambassadors .head { margin-bottom: 48px; }
 
-/* ── PANELS ── */
-.panel { display: none; }
-.panel.active { display: block; }
+    /* Slider wrapper */
+    .amb-slider-wrap { position: relative; }
+    .amb-slider {
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+    }
+    .amb-track {
+      display: flex;
+      transition: transform .45s cubic-bezier(.4,0,.2,1);
+    }
+    /* Each slide holds exactly 3 cards */
+    .amb-slide {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      min-width: 100%;
+      padding: 4px 2px 8px;
+    }
+    .ambassador-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: all .25s;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ambassador-card:hover { border-color: #C3D9F7; box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .amb-card-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      overflow: hidden;
+      background: var(--sky);
+      flex-shrink: 0;
+      margin-bottom: 10px;
+    }
+    .amb-card-icon img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .ambassador-card .amb-name {
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.35;
+    }
+    .ambassador-card .amb-org {
+      font-size: 13px;
+      color: var(--grey);
+      font-weight: 500;
+    }
 
-/* ── SUBJECT BANNER ── */
-.subject-banner {
-  border-radius: 12px 12px 0 0;
-  padding: 18px 24px;
-  display: flex; align-items: center; gap: 14px;
-  color: white;
-  margin-bottom: 0;
-}
-.subject-banner.hindi { background: linear-gradient(135deg, #92400E, #B45309 60%, #D97706); }
-.subject-banner.reason { background: linear-gradient(135deg, #064E3B, #065F46 60%, #059669); }
-.subject-banner.maths { background: linear-gradient(135deg, #1E3A8A, #1D4ED8 60%, #3B82F6); }
-.banner-icon { font-size: 28px; }
-.banner-text h2 { font-size: 21px; font-weight: 800; }
-.banner-text p { font-size: 12px; opacity: .8; }
-.banner-score {
-  margin-left: auto;
-  background: rgba(255,255,255,.15);
-  border: 1px solid rgba(255,255,255,.25);
-  border-radius: 8px; padding: 6px 16px;
-  text-align: center; font-size: 12px;
-}
-.banner-score b { display: block; font-size: 20px; }
+    /* Controls */
+    .amb-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .amb-btn {
+      width: 42px; height: 42px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+    .amb-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .amb-btn svg { width: 18px; height: 18px; }
+    .amb-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .amb-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all .25s;
+      border: none;
+      padding: 0;
+    }
+    .amb-dot.active {
+      background: var(--blue);
+      width: 24px;
+      border-radius: 4px;
+    }
 
-/* ── TOPIC CARD ── */
-.topic-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-top: none;
-  border-radius: 0;
-  padding: 0;
-  overflow: hidden;
-}
-.topic-card:last-of-type { border-radius: 0 0 12px 12px; }
+    /* ─── HASHTAG BANNER ───────────────────────────────────────────── */
+    .hashtag-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, #1A3F6F 40%, var(--blue) 100%);
+      padding: 64px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hashtag-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .hashtag-banner h2 {
+      position: relative;
+      font-family: var(--font-head);
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.01em;
+    }
+    .hashtag-banner h2 span { color: var(--accent-lt); }
 
-.topic-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 14px 20px;
-  cursor: pointer;
-  user-select: none;
-  transition: background .15s;
-  border-bottom: 1px solid var(--border);
-}
-.topic-header:hover { background: var(--surface); }
+    /* ─── CONTACT ──────────────────────────────────────────────────── */
+    .contact {
+      background: var(--white);
+      padding: 96px 0;
+    }
+    .contact .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .contact-left {}
+    .contact-left .section-body { max-width: 100%; margin-bottom: 32px; }
+    .contact-right {}
+    .contact-card {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+    .contact-card h3 {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-item:last-of-type { border-bottom: none; }
+    .contact-item-icon {
+      width: 40px; height: 40px;
+      background: var(--sky);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-item-icon svg { width: 18px; height: 18px; color: var(--blue); }
+    .contact-item-text a, .contact-item-text span {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+      transition: color .2s;
+    }
+    .contact-item-text a:hover { color: var(--blue); }
+    .contact-item-text .ci-label { font-size: 11px; color: var(--grey); display: block; margin-bottom: 2px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+    .social-row { display: flex; gap: 10px; margin-top: 24px; }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      background: var(--white);
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .social-btn svg { width: 16px; height: 16px; }
+    .social-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--sky); }
 
-.topic-num {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; flex-shrink: 0;
-  color: white;
-}
-.hindi .topic-num { background: var(--hindi); }
-.reason .topic-num { background: var(--reason); }
-.maths .topic-num { background: var(--math); }
+    /* ─── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      background: #0A1E3D;
+      color: rgba(255,255,255,.55);
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-brand {}
+    .footer-logo {
+      font-family: var(--font-head);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.02em;
+      margin-bottom: 14px;
+    }
+    .footer-logo span { color: var(--accent-lt); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 {
+      font-family: var(--font-head);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      font-size: 14px;
+      color: rgba(255,255,255,.5);
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      font-size: 13px;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-bottom a:hover { color: var(--white); }
 
-.topic-name { font-weight: 700; font-size: 14px; flex: 1; }
-.topic-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.tag {
-  font-size: 10px; font-weight: 700; letter-spacing: .5px;
-  padding: 2px 8px; border-radius: 20px;
-}
-.tag-fire { background: var(--fire-bg); color: var(--fire); border: 1px solid var(--fire-border); }
-.tag-q { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
-.chevron { font-size: 12px; color: var(--muted); transition: transform .2s; }
-.topic-header.open .chevron { transform: rotate(90deg); }
+    /* ─── DIVIDER ──────────────────────────────────────────────────── */
+    .section-divider {
+      width: 56px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-lt));
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
 
-.topic-body {
-  display: none;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border);
-  background: #FAFBFC;
-}
-.topic-body.open { display: block; }
-
-/* ── BODY SECTIONS ── */
-.body-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
-.body-row.three { grid-template-columns: 1fr 1fr 1fr; }
-@media(max-width: 650px) {
-  .body-row, .body-row.three { grid-template-columns: 1fr; }
-}
-
-.mini-card {
-  border-radius: 8px; padding: 14px 16px;
-  border: 1px solid;
-}
-
-/* concept */
-.mini-card.concept {
-  background: var(--surface);
-  border-color: var(--border);
-}
-.mini-card.concept .mc-title { color: var(--ink3); }
-
-/* formula */
-.mini-card.formula {
-  background: var(--ink);
-  border-color: var(--ink2);
-  color: #E2E8F0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-}
-.mini-card.formula .mc-title { color: #FCD34D; font-family: 'Sora', sans-serif; font-size: 11px; }
-.f-line { background: rgba(255,255,255,.06); border-radius: 4px; padding: 5px 8px; margin-bottom: 4px; }
-.f-line:last-child { margin-bottom: 0; }
-
-/* trick */
-.mini-card.trick {
-  background: var(--trick-bg);
-  border-color: var(--trick-border);
-}
-.mini-card.trick .mc-title { color: var(--trick); }
-
-/* example */
-.mini-card.example {
-  background: var(--example-bg);
-  border-color: var(--example-border);
-}
-.mini-card.example .mc-title { color: var(--example); }
-
-.mc-title {
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 1.5px; margin-bottom: 8px;
-  display: flex; align-items: center; gap: 6px;
-}
-.mc-text { font-size: 13px; line-height: 1.7; }
-.mc-text ul { padding-left: 16px; }
-.mc-text li { margin-bottom: 4px; }
-.mc-text li::marker { color: var(--muted); }
-.mc-text strong { color: var(--ink); }
-
-.q-stem { color: var(--ink2); margin-bottom: 8px; font-size: 13px; }
-.q-options { font-size: 12px; color: var(--ink3); margin-bottom: 8px; }
-.q-ans {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: #DCFCE7; color: #166534;
-  border: 1px solid #BBF7D0;
-  border-radius: 6px; padding: 4px 10px;
-  font-size: 12px; font-weight: 600;
-}
-
-/* key points as horizontal pills */
-.key-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-.kp {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 12px;
-  color: var(--ink2);
-}
-
-/* ── RAPID REVISION ── */
-.rapid {
-  background: var(--ink);
-  border-radius: 14px;
-  padding: 28px 32px;
-  color: white;
-  margin-top: 28px;
-}
-.rapid-title {
-  font-size: 20px; font-weight: 800;
-  color: #FCD34D; margin-bottom: 6px;
-}
-.rapid-sub { font-size: 13px; color: #94A3B8; margin-bottom: 24px; }
-.rapid-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-@media(max-width: 700px) { .rapid-grid { grid-template-columns: 1fr; } }
-.rapid-col {
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 10px; padding: 16px;
-}
-.rapid-col h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-.rapid-col h4.h { color: #FCD34D; }
-.rapid-col h4.r { color: #6EE7B7; }
-.rapid-col h4.m { color: #93C5FD; }
-.rapid-item {
-  display: flex; align-items: flex-start; gap: 6px;
-  font-size: 12px; color: #CBD5E1;
-  padding: 4px 0;
-  border-bottom: 1px solid rgba(255,255,255,.05);
-  line-height: 1.5;
-}
-.rapid-item:last-child { border-bottom: none; }
-.rapid-item span { color: #FCD34D; flex-shrink: 0; font-size: 11px; margin-top: 2px; }
-.rapid-item span.g { color: #6EE7B7; }
-.rapid-item span.b { color: #93C5FD; }
-
-.strategy-box {
-  margin-top: 20px;
-  background: rgba(234,179,8,.1);
-  border: 1px solid rgba(234,179,8,.3);
-  border-radius: 10px;
-  padding: 16px 20px;
-  font-size: 13px;
-  color: #FEF3C7;
-  line-height: 1.8;
-}
-
-/* ── TOPIC SPACING ── */
-.topic-block + .topic-block { margin-top: 0; }
-.subject-section { margin-bottom: 32px; }
-
-/* ── PROGRESS BAR ── */
-.freq-bar {
-  height: 4px; border-radius: 4px; background: var(--border);
-  margin-top: 6px; overflow: hidden;
-}
-.freq-fill { height: 100%; border-radius: 4px; }
-.hindi .freq-fill { background: var(--hindi); }
-.reason .freq-fill { background: var(--reason); }
-.maths .freq-fill { background: var(--math); }
-
-/* highlight text */
-.hl { background: #FEF9C3; padding: 0 3px; border-radius: 3px; }
-.hl-g { background: #DCFCE7; padding: 0 3px; border-radius: 3px; }
-.hl-b { background: #DBEAFE; padding: 0 3px; border-radius: 3px; }
-
-/* PRINT */
-@media print {
-  body { background: white; }
-  .nav-tabs { display: none; }
-  .panel { display: block !important; }
-  .topic-body { display: block !important; }
-  .chevron { display: none; }
-}
-</style>
+    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero .container { grid-template-columns: 1fr; gap: 48px; }
+      .hero { min-height: auto; padding: 80px 0 64px; }
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+      .features-trio { grid-template-columns: 1fr 1fr; }
+      .pillars-grid { grid-template-columns: 1fr 1fr; }
+      .pillar:nth-child(2n) { border-right: none; }
+      .pillar:nth-child(3n) { border-right: 1px solid var(--border); }
+      .pillar:nth-child(5), .pillar:nth-child(6) { border-bottom: none; }
+      .pillar:nth-child(4) { border-bottom: 1px solid var(--border); }
+      .amb-slide { grid-template-columns: repeat(3, 1fr); }
+      .enterprise-box { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .topbar { display: none; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .about-band .container { grid-template-columns: 1fr; gap: 32px; }
+      .features-trio { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar { border-right: none !important; }
+      .pillar:nth-child(6) { border-bottom: none; }
+      .pillar:nth-child(5) { border-bottom: 1px solid var(--border); }
+      .feature .container { grid-template-columns: 1fr; gap: 40px; }
+      .feature.reverse .container { direction: ltr; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .amb-slide { grid-template-columns: 1fr 1fr; }
+      .contact .container { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .amb-slide { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-<div class="page">
 
-<!-- ══ MASTHEAD ══ -->
-<div class="masthead">
-  <div class="masthead-inner">
-    <div class="mast-eyebrow">⚡ UPSI 2026 — Complete Syllabus</div>
-    <h1>Full Rapid <em>Revision Sheet</em></h1>
-    <p>पूर्ण पाठ्यक्रम · प्रत्येक टॉपिक · शॉर्टकट · उदाहरण — सब एक जगह</p>
-    <div class="mast-pills">
-      <div class="mast-pill"><b>160</b>Questions</div>
-      <div class="mast-pill"><b>400</b>Marks</div>
-      <div class="mast-pill"><b>0</b>Negative</div>
-      <div class="mast-pill"><b>35%</b>Per Section</div>
-      <div class="mast-pill"><b>120</b>Minutes</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ TAB NAV ══ -->
-<div class="nav-tabs">
-  <button class="tab-btn active" onclick="showTab('hindi')">📖 सामान्य हिंदी</button>
-  <button class="tab-btn" onclick="showTab('reason')">🧠 Reasoning</button>
-  <button class="tab-btn" onclick="showTab('maths')">🔢 Mathematics</button>
-  <button class="tab-btn" onclick="showTab('rapid')">⚡ 5-Min Revision</button>
-  <button class="tab-btn" onclick="showTab('predict')" style="background:linear-gradient(135deg,#7C3AED,#DB2777);color:white;animation:pulse-tab 2s infinite;">🎯 कल के संभावित प्रश्न</button>
-</div>
-
-<!-- ══════════════════════════════════════════ -->
-<!--               HINDI PANEL                -->
-<!-- ══════════════════════════════════════════ -->
-<div class="panel active" id="panel-hindi">
-<div class="subject-section hindi">
-
-  <div class="subject-banner hindi">
-    <div class="banner-icon">📖</div>
-    <div class="banner-text">
-      <h2>सामान्य हिंदी</h2>
-      <p>40 प्रश्न · 100 अंक · व्याकरण + साहित्य + भाषा कौशल</p>
-    </div>
-    <div class="banner-score"><b>30–35</b>Target</div>
-  </div>
-
-  <!-- T1: SANDHI -->
-  <div class="topic-card">
-    <div class="topic-header open hindi" onclick="toggle(this)">
-      <div class="topic-num">1</div>
-      <div class="topic-name">संधि (Sandhi)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 5–7 Q</span><span class="tag tag-q">हर साल</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body open">
-      <div class="body-row">
-        <div class="mini-card concept">
-          <div class="mc-title">💡 Concept</div>
-          <div class="mc-text">दो शब्दों के मेल पर होने वाला ध्वनि-परिवर्तन संधि कहलाता है। यह 3 प्रकार की होती है: <strong>स्वर, व्यंजन, विसर्ग</strong>। संधि में अक्षर बदलते हैं — विच्छेद करने पर मूल शब्द मिलते हैं।</div>
-          <div class="key-pills">
-            <span class="kp">स्वर संधि (अच् संधि)</span>
-            <span class="kp">व्यंजन संधि (हल् संधि)</span>
-            <span class="kp">विसर्ग संधि</span>
-          </div>
-        </div>
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Rules</div>
-          <div class="f-line">अ/आ + अ/आ = <strong>आ</strong> → देव+आलय = देवालय</div>
-          <div class="f-line">अ/आ + इ/ई = <strong>ए</strong> → देव+इंद्र = देवेंद्र</div>
-          <div class="f-line">अ/आ + उ/ऊ = <strong>ओ</strong> → सूर्य+उदय = सूर्योदय</div>
-          <div class="f-line">इ/ई + कोई = <strong>य्+</strong> → यदि+अपि = यद्यपि</div>
-          <div class="f-line">उ/ऊ + कोई = <strong>व्+</strong> → मनु+अंतर = मन्वंतर</div>
-          <div class="f-line">अ + ए/ओ = <strong>ऐ/औ</strong> → लोक+एषणा = लोकैषणा</div>
-        </div>
-      </div>
-      <div class="body-row">
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Trick</div>
-          <div class="mc-text">
-            <strong>RULE याद करें:</strong> "आ-ए-ओ-ऐ-औ" = स्वर सीढ़ी<br>
-            • जहाँ <span class="hl">ण् या न्</span> आए = व्यंजन संधि<br>
-            • जहाँ <span class="hl">: (विसर्ग)</span> था = विसर्ग संधि<br>
-            • विच्छेद करते समय शब्द <strong>तोड़कर</strong> लिखें, क्रम सही रखें
-          </div>
-        </div>
-        <div class="mini-card example">
-          <div class="mc-title">📝 Exam Q</div>
-          <div class="q-stem">"विद्यार्थी" में कौन सी संधि है?<br>(A) व्यंजन (B) विसर्ग (C) दीर्घ स्वर (D) गुण</div>
-          <div class="q-ans">✅ (C) विद्या+अर्थी → आ+अ = आ (दीर्घ)</div>
-        </div>
-      </div>
+  <!-- ─── TOPBAR ──────────────────────────────────────────────────── -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:matchmaker@govmates.com">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 5.5l7.5 5 7.5-5M2.5 5.5h15v9h-15z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        matchmaker@govmates.com
+      </a>
+      <a href="tel:2028549468">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l2.5 2.5-1.5 3L7 12l3.5 3 3-1.5L16 16l-2 2c-5-1-10-6-11-11l2-4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        (202) 854-9GOV
+      </a>
     </div>
   </div>
 
-  <!-- T2: SAMAS -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">2</div>
-      <div class="topic-name">समास (Samas — Compound Words)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card concept">
-          <div class="mc-title">💡 Concept</div>
-          <div class="mc-text">दो या अधिक शब्दों का संक्षिप्त रूप समास है। विभक्ति लोप होती है। 6 प्रकार होते हैं।</div>
-          <div class="key-pills">
-            <span class="kp">तत्पुरुष</span><span class="kp">कर्मधारय</span><span class="kp">द्विगु</span>
-            <span class="kp">द्वंद्व</span><span class="kp">बहुव्रीहि</span><span class="kp">अव्ययीभाव</span>
-          </div>
-        </div>
-        <div class="mini-card formula">
-          <div class="mc-title">📐 6 Types + Trick</div>
-          <div class="f-line"><strong>तत्पुरुष:</strong> दूसरा पद प्रधान · "का/के/की" जोड़ें</div>
-          <div class="f-line"><strong>कर्मधारय:</strong> विशेषण+विशेष्य · "जो है वही"</div>
-          <div class="f-line"><strong>द्विगु:</strong> संख्या पूर्वपद · "त्रिभुज, पंचवटी"</div>
-          <div class="f-line"><strong>द्वंद्व:</strong> दोनों पद प्रधान · "और/या" जोड़ें</div>
-          <div class="f-line"><strong>बहुव्रीहि:</strong> दोनों अप्रधान · तीसरा अर्थ</div>
-          <div class="f-line"><strong>अव्ययीभाव:</strong> पहला अव्यय · "यथाशक्ति"</div>
-        </div>
-      </div>
-      <div class="body-row">
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ TRICK — "तकदबाव"</div>
-          <div class="mc-text">
-            <strong>त</strong>=तत्पुरुष, <strong>क</strong>=कर्मधारय, <strong>द</strong>=द्विगु,<br>
-            <strong>ब</strong>=बहुव्रीहि, <strong>आ</strong>=अव्ययीभाव, <strong>व</strong>=द्वंद्व<br><br>
-            <span class="hl">नीलकमल = कर्मधारय</span> (नीला जो कमल)<br>
-            <span class="hl">दशानन = बहुव्रीहि</span> (दस मुँह वाला = रावण)
-          </div>
-        </div>
-        <div class="mini-card example">
-          <div class="mc-title">📝 Exam Q</div>
-          <div class="q-stem">"चतुर्भुज" किस समास का उदाहरण है?<br>(A) द्वंद्व (B) द्विगु (C) बहुव्रीहि (D) तत्पुरुष</div>
-          <div class="q-ans">✅ (C) बहुव्रीहि — चार भुजाओं वाला (विष्णु)</div>
-        </div>
+  <!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">gov<span>mates</span></a>
+      <ul class="nav-links">
+        <li><a href="/membership">Membership</a></li>
+        <li><a href="/accelerator">Accelerator</a></li>
+        <li><a href="/collaborate">Collaborate</a></li>
+        <li><a href="/insights">Insights</a></li>
+        <li><a href="/ati">ATI</a></li>
+        <li><a href="/ota">OTA</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
       </div>
     </div>
-  </div>
+  </nav>
 
-  <!-- T3: VILOM -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">3</div>
-      <div class="topic-name">विलोम शब्द (Antonyms)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span><span class="tag tag-q">हर पेपर में</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row three">
-        <div class="mini-card concept">
-          <div class="mc-title">💡 Concept + Key Pairs</div>
-          <div class="mc-text" style="font-size:12.5px;">
-            साकार↔निराकार · सगुण↔निर्गुण<br>
-            आदि↔अंत · श्रेय↔प्रेय<br>
-            अमृत↔विष · सत्य↔असत्य<br>
-            उत्कर्ष↔अपकर्ष · जड़↔चेतन<br>
-            कृत्रिम↔प्राकृतिक · क्षणिक↔शाश्वत<br>
-            निंदा↔स्तुति · ज्ञान↔अज्ञान
-          </div>
+  <!-- ─── HERO ───────────────────────────────────────────────────── -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-left fade-up">
+        <div class="hero-eyebrow">Collaborate · Accelerate · Innovate</div>
+        <h1>We Do Things <em>Differently.</em></h1>
+        <p class="hero-tagline">COLLABORATE ACCELERATE INNOVATE</p>
+        <p class="hero-desc">Govmates is a technology scouting platform. We merge the best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
+        <div class="hero-actions">
+          <a href="/membership" class="btn-hero-primary">
+            Join as a Member
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="/collaborate" class="btn-hero-outline">Learn More</a>
         </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ PREFIX Trick</div>
-          <div class="mc-text">
-            <strong>नि/निर/निस्</strong> लगाएँ:<br>
-            दोष → निर्दोष<br>
-            सकाम → निष्काम<br><br>
-            <strong>अ/अन</strong> लगाएँ:<br>
-            सफल → असफल<br>
-            उचित → अनुचित<br><br>
-            <strong>वि/कु/स/सु</strong> लगाएँ:<br>
-            सुपथ ↔ कुपथ
+      </div>
+      <div class="hero-right fade-up" style="transition-delay:.15s">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div class="stat-num" data-target="8003">8,003</div>
+            <div class="stat-label">Members</div>
           </div>
-        </div>
-        <div class="mini-card example">
-          <div class="mc-title">📝 Exam Q</div>
-          <div class="q-stem">"यश" का विलोम क्या है?<br>(A) कीर्ति (B) अपयश (C) नाम (D) गुण</div>
-          <div class="q-ans">✅ (B) अपयश</div>
-          <br>
-          <div class="q-stem">"सरस" का विलोम?<br>(A) रसीला (B) नीरस (C) स्वादिष्ट (D) मधुर</div>
-          <div class="q-ans">✅ (B) नीरस</div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
+            </div>
+            <div class="stat-num">150</div>
+            <div class="stat-label">Technology Verticals</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 12l4-4 4 4M12 8v8"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <div class="stat-num">41,385</div>
+            <div class="stat-label">Matches Made</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="stat-num">11,897</div>
+            <div class="stat-label">Introductions Made</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- T4: MUHAVARE -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">4</div>
-      <div class="topic-name">मुहावरे और लोकोक्तियाँ (Idioms & Proverbs)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–5 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula" style="grid-column: span 2;">
-          <div class="mc-title">📐 Most Repeated Muhavare (Must Memorise)</div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
-            <div class="f-line">आँखें चुराना = <strong>सामना न करना</strong></div>
-            <div class="f-line">अँगूठा दिखाना = <strong>मना करना</strong></div>
-            <div class="f-line">नाक में दम करना = <strong>परेशान करना</strong></div>
-            <div class="f-line">कान भरना = <strong>चुगली करना</strong></div>
-            <div class="f-line">हाथ धो बैठना = <strong>खो देना</strong></div>
-            <div class="f-line">दाँत खट्टे करना = <strong>हराना</strong></div>
-            <div class="f-line">टेढ़ी खीर = <strong>कठिन काम</strong></div>
-            <div class="f-line">सिर पर सवार होना = <strong>तंग करना</strong></div>
-            <div class="f-line">घी के दीये जलाना = <strong>खुशी मनाना</strong></div>
-            <div class="f-line">पानी-पानी होना = <strong>शर्मिंदा होना</strong></div>
-          </div>
-        </div>
+  <!-- ─── ABOUT BAND ─────────────────────────────────────────────── -->
+  <section class="about-band fade-up">
+    <div class="container">
+      <div class="about-left">
+        <div class="section-divider"></div>
+        <div class="section-label">About govmates</div>
+        <p style="font-family:var(--font-head);font-size:15px;color:var(--grey);line-height:1.6;max-width:220px;">A federal technology ecosystem built on trust.</p>
       </div>
-      <div class="body-row">
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Trick</div>
-          <div class="mc-text">
-            मुहावरों में <span class="hl">शरीर के अंग</span> अक्सर आते हैं<br>
-            → आँख, कान, नाक, मुँह, हाथ, पाँव<br><br>
-            लोकोक्ति = पूरी बात/सत्य<br>
-            मुहावरा = अधूरा वाक्यांश<br><br>
-            <strong>Options में Literal meaning = गलत</strong>
-          </div>
-        </div>
-        <div class="mini-card example">
-          <div class="mc-title">📝 Exam Q</div>
-          <div class="q-stem">"अपना उल्लू सीधा करना" का अर्थ?<br>(A) ज्ञान देना (B) स्वार्थ साधना (C) घर बनाना (D) उड़ना</div>
-          <div class="q-ans">✅ (B) अपना स्वार्थ सिद्ध करना</div>
-        </div>
+      <div class="about-right">
+        <p class="section-body">Govmates is a technology scouting platform. We merge the best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- T5: RAS -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">5</div>
-      <div class="topic-name">रस (Ras — Poetic Sentiment)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 2–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 9 रस + स्थायीभाव</div>
-          <div class="f-line">श्रृंगार → <strong>रति (प्रेम)</strong></div>
-          <div class="f-line">हास्य → <strong>हास</strong></div>
-          <div class="f-line">करुण → <strong>शोक</strong></div>
-          <div class="f-line">रौद्र → <strong>क्रोध</strong></div>
-          <div class="f-line">वीर → <strong>उत्साह</strong></div>
-          <div class="f-line">भयानक → <strong>भय</strong></div>
-          <div class="f-line">वीभत्स → <strong>जुगुप्सा (घृणा)</strong></div>
-          <div class="f-line">अद्भुत → <strong>विस्मय</strong></div>
-          <div class="f-line">शांत → <strong>निर्वेद (वैराग्य)</strong></div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ TRICK — "श हा क रौ वी भ वी अ शां"</div>
-          <div class="mc-text">
-            <strong>श</strong>ृंगार-<strong>हा</strong>स्य-<strong>क</strong>रुण-<strong>रौ</strong>द्र-<strong>वी</strong>र-<strong>भ</strong>यानक-<strong>वी</strong>भत्स-<strong>अ</strong>द्भुत-<strong>शां</strong>त<br><br>
-            याद रखें:<br>
-            🎭 श्रृंगार = प्रेम/सुंदरता<br>
-            ⚔️ वीर = युद्ध/साहस<br>
-            😢 करुण = दुःख/विछोह<br>
-            😂 हास्य = हँसी/मजाक<br><br>
-            <span class="hl">10वाँ रस = वात्सल्य (बाल साहित्य)</span>
+  <!-- ─── WHAT WE DO ────────────────────────────────────────────── -->
+  <section class="what-we-do" id="collaborate">
+    <div class="container">
+      <div class="inner fade-up">
+        <div class="tag">What We Do</div>
+        <h2 class="section-title" style="text-align:center">Managing a 8,000+ Member Ecosystem</h2>
+        <p class="section-body">
+          Govmates operates a technology scouting platform managing an ecosystem of over 8,000 non-traditional federal contractors, industry partners, academic institutions, research organizations, and government stakeholders focused on innovative solutions for U.S. Federal Government needs. We provide an enterprise-level approach to identifying, developing, and transitioning technologies, facilitating over 41,000 matches for U.S. Federal Government customers and industry partners supporting market research, non-traditional outreach, and teaming.
+        </p>
+      </div>
+      <div class="features-trio">
+        <div class="trio-card fade-up">
+          <div class="trio-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
           </div>
+          <h3>Technology Scouting Tool</h3>
+          <p>Rapidly identifies desired technologies using unbiased algorithms and relevance scoring, applying formulaic and methodical approaches to solving U.S. Federal Government challenges.</p>
+        </div>
+        <div class="trio-card fade-up" style="transition-delay:.1s">
+          <div class="trio-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Collaborative Matchmaking Events</h3>
+          <p>The bridge between Government and Industry — maintaining extensive relationships with non-traditional contractors, large systems integrators, defense primes, and commercial enterprises generating 39,000+ successful matches.</p>
+        </div>
+        <div class="trio-card fade-up" style="transition-delay:.2s">
+          <div class="trio-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Valley of Death Combat</h3>
+          <p>Resources, training, and education helping members build DCAA-compliant operations for FAR-based federal contracts, supporting scalable growth and profitability for firms navigating government contracting.</p>
         </div>
       </div>
-      <div class="mini-card example" style="margin-top:0;">
-        <div class="mc-title">📝 Exam Q (2021 Pattern)</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+    </div>
+  </section>
+
+  <!-- ─── OUR APPROACH / 6 PILLARS ──────────────────────────────── -->
+  <section class="approach" id="approach">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Our Approach</div>
+        <h2 class="section-title">Six Pillars of Enterprise-Level Support</h2>
+        <p class="section-body">Govmates leverages extensive reach and diverse membership to deliver enterprise solutions for technology identification and transition. The organization has enabled partner growth across the country through matchmaking services that have proven valuable to startups and smaller government contracting businesses.</p>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar fade-up">
+          <div class="pillar-num">01</div>
+          <h3>Access to Innovators and Non-Traditionals</h3>
+          <p>The platform hosts over 5,000 change-makers developing innovative mission-supporting solutions, linking members with expertise and targeted support to address complex problems through an extensive network.</p>
+        </div>
+        <div class="pillar fade-up" style="transition-delay:.05s">
+          <div class="pillar-num">02</div>
+          <h3>High Touch Collaboration</h3>
+          <p>Govmates provides concierge-level matchmaking, making introductions meaningful and facilitating progression from initial conversations through NDAs and beyond, serving as a catalyst for exponential growth.</p>
+        </div>
+        <div class="pillar fade-up" style="transition-delay:.1s">
+          <div class="pillar-num">03</div>
+          <h3>Unbiased Algorithm</h3>
+          <p>Operating as an honest broker and transparent intermediary, maintaining no equity stakes in member companies. Matching decisions focus exclusively on what benefits the business involved.</p>
+        </div>
+        <div class="pillar fade-up" style="transition-delay:.15s">
+          <div class="pillar-num">04</div>
+          <h3>Valley of Death Combat</h3>
+          <p>Understanding resource constraints facing government contracting firms, govmates provides training, education, and resources helping members build DCAA-compliant operations for FAR-based federal contracts.</p>
+        </div>
+        <div class="pillar fade-up" style="transition-delay:.2s">
+          <div class="pillar-num">05</div>
+          <h3>Valley of Death Resources</h3>
+          <p>Recognizing struggles with business longevity, the organization addresses common Valley of Death challenges, helping small businesses overcome initial obstacles and develop into formidable enterprises.</p>
+        </div>
+        <div class="pillar fade-up" style="transition-delay:.25s">
+          <div class="pillar-num">06</div>
+          <h3>Enterprise Level Solution</h3>
+          <p>Delivering comprehensive solutions connecting industry and government with innovative small businesses, ensuring partnerships prove profitable and amicable while pairing stakeholders based on mutual needs and capabilities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURE: TECHNOLOGY SCOUTING TOOL ────────────────────── -->
+  <section class="feature" id="technology-scouting">
+    <div class="container">
+      <div class="feature-content fade-up">
+        <div class="tag">Technology Scouting Tool</div>
+        <h2 class="section-title">Rapidly Identify the Right Technologies</h2>
+        <p class="section-body">The platform enables federal stakeholders to rapidly identify desired technologies through unbiased algorithms and relevance scoring, applying formulaic and methodical approaches to solving U.S. Federal Government challenges.</p>
+        <br/>
+        <a href="/membership" class="btn btn-primary">
+          Learn About Membership
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual fade-up" style="transition-delay:.15s">
+        <div class="visual-box">
+          <div class="visual-box-inner">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="32" cy="32" r="28"/><circle cx="32" cy="32" r="16"/><circle cx="32" cy="32" r="6"/><line x1="32" y1="4" x2="32" y2="16"/><line x1="32" y1="48" x2="32" y2="60"/><line x1="4" y1="32" x2="16" y2="32"/><line x1="48" y1="32" x2="60" y2="32"/></svg>
+            <span>Technology Scouting Platform</span>
+          </div>
+        </div>
+        <div class="visual-badge">
           <div>
-            <div class="q-stem">"मैया मोहि दाऊ बहुत खिझायो" — कौन सा रस?<br>(A) श्रृंगार (B) करुण (C) वात्सल्य (D) हास्य</div>
-            <div class="q-ans">✅ (C) वात्सल्य रस</div>
+            <div class="visual-badge-num">8,003</div>
+            <div class="visual-badge-label">Active Members</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURE: MATCHMAKING EVENTS ──────────────────────────── -->
+  <section class="feature reverse" id="matchmaking">
+    <div class="container">
+      <div class="feature-content fade-up">
+        <div class="tag">Collaborative Matchmaking Events</div>
+        <h2 class="section-title">The Bridge Between Government and Industry</h2>
+        <p class="section-body">Operating as the bridge between Government and Industry, govmates maintains extensive relationships with non-traditional contractors, large systems integrators, defense primes, and commercial enterprises, fostering collaboration and community that has generated over 39,000 successful matches.</p>
+        <br/>
+        <a href="/collaborate" class="btn btn-primary">
+          Explore Collaborate
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual fade-up" style="transition-delay:.15s">
+        <div class="visual-box" style="background:linear-gradient(135deg,#0B2545 0%,#1A5FB4 60%,#2E86DE 100%)">
+          <div class="visual-box-inner">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="32" r="8"/><circle cx="32" cy="12" r="8"/><circle cx="52" cy="32" r="8"/><circle cx="32" cy="52" r="8"/><line x1="20" y1="32" x2="44" y2="32"/><line x1="32" y1="20" x2="32" y2="44"/><line x1="18" y1="26" x2="26" y2="18"/><line x1="46" y1="26" x2="38" y2="18"/><line x1="18" y1="38" x2="26" y2="46"/><line x1="46" y1="38" x2="38" y2="46"/></svg>
+            <span>Matchmaking &amp; Collaboration</span>
+          </div>
+        </div>
+        <div class="visual-badge">
           <div>
-            <div class="q-stem">वीर रस का स्थायीभाव?<br>(A) रति (B) उत्साह (C) शोक (D) क्रोध</div>
-            <div class="q-ans">✅ (B) उत्साह</div>
+            <div class="visual-badge-num">41,385</div>
+            <div class="visual-badge-label">Matches Made</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- T6: ALANKAR -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">6</div>
-      <div class="topic-name">अलंकार (Alankar — Figures of Speech)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Key Alankar + Identifier</div>
-          <div class="f-line">अनुप्रास = एक वर्ण बार-बार → "चारु चंद्र की चंचल"</div>
-          <div class="f-line">उपमा = <strong>सरिस/जैसे/सा</strong> (explicit comparison)</div>
-          <div class="f-line">रूपक = उपमेय = उपमान (no जैसे) → "मुख-चंद्र"</div>
-          <div class="f-line">यमक = एक शब्द अलग-अलग अर्थ → "काली घटा"</div>
-          <div class="f-line">श्लेष = एक शब्द, दो अर्थ एक साथ</div>
-          <div class="f-line">अतिशयोक्ति = बढ़ा-चढ़ाकर कहना</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Identify Trick</div>
-          <div class="mc-text">
-            <strong>"जैसे/सा/सी/सरिस"</strong> दिखे → उपमा<br>
-            <strong>No comparison word</strong> → रूपक<br>
-            <strong>Same letter repeat</strong> → अनुप्रास<br>
-            <strong>एक शब्द, 2 बार, 2 अर्थ</strong> → यमक<br>
-            <strong>एक शब्द = 2 अर्थ</strong> → श्लेष<br><br>
-            <span class="hl-g">शब्दालंकार: अनु+यमक+श्लेष</span><br>
-            <span class="hl-b">अर्थालंकार: उपमा+रूपक+उत्प्रेक्षा</span>
+  <!-- ─── FEATURE: VALLEY OF DEATH ─────────────────────────────── -->
+  <section class="feature" id="valley-of-death">
+    <div class="container">
+      <div class="feature-content fade-up">
+        <div class="tag">Valley of Death Combat</div>
+        <h2 class="section-title">Resources for the Road Ahead</h2>
+        <p class="section-body">Govmates understands the resources, assets, and capital requirements for government contracting operations. We provide training and education supporting DCAA compliance, FAR-based contract pursuit, and scalable growth generating profitable returns — helping firms survive and thrive beyond the Valley of Death.</p>
+        <br/>
+        <a href="/accelerator" class="btn btn-primary">
+          Explore Accelerator
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="feature-visual fade-up" style="transition-delay:.15s">
+        <div class="visual-box" style="background:linear-gradient(135deg,#0B2545 0%,#133A6B 60%,#1A5FB4 100%)">
+          <div class="visual-box-inner">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 52 L20 28 L32 38 L44 16 L56 52 Z"/><polyline points="8,52 56,52"/></svg>
+            <span>Valley of Death Resources</span>
           </div>
         </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">"पीपर पात सरिस मन डोला" — अलंकार?<br>(A) रूपक (B) उपमा (C) यमक (D) अनुप्रास</div><div class="q-ans">✅ (B) उपमा (सरिस = जैसा)</div></div>
-          <div><div class="q-stem">"मुख चंद्रमा है" — अलंकार?<br>(A) उपमा (B) अनुप्रास (C) रूपक (D) श्लेष</div><div class="q-ans">✅ (C) रूपक (A=B, no जैसे)</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- T7: VARTANI -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">7</div>
-      <div class="topic-name">वर्तनी शुद्धि + शब्द शुद्धि</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Common Errors (Always Asked)</div>
-          <div class="f-line">❌ अनुसरण → ✅ अनुसरण</div>
-          <div class="f-line">❌ परिक्षा → ✅ <strong>परीक्षा</strong></div>
-          <div class="f-line">❌ दुनिया → ✅ <strong>दुनिया</strong> (ि not ी)</div>
-          <div class="f-line">❌ बुद्धिमान → ✅ <strong>बुद्धिमान्</strong></div>
-          <div class="f-line">❌ उपरोक्त → ✅ <strong>उपर्युक्त</strong></div>
-          <div class="f-line">❌ श्रृंगार → ✅ <strong>शृंगार</strong> (एक ही रूप)</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Trick</div>
-          <div class="mc-text">
-            <strong>ई/इ confusion:</strong><br>
-            • Ending में = <span class="hl">ई</span> (feminine/long)<br>
-            • Start/Middle = check original<br><br>
-            <strong>ण vs न:</strong><br>
-            • ण = Sanskrit-origin words<br>
-            • ष vs स/श: same concept<br><br>
-            Options में <strong>3 गलत, 1 सही</strong> — सही चुनें
+        <div class="visual-badge">
+          <div>
+            <div class="visual-badge-num">150</div>
+            <div class="visual-badge-label">Tech Verticals</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- T8: KARAK -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">8</div>
-      <div class="topic-name">कारक / उपसर्ग / प्रत्यय</div>
-      <div class="topic-tags"><span class="tag tag-q">2–3 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 8 कारक (Vibhakti)</div>
-          <div class="f-line">कर्ता = <strong>ने</strong> | कर्म = <strong>को</strong></div>
-          <div class="f-line">करण = <strong>से/द्वारा</strong> | संप्रदान = <strong>को/के लिए</strong></div>
-          <div class="f-line">अपादान = <strong>से (अलग)</strong> | संबंध = <strong>का/के/की</strong></div>
-          <div class="f-line">अधिकरण = <strong>में/पर</strong> | संबोधन = <strong>हे/अरे/ओ</strong></div>
-        </div>
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Common Upsarg + Pratyay</div>
-          <div class="f-line"><strong>Upsarg:</strong> अ, आ, वि, नि, प्र, सु, दुर्</div>
-          <div class="f-line">सु+कर्म = सुकर्म | वि+कार = विकार</div>
-          <div class="f-line"><strong>Pratyay:</strong> ता, त्व, वान, मान, इक</div>
-          <div class="f-line">मनुष्य+ता = मनुष्यता | धन+वान = धनवान</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- T9: SAHITYA -->
-  <div class="topic-card">
-    <div class="topic-header hindi" onclick="toggle(this)">
-      <div class="topic-num">9</div>
-      <div class="topic-name">हिंदी साहित्य (Literature)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Writers + Works (Most Asked)</div>
-          <div class="f-line">तुलसीदास → <strong>रामचरितमानस, विनय पत्रिका</strong></div>
-          <div class="f-line">कबीर → <strong>दोहावली, बीजक, साखी</strong></div>
-          <div class="f-line">सूरदास → <strong>सूरसागर, सूरसारावली</strong></div>
-          <div class="f-line">मीराबाई → <strong>पदावली, नरसी जी री माहेर</strong></div>
-          <div class="f-line">प्रेमचंद → <strong>गोदान, निर्मला, गबन</strong></div>
-          <div class="f-line">जयशंकर प्रसाद → <strong>कामायनी, आँसू</strong></div>
-          <div class="f-line">निराला → <strong>परिमल, तुलसीदास (कविता)</strong></div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Period Trick</div>
-          <div class="mc-text">
-            <strong>आदिकाल</strong> (650–1400): चंदबरदाई → पृथ्वीराज रासो<br>
-            <strong>भक्तिकाल</strong> (1400–1700): कबीर, तुलसी, सूर<br>
-            <strong>रीतिकाल</strong> (1700–1900): बिहारी → सतसई<br>
-            <strong>आधुनिककाल</strong> (1900-): प्रेमचंद, प्रसाद<br><br>
-            <span class="hl">हिंदी का स्वर्ण युग = भक्तिकाल</span>
+  <!-- ─── ENTERPRISE LEVEL SOLUTION ────────────────────────────── -->
+  <section class="enterprise fade-up" id="enterprise">
+    <div class="container">
+      <div class="tag" style="background:rgba(46,134,222,.15);border-color:rgba(91,164,245,.3);color:var(--accent-lt)">Enterprise Level Solution</div>
+      <h2 class="section-title">A Full Partnership for Government &amp; Industry</h2>
+      <p class="section-body">Govmates delivers comprehensive solutions connecting industry and government with innovative small businesses, ensuring partnerships prove profitable and amicable while pairing stakeholders based on mutual needs and capabilities.</p>
+      <div class="enterprise-box">
+        <p>Since inception, govmates has facilitated over 41,000 matches for U.S. Federal Government customers and industry partners supporting market research, non-traditional outreach, and teaming. Through high-touch collaboration and an unbiased platform, govmates enables partner growth across the country, helping small businesses scale from subcontractors to prime contractors.</p>
+        <div class="enterprise-highlights">
+          <div class="enterprise-highlight">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 10l4 4 6-7"/><circle cx="10" cy="10" r="8"/></svg>
+            <span>Concierge-level matchmaking with no equity stakes</span>
+          </div>
+          <div class="enterprise-highlight">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 10l4 4 6-7"/><circle cx="10" cy="10" r="8"/></svg>
+            <span>Access to 5,000+ innovators and non-traditional changemakers</span>
+          </div>
+          <div class="enterprise-highlight">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 10l4 4 6-7"/><circle cx="10" cy="10" r="8"/></svg>
+            <span>DCAA compliance training and FAR-based contract pursuit support</span>
+          </div>
+          <div class="enterprise-highlight">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 10l4 4 6-7"/><circle cx="10" cy="10" r="8"/></svg>
+            <span>Transparent, honest broker — decisions based purely on fit</span>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ─── TEAM ───────────────────────────────────────────────────── -->
+  <section class="team" id="team">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Leadership</div>
+        <h2 class="section-title">Our Team</h2>
+      </div>
+      <div class="team-grid">
+        <div class="team-card fade-up">
+          <div class="team-avatar">
+            <img src="Images/our-leadership/Stephine Alexander.webp" alt="Stephanie Alexander" />
+          </div>
+          <h3>Stephanie Alexander</h3>
+          <p>Co-Founder</p>
+        </div>
+        <div class="team-card fade-up" style="transition-delay:.1s">
+          <div class="team-avatar">
+            <img src="Images/our-leadership/Katie-Bilek.webp" alt="Katie Bilek" />
+          </div>
+          <h3>Katie Bilek</h3>
+          <p>Co-Founder</p>
+        </div>
+        <div class="team-card fade-up" style="transition-delay:.2s">
+          <div class="team-avatar">
+            <img src="Images/our-leadership/Meg O'Hara.jpg" alt="Meg O'Hara" />
+          </div>
+          <h3>Meg O'Hara</h3>
+          <p>Director of Engagement</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── AMBASSADORS ────────────────────────────────────────────── -->
+  <section class="ambassadors" id="ambassadors">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Community</div>
+        <h2 class="section-title">Ambassadors</h2>
+      </div>
+      <div class="amb-slider-wrap fade-up">
+        <div class="amb-slider">
+          <div class="amb-track" id="ambTrack">
+
+            <!-- Slide 1 -->
+            <div class="amb-slide">
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Vanessa Quiñones.png" alt="Vanessa Quiñones" /></div>
+                <div class="amb-name">Vanessa Quiñones</div>
+                <div class="amb-org">GSA National</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Ed DeLisle.jpg" alt="Ed DeLisle" /></div>
+                <div class="amb-name">Ed DeLisle</div>
+                <div class="amb-org">Thompson Hine</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Andrew Henderson.jpg" alt="Andrew Henderson" /></div>
+                <div class="amb-name">Andrew Henderson</div>
+                <div class="amb-org">Thompson Greenspon</div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="amb-slide">
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Krystn Macomber.jpg" alt="Krystn Macomber" /></div>
+                <div class="amb-name">Krystn Macomber</div>
+                <div class="amb-org">Summit Strategy</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Matt Pinkston.jpg" alt="Matt Pinkston" /></div>
+                <div class="amb-name">Matt Pinkston</div>
+                <div class="amb-org">Procurement Sciences</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Nichole Atallah.png" alt="Nichole Atallah" /></div>
+                <div class="amb-name">Nichole Atallah</div>
+                <div class="amb-org">PilieroMazza</div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="amb-slide">
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Courtney Fairchild.jpg" alt="Courtney Fairchild" /></div>
+                <div class="amb-name">Courtney Fairchild</div>
+                <div class="amb-org">Global Services</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Rob Dyson.jpg" alt="Rob Dyson" /></div>
+                <div class="amb-name">Rob Dyson</div>
+                <div class="amb-org">Freedom Bank</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Chris Porter.jpg" alt="Chris Porter" /></div>
+                <div class="amb-name">Chris Porter</div>
+                <div class="amb-org">FCE Benefit Administrators</div>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="amb-slide">
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Matthew Agresti.jpg" alt="Matthew Agresti" /></div>
+                <div class="amb-name">Matthew Agresti</div>
+                <div class="amb-org">Eagle Bank</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Kevin Metz.png" alt="Kevin Metz" /></div>
+                <div class="amb-name">Kevin Metz</div>
+                <div class="amb-org">Core Business Solutions</div>
+              </div>
+              <div class="ambassador-card">
+                <div class="amb-card-icon"><img src="Images/Govmates Ambassadors home page section/Chad Knight.png" alt="Chad Knight" /></div>
+                <div class="amb-name">Chad Knight</div>
+                <div class="amb-org">Boon Group</div>
+              </div>
+            </div>
+
+          </div><!-- /amb-track -->
+        </div><!-- /amb-slider -->
+
+        <div class="amb-controls">
+          <button class="amb-btn" id="ambPrev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="amb-dots" id="ambDots">
+            <button class="amb-dot active" data-index="0"></button>
+            <button class="amb-dot" data-index="1"></button>
+            <button class="amb-dot" data-index="2"></button>
+            <button class="amb-dot" data-index="3"></button>
+          </div>
+          <button class="amb-btn" id="ambNext" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── HASHTAG BANNER ─────────────────────────────────────────── -->
+  <div class="hashtag-banner fade-up">
+    <h2>#<span>NotYourMothers</span>Matchmaking</h2>
   </div>
 
-</div><!-- end hindi section -->
-</div><!-- end hindi panel -->
-
-<!-- ══════════════════════════════════════════ -->
-<!--             REASONING PANEL              -->
-<!-- ══════════════════════════════════════════ -->
-<div class="panel" id="panel-reason">
-<div class="subject-section reason">
-
-  <div class="subject-banner reason">
-    <div class="banner-icon">🧠</div>
-    <div class="banner-text">
-      <h2>Reasoning / तार्किक क्षमता</h2>
-      <p>40 प्रश्न · 100 अंक · IQ + Mental Aptitude + Logical Reasoning</p>
-    </div>
-    <div class="banner-score"><b>30–35</b>Target</div>
-  </div>
-
-  <!-- R1: CODING -->
-  <div class="topic-card">
-    <div class="topic-header open reason" onclick="toggle(this)">
-      <div class="topic-num">1</div>
-      <div class="topic-name">Coding-Decoding (कूट लेखन)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span><span class="tag tag-q">हर साल</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body open">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 4 Types of Coding</div>
-          <div class="f-line"><strong>Type 1:</strong> Letter shift → COLD=DPME (+1 each letter)</div>
-          <div class="f-line"><strong>Type 2:</strong> Number code → A=1,B=2...Z=26</div>
-          <div class="f-line"><strong>Type 3:</strong> Reverse alphabet → A=Z,B=Y...Z=A</div>
-          <div class="f-line"><strong>Type 4:</strong> Word/Symbol → अलग key दी होती है</div>
-          <div class="f-line">Reverse word: APPLE → ELPPA</div>
+  <!-- ─── CONTACT ────────────────────────────────────────────────── -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-left fade-up">
+        <div class="tag">Get In Touch</div>
+        <h2 class="section-title">Ready to Connect?</h2>
+        <p class="section-body">Whether you're a non-traditional contractor looking to break into the federal market, or a government stakeholder seeking innovative technology solutions — govmates is your ecosystem.</p>
+        <div style="margin-top:24px">
+          <a href="/membership" class="btn btn-primary">
+            Explore Membership
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ STEP-BY-STEP</div>
-          <div class="mc-text">
-            <strong>Step 1:</strong> पहले word देखें, कितना shift है<br>
-            <strong>Step 2:</strong> +1/-1 या ×2 pattern?<br>
-            <strong>Step 3:</strong> Same shift सभी letters पर लगाएँ<br><br>
-            <span class="hl">Z के बाद A आता है (circular)</span><br>
-            A=1 position: Z का reverse = A<br>
-            <strong>Alphabet: EJOTY</strong> = 5,10,15,20,25
+      </div>
+      <div class="contact-right fade-up" style="transition-delay:.15s">
+        <div class="contact-card">
+          <h3>Contact govmates</h3>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z" rx="2"/><path d="M4 8l8 6 8-6"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <span class="ci-label">Email</span>
+              <a href="mailto:matchmaker@govmates.com">matchmaker@govmates.com</a>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">यदि TEACHER = VGCEJGT, तो STUDENT = ?<br>(A) UVWFGPV (B) UVWFGOV (C) UVWFHPV (D) UVWEHPV</div><div class="q-ans">✅ (A) Each letter +2</div></div>
-          <div><div class="q-stem">यदि CAT=24, DOG=26, तो COT=?<br>(A) 35 (B) 36 (C) 37 (D) 38</div><div class="q-ans">✅ (B) C=3,O=15,T=20 → 3+15+20=38... check position sums</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- R2: DIRECTION -->
-  <div class="topic-card">
-    <div class="topic-header reason" onclick="toggle(this)">
-      <div class="topic-num">2</div>
-      <div class="topic-name">Direction Sense (दिशा ज्ञान)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card concept">
-          <div class="mc-title">💡 Concept</div>
-          <div class="mc-text">एक व्यक्ति विभिन्न दिशाओं में चलता है। अंत में: वह किस दिशा में है? कितनी दूर है?<br><br>
-          <strong>Compass:</strong> उत्तर (N), दक्षिण (S), पूर्व (E), पश्चिम (W)<br>
-          Diagonal: NE, NW, SE, SW</div>
-          <div style="text-align:center; margin-top:12px; font-size:18px; line-height:2;">
-            ⬆️ उत्तर<br>⬅️ पश्चिम &nbsp;&nbsp; पूर्व ➡️<br>⬇️ दक्षिण
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4l2.5 2.5-1.5 3L9 12l2.5 2.5 3-1.5L17 15.5l-2 2.5C10 17 7 14 5 9l.5-5z"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <span class="ci-label">Phone</span>
+              <a href="tel:2028549468">(202) 854-9GOV</a>
+            </div>
           </div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Tricks</div>
-          <div class="mc-text">
-            <strong>Left/Right Turn:</strong><br>
-            उत्तर + दायाँ = पूर्व<br>
-            उत्तर + बायाँ = पश्चिम<br>
-            (घड़ी की दिशा = दायाँ)<br><br>
-            <strong>Distance:</strong> Pythagoras लगाएँ<br>
-            <span class="hl">d = √(horizontal² + vertical²)</span><br><br>
-            <strong>Shadow Rule:</strong><br>
-            🌅 सुबह shadow = पश्चिम में<br>
-            🌇 शाम shadow = पूर्व में
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div class="q-stem">राम उत्तर 10km → पूर्व 6km → दक्षिण 10km चला। वह शुरू से कितना दूर, किस दिशा में?<br>(A) 4km पश्चिम (B) 6km पूर्व (C) 6km पश्चिम (D) 4km पूर्व</div>
-        <div class="q-ans">✅ (B) 6km पूर्व — उत्तर-दक्षिण cancel, केवल पूर्व 6km बचा</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- R3: BLOOD -->
-  <div class="topic-card">
-    <div class="topic-header reason" onclick="toggle(this)">
-      <div class="topic-num">3</div>
-      <div class="topic-name">Blood Relations (रक्त संबंध)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Relations Chart</div>
-          <div class="f-line">Father's/Mother's Father = <strong>Grandfather (दादा/नाना)</strong></div>
-          <div class="f-line">Father's Brother = <strong>Uncle (चाचा)</strong></div>
-          <div class="f-line">Mother's Brother = <strong>Mama (मामा)</strong></div>
-          <div class="f-line">Son's Wife = <strong>Daughter-in-law (बहू)</strong></div>
-          <div class="f-line">Daughter's Husband = <strong>Son-in-law (दामाद)</strong></div>
-          <div class="f-line">Uncle's Son = <strong>Cousin (चचेरा भाई)</strong></div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ TREE METHOD</div>
-          <div class="mc-text">
-            हमेशा <strong>Family Tree</strong> बनाएँ:<br>
-            ♂ = पुरुष, ♀ = महिला<br>
-            ↑ = Parent, ↓ = Child<br>
-            ↔ = Sibling (भाई/बहन)<br><br>
-            <span class="hl">Gender hints ढूँढें पहले</span><br>
-            "Son/Brother" = Male<br>
-            "Daughter/Sister/Mother/Wife" = Female<br><br>
-            Puzzle type: सबसे पहले gender fix करें
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div class="q-stem">A की माँ B की बेटी है। C, B का पति है। D, A का भाई है। C का D से क्या संबंध है?<br>(A) पिता (B) नाना (C) दादा (D) चाचा</div>
-        <div class="q-ans">✅ (B) नाना — C→(husband)→B→(daughter)→A's mother→A→(brother)→D. C is D's maternal grandfather (नाना)</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- R4: SERIES -->
-  <div class="topic-card">
-    <div class="topic-header reason" onclick="toggle(this)">
-      <div class="topic-num">4</div>
-      <div class="topic-name">Number & Letter Series (श्रृंखला)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Series Patterns</div>
-          <div class="f-line"><strong>AP:</strong> +2,+4,+6... → arithmetic progression</div>
-          <div class="f-line"><strong>GP:</strong> ×2,×3... → geometric progression</div>
-          <div class="f-line"><strong>Square:</strong> 1,4,9,16,25,36,49,64,81,100</div>
-          <div class="f-line"><strong>Cube:</strong> 1,8,27,64,125,216,343</div>
-          <div class="f-line"><strong>Prime:</strong> 2,3,5,7,11,13,17,19,23,29</div>
-          <div class="f-line"><strong>Fibonacci:</strong> 1,1,2,3,5,8,13,21,34</div>
-          <div class="f-line"><strong>n(n+1):</strong> 2,6,12,20,30,42,56</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ 3-STEP Method</div>
-          <div class="mc-text">
-            <strong>Step 1:</strong> Difference निकालें (d1)<br>
-            <strong>Step 2:</strong> अगर same → AP<br>
-            <strong>Step 3:</strong> अगर नहीं → d2 निकालें<br><br>
-            Letter Series:<br>
-            <span class="hl">A=1, E=5, I=9, O=15, U=21</span><br>
-            EJOTY = multiples of 5<br>
-            Odd letters: A,C,E,G,I... (+2)<br><br>
-            <strong>Missing term:</strong> pattern दोनों तरफ check करें
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">2, 6, 12, 20, 30, ? <br>(A)40 (B)42 (C)44 (D)46</div><div class="q-ans">✅ (B)42 → n(n+1): 6×7=42</div></div>
-          <div><div class="q-stem">ACE, BDF, CEG, ? <br>(A)DFH (B)DGH (C)EFH (D)EGI</div><div class="q-ans">✅ (A)DFH — each group +1</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- R5: ANALOGY -->
-  <div class="topic-card">
-    <div class="topic-header reason" onclick="toggle(this)">
-      <div class="topic-num">5</div>
-      <div class="topic-name">Analogy (सादृश्यता) + Odd One Out</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card concept">
-          <div class="mc-title">💡 Concept</div>
-          <div class="mc-text">Analogy: A:B :: C:? — A और B का relationship ढूँढें, वही C पर apply करें।<br>
-          Odd One Out: 4 में से 3 एक category में हैं, 1 अलग।</div>
-          <div class="key-pills">
-            <span class="kp">Product:Material</span><span class="kp">Tool:Work</span>
-            <span class="kp">Animal:Sound</span><span class="kp">Part:Whole</span>
-            <span class="kp">Word:Meaning</span>
-          </div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Relationship Types</div>
-          <div class="mc-text">
-            <strong>Doctor:Hospital :: Teacher:?</strong> → School (workplace)<br>
-            <strong>Pen:Write :: Knife:?</strong> → Cut (purpose)<br>
-            <strong>Lion:Pride :: Fish:?</strong> → School (group name)<br><br>
-            <span class="hl">Odd One Out: Category से बाहर वाला</span><br>
-            Ex: गाय, भैंस, बकरी, <strong>मुर्गी</strong> → मुर्गी (poultry, not dairy)<br><br>
-            Number Odd: Check prime/square/even
+          <div class="social-row">
+            <a href="https://www.linkedin.com/company/govmates" target="_blank" rel="noopener" class="social-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zm2-5a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>
+              LinkedIn
+            </a>
+            <a href="https://www.youtube.com/@govmates" target="_blank" rel="noopener" class="social-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+              YouTube
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- R6: CLOCK CALENDAR -->
-  <div class="topic-card">
-    <div class="topic-header reason" onclick="toggle(this)">
-      <div class="topic-num">6</div>
-      <div class="topic-name">Clock (घड़ी) + Calendar (कैलेंडर)</div>
-      <div class="topic-tags"><span class="tag tag-q">3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Clock Formulas</div>
-          <div class="f-line">Hour hand: <strong>0.5°</strong> per minute</div>
-          <div class="f-line">Minute hand: <strong>6°</strong> per minute</div>
-          <div class="f-line">Angle = |30H − 5.5M|</div>
-          <div class="f-line">Overlap: every 65<sup>5</sup>/<sub>11</sub> min after 12</div>
-          <div class="f-line">Right angle: 22 times in 12 hrs</div>
-          <div class="f-line">Straight line: 11 times in 12 hrs</div>
+  <!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">gov<span>mates</span></div>
+          <p>A technology scouting platform merging best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
         </div>
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Calendar Odd Days</div>
-          <div class="f-line">Ordinary year = <strong>365 days = 1 odd day</strong></div>
-          <div class="f-line">Leap year = <strong>366 days = 2 odd days</strong></div>
-          <div class="f-line">100 yrs = 5 odd | 200 = 3 | 300 = 1 | 400 = 0</div>
-          <div class="f-line">Jan=3, Feb=0(1), Mar=3, Apr=2, May=3</div>
-          <div class="f-line">Jun=2, Jul=3, Aug=3, Sep=2, Oct=3</div>
-          <div class="f-line">Nov=2, Dec=3 | 0=Sun...6=Sat</div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="/membership">Membership</a></li>
+            <li><a href="/accelerator">Accelerator</a></li>
+            <li><a href="/collaborate">Collaborate</a></li>
+            <li><a href="/insights">Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/ati">ATI</a></li>
+            <li><a href="/ota">OTA</a></li>
+            <li><a href="mailto:matchmaker@govmates.com">Contact</a></li>
+          </ul>
         </div>
       </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">3:25 बजे घंटे और मिनट की सुई के बीच कोण?<br>(A)47.5° (B)45° (C)47° (D)48°</div><div class="q-ans">✅ (A) |30×3 − 5.5×25| = |90−137.5| = 47.5°</div></div>
-          <div><div class="q-stem">15 अगस्त 1947 को कौन सा दिन था?<br>(A)शुक्र (B)शनि (C)रवि (D)गुरु</div><div class="q-ans">✅ (A) Friday (शुक्रवार)</div></div>
-        </div>
+      <div class="footer-bottom">
+        <span>@ govmates llc 2026. All Rights Reserved.</span>
+        <span><a href="mailto:matchmaker@govmates.com">matchmaker@govmates.com</a> &nbsp;·&nbsp; <a href="tel:2028549468">(202) 854-9GOV</a></span>
       </div>
     </div>
-  </div>
-
-  <!-- R7: SITTING ARRANGEMENT -->
-  <div class="topic-card">
-    <div class="topic-header reason" onclick="toggle(this)">
-      <div class="topic-num">7</div>
-      <div class="topic-name">Seating Arrangement + Syllogism</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Seating Trick</div>
-          <div class="mc-text">
-            <strong>Linear:</strong> Left/Right fix<br>
-            <strong>Circular:</strong> एक fix, बाकी relative<br><br>
-            हमेशा <span class="hl">definite clues पहले</span> लगाएँ<br>
-            फिर conditional clues<br><br>
-            "A के बायीं ओर B है" — diagram बनाएँ<br>
-            Circular: Clockwise = Right
-          </div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Syllogism Rules</div>
-          <div class="mc-text">
-            All A are B + All B are C → <span class="hl-g">All A are C ✓</span><br>
-            Some A are B + All B are C → <span class="hl-g">Some A are C ✓</span><br>
-            All A are B + No B is C → <span class="hl">No A is C ✓</span><br>
-            Some A are B + No B is C → <span class="hl">Some A are not C ✓</span><br><br>
-            <strong>Venn Diagram method सबसे आसान</strong><br>
-            "Either/Or" conclusion = दोनों गलत हों तो
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- R8: MIRROR -->
-  <div class="topic-card">
-    <div class="topic-header reason" onclick="toggle(this)">
-      <div class="topic-num">8</div>
-      <div class="topic-name">Mirror Image + Figure Completion (Non-Verbal)</div>
-      <div class="topic-tags"><span class="tag tag-q">3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Mirror Image Trick</div>
-          <div class="mc-text">
-            <strong>Mirror = Left-Right flip</strong> (top-bottom same)<br>
-            <strong>Water = Top-Bottom flip</strong> (left-right same)<br><br>
-            <span class="hl">Numbers में:</span><br>
-            3 → ε | 5 → 5(flipped) | 7 → L<br>
-            b→d | p→q | d→b<br><br>
-            Clock में mirror: 9:15 का mirror = 2:45<br>
-            Formula: <strong>11:60 − actual time</strong>
-          </div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Figure Tricks</div>
-          <div class="mc-text">
-            <strong>Pattern Matrix:</strong> Row/Column pattern देखें<br>
-            Rotation: 90°, 180°, 270° = CW<br>
-            <span class="hl">Counting Figures:</span><br>
-            Triangles में: छोटे + संयुक्त count करें<br>
-            Formula: n(n+2)(2n+1)/8 (for rows of triangles)<br><br>
-            <strong>Embedded Figures:</strong> outline match करें
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div>
-
-<!-- ══════════════════════════════════════════ -->
-<!--            MATHEMATICS PANEL             -->
-<!-- ══════════════════════════════════════════ -->
-<div class="panel" id="panel-maths">
-<div class="subject-section maths">
-
-  <div class="subject-banner maths">
-    <div class="banner-icon">🔢</div>
-    <div class="banner-text">
-      <h2>गणित (Numerical Ability)</h2>
-      <p>40 प्रश्न · 100 अंक · अंकगणित + ज्यामिति + बीजगणित</p>
-    </div>
-    <div class="banner-score"><b>25–30</b>Target</div>
-  </div>
-
-  <!-- M1: PERCENTAGE -->
-  <div class="topic-card">
-    <div class="topic-header open maths" onclick="toggle(this)">
-      <div class="topic-num">1</div>
-      <div class="topic-name">प्रतिशत (Percentage)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span><span class="tag tag-q">Profit/Loss से linked</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body open">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Formulas</div>
-          <div class="f-line">x% of y = (x×y)/100</div>
-          <div class="f-line">A is x% of B → A = Bx/100</div>
-          <div class="f-line">% increase = (New−Old)/Old × 100</div>
-          <div class="f-line">% decrease = (Old−New)/Old × 100</div>
-          <div class="f-line">Successive %: a+b + ab/100</div>
-          <div class="f-line">x% of y = y% of x (commutative)</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Fraction-% Table</div>
-          <div class="mc-text" style="font-size:12px;">
-            1/2=50% · 1/3=33.33% · 1/4=25%<br>
-            1/5=20% · 1/6=16.67% · 1/7=14.28%<br>
-            1/8=12.5% · 1/9=11.11% · 1/10=10%<br>
-            3/4=75% · 2/3=66.67% · 3/5=60%<br><br>
-            <strong>Shortcut: x% of y</strong><br>
-            15% of 80 = 80% of 15 = 12 ✓<br>
-            <span class="hl">बड़े % को छोटी संख्या पर लगाएँ</span>
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">किसी संख्या का 35% = 245. उस संख्या का 65% क्या है?<br>(A)450 (B)455 (C)460 (D)465</div><div class="q-ans">✅ (B) संख्या=700; 700×65/100=455</div></div>
-          <div><div class="q-stem">400 का 30% + 600 का 20% = ?<br>(A)220 (B)230 (C)240 (D)250</div><div class="q-ans">✅ (C) 120+120=240</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M2: PROFIT LOSS -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">2</div>
-      <div class="topic-name">लाभ और हानि (Profit & Loss)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–5 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Formulas</div>
-          <div class="f-line">Profit = SP − CP | Loss = CP − SP</div>
-          <div class="f-line">Profit% = (Profit/CP) × 100</div>
-          <div class="f-line">SP = CP × (100+P%)/100</div>
-          <div class="f-line">CP = SP × 100/(100+P%)</div>
-          <div class="f-line">CP = SP × 100/(100−L%)</div>
-          <div class="f-line">Discount = MP − SP | D% = D/MP × 100</div>
-          <div class="f-line">SP = MP × (100−D%)/100</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ CP=100 Method</div>
-          <div class="mc-text">
-            <strong>हमेशा CP=100 मानें</strong><br>
-            P%=20% → SP=120, Profit=20<br>
-            L%=25% → SP=75, Loss=25<br><br>
-            <span class="hl">Two articles trick:</span><br>
-            दोनों same SP, P% और L% equal<br>
-            → हमेशा <strong>हानि होती है</strong><br>
-            Loss% = (common%)²/100<br><br>
-            Dishonest seller:<br>
-            Gain% = (True−False wt)/False wt × 100
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">₹480 में बेचने पर 20% लाभ। CP क्या है?<br>(A)₹360 (B)₹380 (C)₹400 (D)₹420</div><div class="q-ans">✅ (C) CP=480×100/120=₹400</div></div>
-          <div><div class="q-stem">₹720 में बेचने पर 10% हानि। SP क्या हो कि 15% लाभ हो?<br>(A)₹880 (B)₹900 (C)₹920 (D)₹940</div><div class="q-ans">✅ (C) CP=720×100/90=800; SP=800×115/100=₹920</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M3: SI CI -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">3</div>
-      <div class="topic-name">साधारण व चक्रवृद्धि ब्याज (SI & CI)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 SI & CI Formulas</div>
-          <div class="f-line">SI = P×R×T/100</div>
-          <div class="f-line">Amount = P + SI = P(1 + RT/100)</div>
-          <div class="f-line">CI = P[(1+R/100)ⁿ − 1]</div>
-          <div class="f-line">Amount(CI) = P(1+R/100)ⁿ</div>
-          <div class="f-line">CI−SI (2 yrs) = P(R/100)²</div>
-          <div class="f-line">CI−SI (3 yrs) = P(R/100)²(R/100+3)</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Tricks</div>
-          <div class="mc-text">
-            <strong>R unknown trick:</strong><br>
-            R = (SI×100)/(P×T)<br><br>
-            <strong>2 साल में CI vs SI:</strong><br>
-            Difference = P×R²/10000<br><br>
-            <span class="hl">Rule of 72:</span><br>
-            Double होने में साल = 72/R<br>
-            R=8% → 72/8=9 साल में double<br><br>
-            <strong>Half-yearly:</strong> R→R/2, T→2T लगाएँ
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">₹5000 पर 4 वर्ष में 8% प्रतिवर्ष SI?<br>(A)₹1400 (B)₹1500 (C)₹1600 (D)₹1800</div><div class="q-ans">✅ (C) 5000×8×4/100=₹1600</div></div>
-          <div><div class="q-stem">₹8000 पर 2 वर्ष 10% CI − SI का अंतर?<br>(A)₹80 (B)₹120 (C)₹160 (D)₹240</div><div class="q-ans">✅ (A) 8000×(10/100)²=8000×0.01=₹80</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M4: RATIO -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">4</div>
-      <div class="topic-name">अनुपात-समानुपात + मिश्रण (Ratio & Mixture)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Formulas</div>
-          <div class="f-line">a:b :: c:d → ad = bc (product of means = extremes)</div>
-          <div class="f-line">Compounded ratio: a:b and c:d → ac:bd</div>
-          <div class="f-line">Duplicate: a²:b² | Sub-duplicate: √a:√b</div>
-          <div class="f-line">Partnership: Profit ∝ Capital × Time</div>
-          <div class="f-line">Alligation: (d−m):(m−c) = ratio to mix</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Alligation Trick</div>
-          <div class="mc-text">
-            <strong>Cross Difference Rule:</strong><br>
-            Dearer price (d) &nbsp;Cheaper price (c)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↘ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↙<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mean (m)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↙ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↘<br>
-            (m−c) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(d−m)<br><br>
-            Ratio = (m−c) : (d−m)<br>
-            <span class="hl">Mixture में यही सबसे fast method</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M5: TIME WORK -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">5</div>
-      <div class="topic-name">समय और कार्य + नल-हौज (Time-Work & Pipe)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Formulas</div>
-          <div class="f-line">A+B together = ab/(a+b) days</div>
-          <div class="f-line">Work done in 1 day = 1/n (if n days total)</div>
-          <div class="f-line">Pipe: Fill A + Fill B = 1/a + 1/b</div>
-          <div class="f-line">Inlet+Outlet: 1/a − 1/b (b=outlet)</div>
-          <div class="f-line">MDH = constant (Man×Day×Hour)</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ LCM Method (Fastest)</div>
-          <div class="mc-text">
-            <strong>A=12 days, B=15 days</strong><br>
-            LCM(12,15) = 60 = Total Work<br>
-            A's efficiency = 60/12 = 5<br>
-            B's efficiency = 60/15 = 4<br>
-            Together = 5+4=9 per day<br>
-            Time = 60/9 = <span class="hl">6⅔ days</span><br><br>
-            Pipe: Same LCM method<br>
-            Outlet: subtract efficiency
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div class="q-stem">A=20 days, B=30 days, C=60 days में काम करते हैं। तीनों साथ कितने दिन में करेंगे?<br>(A)8 (B)9 (C)10 (D)12</div>
-        <div class="q-ans">✅ (C) LCM=60; A=3, B=2, C=1; Total=6/day; 60/6=10 days</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M6: SPEED TIME -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">6</div>
-      <div class="topic-name">गति-दूरी-समय + रेलगाड़ी (Speed-Distance-Time)</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 3–4 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Formulas</div>
-          <div class="f-line">Distance = Speed × Time</div>
-          <div class="f-line">1 km/h = 5/18 m/s | 1 m/s = 18/5 km/h</div>
-          <div class="f-line">Average speed = 2xy/(x+y) (equal distance)</div>
-          <div class="f-line">Train cross pole: t = L/v</div>
-          <div class="f-line">Train cross platform: t = (L+P)/v</div>
-          <div class="f-line">Same dir: v₁−v₂ | Opposite: v₁+v₂</div>
-          <div class="f-line">Relative speed (boat): u±v (stream)</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Train Tricks</div>
-          <div class="mc-text">
-            Train A & B, opposite: cross time = (L₁+L₂)/(v₁+v₂)<br>
-            Train A & B, same: = (L₁+L₂)/(v₁−v₂)<br><br>
-            <span class="hl">Boat in river:</span><br>
-            Downstream = u+v<br>
-            Upstream = u−v<br>
-            Speed of boat = (D+U)/2<br>
-            Speed of stream = (D−U)/2<br><br>
-            <strong>km/h → m/s: ×5/18</strong>
-          </div>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div class="q-stem">200m लंबी ट्रेन 60km/h से चल रही है। 300m लंबे platform को पार करने में समय?<br>(A)25s (B)28s (C)30s (D)32s</div>
-        <div class="q-ans">✅ (C) Speed=60×5/18=50/3 m/s; t=(200+300)÷(50/3)=500×3/50=30s</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M7: AGE -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">7</div>
-      <div class="topic-name">आयु सम्बंधी प्रश्न (Age Problems)</div>
-      <div class="topic-tags"><span class="tag tag-q">2–3 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Method</div>
-          <div class="mc-text">
-            <strong>Present age = x मानें</strong><br>
-            n साल बाद = x+n<br>
-            n साल पहले = x−n<br><br>
-            Ratio A:B = m:n → A=mk, B=nk<br><br>
-            <span class="hl">Equation बनाएँ, solve करें</span><br><br>
-            Ex: पिता की उम्र पुत्र की 3 गुना है। 10 साल बाद 2 गुना होगी।<br>
-            3x−x=10×(3−2) → x=10 → पुत्र=10, पिता=30
-          </div>
-        </div>
-        <div class="mini-card example">
-          <div class="mc-title">📝 Exam Q</div>
-          <div class="q-stem">A और B की वर्तमान आयु का अनुपात 5:3 है। 4 वर्ष बाद 3:2 होगा। A की वर्तमान आयु?<br>(A)16 (B)20 (C)24 (D)28</div>
-          <div class="q-ans">✅ (B) 5k+4/3k+4=3/2 → 10k+8=9k+12 → k=4; A=20</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M8: GEOMETRY -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">8</div>
-      <div class="topic-name">क्षेत्रमिति (Mensuration) — 2D & 3D</div>
-      <div class="topic-tags"><span class="tag tag-fire">🔥 4–6 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 2D Formulas</div>
-          <div class="f-line">Square: A=a², P=4a</div>
-          <div class="f-line">Rectangle: A=l×b, P=2(l+b)</div>
-          <div class="f-line">Triangle: A=½bh | Heron: √[s(s-a)(s-b)(s-c)]</div>
-          <div class="f-line">Equilateral △: A=√3/4×a², h=√3/2×a</div>
-          <div class="f-line">Circle: A=πr², C=2πr</div>
-          <div class="f-line">Trapezium: A=½(a+b)h</div>
-        </div>
-        <div class="mini-card formula">
-          <div class="mc-title">📐 3D Formulas</div>
-          <div class="f-line">Cube: V=a³, SA=6a², diagonal=a√3</div>
-          <div class="f-line">Cuboid: V=lbh, SA=2(lb+bh+lh)</div>
-          <div class="f-line">Cylinder: V=πr²h, CSA=2πrh, TSA=2πr(r+h)</div>
-          <div class="f-line">Cone: V=⅓πr²h, l=√(r²+h²), CSA=πrl</div>
-          <div class="f-line">Sphere: V=4/3πr³, SA=4πr²</div>
-          <div class="f-line">Hemisphere: V=2/3πr³, CSA=2πr², TSA=3πr²</div>
-        </div>
-      </div>
-      <div class="mini-card trick">
-        <div class="mc-title">⚡ Memory Tricks</div>
-        <div class="mc-text">
-          <strong>π=22/7 ≈ 3.14</strong><br>
-          Cylinder vs Cone: <span class="hl">Cone Volume = ⅓ Cylinder</span><br>
-          Sphere vs Hemisphere: <span class="hl">half volume, not half SA</span><br><br>
-          <strong>Scaling rule:</strong><br>
-          Dimensions double → Area × 4, Volume × 8<br>
-          <span class="hl-g">2D: scale² | 3D: scale³</span>
-        </div>
-      </div>
-      <div class="mini-card example">
-        <div class="mc-title">📝 Exam Q</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-          <div><div class="q-stem">7cm त्रिज्या और 10cm ऊँचाई के बेलन का आयतन?<br>(A)1540cm³ (B)1440cm³ (C)1480cm³ (D)1620cm³</div><div class="q-ans">✅ (A) π×49×10=22/7×490=1540</div></div>
-          <div><div class="q-stem">14m × 10m आयत के चारों ओर 2m चौड़ा रास्ता। रास्ते का क्षेत्रफल?<br>(A)112m² (B)120m² (C)124m² (D)128m²</div><div class="q-ans">✅ (A) (18×14)−(14×10)=252−140=112m²</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M9: ALGEBRA -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">9</div>
-      <div class="topic-name">सरलीकरण + LCM/HCF + बीजगणित</div>
-      <div class="topic-tags"><span class="tag tag-q">4–5 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Key Identities + Rules</div>
-          <div class="f-line">BODMAS: B→O→D→M→A→S</div>
-          <div class="f-line">(a+b)² = a²+2ab+b²</div>
-          <div class="f-line">(a−b)² = a²−2ab+b²</div>
-          <div class="f-line">(a+b)(a−b) = a²−b²</div>
-          <div class="f-line">(a+b)³ = a³+3a²b+3ab²+b³</div>
-          <div class="f-line">HCF×LCM = Product of two numbers</div>
-          <div class="f-line">If a+b+c=0 → a³+b³+c³=3abc</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Squares to Remember</div>
-          <div class="mc-text" style="font-size:12px;">
-            11²=121 · 12²=144 · 13²=169<br>
-            14²=196 · 15²=225 · 16²=256<br>
-            17²=289 · 18²=324 · 19²=361<br>
-            20²=400 · 21²=441 · 25²=625<br><br>
-            Cubes: 5³=125 · 6³=216 · 7³=343<br>
-            8³=512 · 9³=729 · 10³=1000<br><br>
-            <span class="hl">Simplification: पहले brackets, फिर division</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M10: AVERAGE -->
-  <div class="topic-card">
-    <div class="topic-header maths" onclick="toggle(this)">
-      <div class="topic-num">10</div>
-      <div class="topic-name">औसत + आँकड़ा व्याख्या (Average + DI)</div>
-      <div class="topic-tags"><span class="tag tag-q">2–3 Q</span></div>
-      <span class="chevron">›</span>
-    </div>
-    <div class="topic-body">
-      <div class="body-row">
-        <div class="mini-card formula">
-          <div class="mc-title">📐 Formulas</div>
-          <div class="f-line">Average = Sum / Count</div>
-          <div class="f-line">Sum = Average × Count</div>
-          <div class="f-line">New avg (add x): Old avg + (x−old avg)/(n+1)</div>
-          <div class="f-line">Consecutive n numbers avg = (first+last)/2</div>
-          <div class="f-line">1 to n average = (n+1)/2</div>
-        </div>
-        <div class="mini-card trick">
-          <div class="mc-title">⚡ Trick</div>
-          <div class="mc-text">
-            <strong>Assumed Mean Method:</strong><br>
-            Roughly middle value मान लो<br>
-            Deviations निकालो → average deviation<br>
-            Actual avg = Assumed + avg deviation<br><br>
-            <span class="hl">छात्र replacement:</span><br>
-            नए छात्र की उम्र = पुराना avg + n×change in avg
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div>
-
-<!-- ══════════════════════════════════════════ -->
-<!--            RAPID REVISION PANEL          -->
-<!-- ══════════════════════════════════════════ -->
-<div class="panel" id="panel-rapid">
-<div class="rapid">
-  <div class="rapid-title">⚡ 5-मिनट Rapid Revision List</div>
-  <div class="rapid-sub">परीक्षा से ठीक पहले — सिर्फ इतना पढ़ें, बाकी सब याद हो जाएगा</div>
-
-  <div class="rapid-grid">
-    <!-- HINDI -->
-    <div class="rapid-col">
-      <h4 class="h">📖 सामान्य हिंदी</h4>
-      <div class="rapid-item"><span>🔥</span>अ/आ+इ/ई=ए, अ/आ+उ/ऊ=ओ (गुण संधि)</div>
-      <div class="rapid-item"><span>🔥</span>बहुव्रीहि = दोनों अप्रधान, तीसरा अर्थ</div>
-      <div class="rapid-item"><span>🔥</span>वीर रस = उत्साह, करुण = शोक, श्रृंगार = रति</div>
-      <div class="rapid-item"><span>🔥</span>उपमा = सरिस/जैसे, रूपक = no जैसे</div>
-      <div class="rapid-item"><span>🔥</span>आँखें चुराना = सामना न करना</div>
-      <div class="rapid-item"><span>🔥</span>नीलकमल = कर्मधारय, चतुर्भुज = बहुव्रीहि</div>
-      <div class="rapid-item"><span>⬛</span>तुलसी→रामचरितमानस, कबीर→दोहावली</div>
-      <div class="rapid-item"><span>⬛</span>भक्तिकाल = हिंदी का स्वर्ण युग</div>
-      <div class="rapid-item"><span>⬛</span>हिंदी राजभाषा = अनुच्छेद 343</div>
-      <div class="rapid-item"><span>⬛</span>परीक्षा (✓) परिक्षा (✗), उपर्युक्त (✓)</div>
-    </div>
-
-    <!-- REASONING -->
-    <div class="rapid-col">
-      <h4 class="r">🧠 Reasoning</h4>
-      <div class="rapid-item"><span class="g">🔥</span>Coding: पहले shift/pattern identify करें</div>
-      <div class="rapid-item"><span class="g">🔥</span>Direction: उत्तर+दायाँ=पूर्व, distance=Pythagoras</div>
-      <div class="rapid-item"><span class="g">🔥</span>Blood Relation: tree बनाओ, gender first</div>
-      <div class="rapid-item"><span class="g">🔥</span>Series: difference → difference of difference</div>
-      <div class="rapid-item"><span class="g">🔥</span>Analogy: relationship type identify करो</div>
-      <div class="rapid-item"><span class="g">⬛</span>Clock angle = |30H − 5.5M|</div>
-      <div class="rapid-item"><span class="g">⬛</span>Mirror = L-R flip, Water = T-B flip</div>
-      <div class="rapid-item"><span class="g">⬛</span>Syllogism: Venn diagram बनाओ</div>
-      <div class="rapid-item"><span class="g">⬛</span>Odd one out: category से बाहर वाला</div>
-      <div class="rapid-item"><span class="g">⬛</span>Shadow सुबह = पश्चिम, शाम = पूर्व</div>
-    </div>
-
-    <!-- MATHS -->
-    <div class="rapid-col">
-      <h4 class="m">🔢 Mathematics</h4>
-      <div class="rapid-item"><span class="b">🔥</span>CP = SP×100/(100±P/L%)</div>
-      <div class="rapid-item"><span class="b">🔥</span>SI = PRT/100 | CI−SI(2yr) = P(R/100)²</div>
-      <div class="rapid-item"><span class="b">🔥</span>A+B work = ab/(a+b) days</div>
-      <div class="rapid-item"><span class="b">🔥</span>Train+platform: t=(L+P)/speed</div>
-      <div class="rapid-item"><span class="b">🔥</span>Cylinder V=πr²h, Cone V=⅓πr²h</div>
-      <div class="rapid-item"><span class="b">⬛</span>1km/h = 5/18 m/s</div>
-      <div class="rapid-item"><span class="b">⬛</span>Successive %: a+b+ab/100</div>
-      <div class="rapid-item"><span class="b">⬛</span>(a+b)²=a²+2ab+b², a²−b²=(a+b)(a−b)</div>
-      <div class="rapid-item"><span class="b">⬛</span>HCF×LCM = P×Q</div>
-      <div class="rapid-item"><span class="b">⬛</span>Average = Sum/n, Sphere SA=4πr²</div>
-    </div>
-  </div>
-
-  <div class="strategy-box">
-    <strong style="color:#FCD34D; font-size:15px;">🏆 परीक्षा में Maximum Score की Strategy</strong><br><br>
-    ⏱️ <strong>Time Plan:</strong> Hindi=25min · Reasoning=30min · Maths=38min · GK=22min · Revision=5min<br>
-    ✅ <strong>पहले करें:</strong> Reasoning (fastest) → Hindi → GK → Maths (last — calculations take time)<br>
-    🎯 <strong>Skip करें:</strong> Complex Maths/Geometry जो 2+ min लें — वापस आएँ अगर time हो<br>
-    📌 <strong>No Negative:</strong> सभी 160 प्रश्नों के उत्तर दें — guess भी सही हो सकता है!<br>
-    💡 <strong>Elimination:</strong> 2 options clear गलत हों तो 50-50 chance लें<br>
-    🔥 <strong>Target:</strong> Hindi≥30 + Reasoning≥32 + Maths≥25 + GK≥28 = <strong>115/160 ≈ 287 अंक</strong>
-  </div>
-</div>
-</div><!-- end rapid panel -->
-
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--          PREDICTED QUESTIONS PANEL                       -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<div class="panel" id="panel-predict">
-
-<style>
-/* ─── Predict Panel Styles ─── */
-.predict-header {
-  background: linear-gradient(135deg, #1E1035 0%, #3B0764 50%, #6D28D9 100%);
-  border-radius: 14px;
-  padding: 28px 32px;
-  margin-bottom: 24px;
-  position: relative; overflow: hidden;
-}
-.predict-header::before {
-  content:'';position:absolute;inset:0;
-  background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 24px);
-}
-.predict-eyebrow {
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.35);
-  color:#FCD34D;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  padding:4px 14px;border-radius:20px;margin-bottom:12px;
-}
-.predict-header h2 { font-size:26px;font-weight:800;color:white;margin-bottom:6px; }
-.predict-header h2 em { color:#F472B6;font-style:normal; }
-.predict-header p { font-size:13px;color:#C4B5FD;margin-bottom:16px; }
-.predict-pills { display:flex;gap:10px;flex-wrap:wrap; }
-.predict-pill {
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
-  border-radius:8px;padding:6px 14px;font-size:12px;color:#E9D5FF;
-  display:flex;flex-direction:column;align-items:center;
-}
-.predict-pill b { font-size:16px;color:white; }
-
-/* Section banner */
-.ps-banner {
-  display:flex;align-items:center;gap:12px;
-  padding:14px 20px;border-radius:12px 12px 0 0;color:white;
-}
-.ps-banner.h-band { background:linear-gradient(135deg,#92400E,#D97706); }
-.ps-banner.r-band { background:linear-gradient(135deg,#064E3B,#059669); }
-.ps-banner.m-band { background:linear-gradient(135deg,#1E3A8A,#2563EB); }
-.ps-banner-icon { font-size:22px; }
-.ps-banner h3 { font-size:16px;font-weight:800; }
-.ps-banner p { font-size:11px;opacity:.8; }
-.ps-banner-badge {
-  margin-left:auto;background:rgba(255,255,255,.18);
-  border:1px solid rgba(255,255,255,.25);border-radius:8px;
-  padding:5px 14px;text-align:center;font-size:11px;
-}
-.ps-banner-badge b { display:block;font-size:18px; }
-
-/* MCQ Card */
-.mcq-grid { display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px;background:white;border:1px solid #E2E8F0;border-top:none; }
-.mcq-grid.three { grid-template-columns:1fr 1fr 1fr; }
-@media(max-width:660px) { .mcq-grid,.mcq-grid.three { grid-template-columns:1fr; } }
-.mcq-grid:last-of-type { border-radius:0 0 12px 12px;margin-bottom:28px; }
-
-.mcq-card {
-  border-radius:10px;border:1px solid #E2E8F0;
-  overflow:hidden;
-}
-.mcq-card.super {
-  border:2px solid #F59E0B;
-  box-shadow: 0 0 0 3px rgba(245,158,11,.12);
-}
-.mcq-top {
-  padding:12px 14px 10px;background:#F8FAFC;
-  border-bottom:1px solid #E2E8F0;
-  display:flex;align-items:flex-start;gap:8px;
-}
-.mcq-num {
-  width:22px;height:22px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;color:white;flex-shrink:0;margin-top:1px;
-}
-.mcq-num.hc { background:#D97706; }
-.mcq-num.rc { background:#059669; }
-.mcq-num.mc { background:#2563EB; }
-.mcq-question { font-size:13px;color:#1E293B;line-height:1.55;flex:1; }
-.super-badge {
-  display:inline-flex;align-items:center;gap:3px;
-  background:#FEF3C7;border:1px solid #F59E0B;
-  color:#B45309;font-size:10px;font-weight:700;
-  padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;
-}
-.mcq-options {
-  padding:10px 14px;
-  display:grid;grid-template-columns:1fr 1fr;gap:3px;
-}
-.opt {
-  font-size:12px;color:#475569;padding:3px 6px;border-radius:4px;
-  transition:background .1s;
-}
-.opt.correct { background:#DCFCE7;color:#166534;font-weight:700; }
-.mcq-bottom {
-  padding:10px 14px;border-top:1px solid #E2E8F0;
-  background:#FAFBFF;
-}
-.mcq-ans {
-  font-size:12px;color:#166534;font-weight:600;
-  display:flex;align-items:flex-start;gap:5px;margin-bottom:5px;
-}
-.mcq-trick {
-  font-size:11.5px;color:#4C1D95;background:#F5F3FF;
-  border:1px solid #DDD6FE;border-radius:5px;
-  padding:5px 8px;line-height:1.5;
-}
-
-/* Do-or-Die section */
-.dod-wrapper {
-  background:linear-gradient(135deg,#0F172A,#1E3A5F);
-  border-radius:14px;padding:28px 32px;margin-top:8px;
-}
-.dod-title { font-size:22px;font-weight:800;color:#F9A8D4;margin-bottom:4px; }
-.dod-sub { font-size:13px;color:#94A3B8;margin-bottom:24px; }
-.dod-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px; }
-@media(max-width:700px) { .dod-grid { grid-template-columns:1fr; } }
-.dod-col { background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px; }
-.dod-col h4 { font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px; }
-.dod-item {
-  display:flex;align-items:flex-start;gap:8px;
-  padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);
-  font-size:12.5px;line-height:1.5;
-}
-.dod-item:last-child { border-bottom:none; }
-.dod-rank {
-  width:20px;height:20px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;
-}
-.rank1 { background:#EF4444;color:white; }
-.rank2 { background:#F59E0B;color:white; }
-.rank3 { background:#10B981;color:white; }
-.dod-item-text { color:#CBD5E1; }
-.dod-item-text strong { color:white; }
-.dod-final-box {
-  margin-top:20px;
-  background:rgba(249,168,212,.08);
-  border:1px solid rgba(249,168,212,.3);
-  border-radius:10px;padding:16px 20px;
-  font-size:13px;color:#FDE8F5;line-height:2;
-}
-</style>
-
-<!-- PREDICT HEADER -->
-<div class="predict-header">
-  <div style="position:relative;">
-    <div class="predict-eyebrow">🎯 AI Trend Analysis — UPSI 2026</div>
-    <h2>कल के <em>संभावित प्रश्न</em></h2>
-    <p>UP Constable 60244 + UPSI पिछले paper trends पर आधारित · अत्यंत संभावित MCQs</p>
-    <div class="predict-pills">
-      <div class="predict-pill"><b>45</b>Questions</div>
-      <div class="predict-pill"><b>🔥 Super High</b>Probability</div>
-      <div class="predict-pill"><b>3 Sections</b>Covered</div>
-      <div class="predict-pill"><b>Tricks</b>Included</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ HINDI PREDICTED ═══ -->
-<div class="ps-banner h-band">
-  <div class="ps-banner-icon">📖</div>
-  <div><h3>सामान्य हिंदी — संभावित प्रश्न</h3><p>UP Constable 60244 trend + UPSI 2021 pattern match</p></div>
-  <div class="ps-banner-badge"><b>15 Q</b>Predicted</div>
-</div>
-<div class="mcq-grid">
-
-  <!-- H1 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H1</div>
-      <div class="mcq-question">"निराशा" में कौन सी संधि है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) व्यंजन संधि</div>
-      <div class="opt correct">(B) दीर्घ स्वर संधि</div>
-      <div class="opt">(C) विसर्ग संधि</div>
-      <div class="opt">(D) गुण संधि</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) नि+आशा → इ+आ = ईआ... नहीं; नि+र्+आशा = विसर्ग? नहीं — नि = उपसर्ग, आशा = शब्द → यह दीर्घ: नि+आ = निरा... actually संधि = नहीं, यह उपसर्ग है। Correct = (D) नहीं — नि(उपसर्ग)+आशा → अ+आ=आ → दीर्घ</div>
-      <div class="mcq-trick">⚡ Trick: नि+आशा → निराशा, "अ+आ=आ" = दीर्घ स्वर संधि</div>
-    </div>
-  </div>
-
-  <!-- H2 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H2</div>
-      <div class="mcq-question">"महात्मा" का सही विग्रह और समास कौन सा है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) महान् है आत्मा — द्विगु</div>
-      <div class="opt correct">(B) महान् है आत्मा जिसकी — बहुव्रीहि</div>
-      <div class="opt">(C) महान् और आत्मा — द्वंद्व</div>
-      <div class="opt">(D) महान् की आत्मा — तत्पुरुष</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) बहुव्रीहि — दोनों पद मिलकर तीसरे (व्यक्ति) की ओर संकेत करते हैं</div>
-      <div class="mcq-trick">⚡ जब "जिसका/जिसकी" लगे → बहुव्रीहि समास</div>
-    </div>
-  </div>
-
-  <!-- H3 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H3</div>
-      <div class="mcq-question">"उत्कर्ष" का विलोम शब्द क्या है?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) विकर्ष</div>
-      <div class="opt correct">(B) अपकर्ष</div>
-      <div class="opt">(C) निष्कर्ष</div>
-      <div class="opt">(D) आकर्ष</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) अपकर्ष — उत्कर्ष=उन्नति, अपकर्ष=अवनति</div>
-      <div class="mcq-trick">⚡ उत् (ऊपर) ↔ अप (नीचे) — prefix opposite</div>
-    </div>
-  </div>
-
-  <!-- H4 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H4</div>
-      <div class="mcq-question">"नाक रगड़ना" मुहावरे का सही अर्थ क्या है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) क्रोध करना</div>
-      <div class="opt">(B) घमंड करना</div>
-      <div class="opt correct">(C) विनती/क्षमा माँगना</div>
-      <div class="opt">(D) ईर्ष्या करना</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) नाक रगड़ना = अत्यंत विनम्रता से क्षमा माँगना</div>
-      <div class="mcq-trick">⚡ Muhavare में literal meaning हमेशा गलत; context से सोचें</div>
-    </div>
-  </div>
-
-  <!-- H5 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H5</div>
-      <div class="mcq-question">निम्नलिखित में शुद्ध वर्तनी कौन सी है?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) अनुग्रहीत</div>
-      <div class="opt correct">(B) अनुगृहीत</div>
-      <div class="opt">(C) अनुग्रहित</div>
-      <div class="opt">(D) अनुगरहित</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) अनुगृहीत — "गृह" मूल शब्द से</div>
-      <div class="mcq-trick">⚡ ऋ की मात्रा (ृ) = Sanskrit origin words में सावधान रहें</div>
-    </div>
-  </div>
-
-  <!-- H6 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H6</div>
-      <div class="mcq-question">"रघुपति राघव राजाराम" — पंक्ति में कौन सा अलंकार है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt correct">(A) अनुप्रास</div>
-      <div class="opt">(B) यमक</div>
-      <div class="opt">(C) उपमा</div>
-      <div class="opt">(D) रूपक</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A) अनुप्रास — "र" वर्ण की आवृत्ति बार-बार होती है</div>
-      <div class="mcq-trick">⚡ Same letter repeat = अनुप्रास | Same word, 2 meanings = यमक</div>
-    </div>
-  </div>
-
-  <!-- H7 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H7</div>
-      <div class="mcq-question">श्रृंगार रस का स्थायीभाव क्या है?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt correct">(A) रति</div>
-      <div class="opt">(B) उत्साह</div>
-      <div class="opt">(C) हास</div>
-      <div class="opt">(D) विस्मय</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A) रति — श्रृंगार रस = प्रेम का रस, स्थायीभाव = रति</div>
-      <div class="mcq-trick">⚡ श्रृंगार=रति, वीर=उत्साह, हास्य=हास — top 3 जरूर याद रखें</div>
-    </div>
-  </div>
-
-  <!-- H8 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H8</div>
-      <div class="mcq-question">"प्रेमचंद" के किस उपन्यास में किसान जीवन का चित्रण है?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) निर्मला</div>
-      <div class="opt correct">(B) गोदान</div>
-      <div class="opt">(C) गबन</div>
-      <div class="opt">(D) सेवासदन</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) गोदान — होरी (किसान) पात्र, ग्रामीण जीवन की कहानी</div>
-      <div class="mcq-trick">⚡ प्रेमचंद की पहचान: गोदान=किसान, निर्मला=नारी, गबन=मध्यवर्ग</div>
-    </div>
-  </div>
-
-  <!-- H9 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H9</div>
-      <div class="mcq-question">"देवेंद्र" शब्द का सही संधि विच्छेद क्या है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) देवे + इंद्र</div>
-      <div class="opt correct">(B) देव + इंद्र</div>
-      <div class="opt">(C) देव + एंद्र</div>
-      <div class="opt">(D) देवे + न्द्र</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) देव+इंद्र → अ+इ=ए (गुण संधि) → देवेंद्र</div>
-      <div class="mcq-trick">⚡ गुण संधि: अ/आ+इ/ई=ए | अ/आ+उ/ऊ=ओ | अ/आ+ऋ=अर्</div>
-    </div>
-  </div>
-
-  <!-- H10 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H10</div>
-      <div class="mcq-question">"लौह पुरुष" किसे कहा जाता है? (हिंदी भाषा प्रयोग)</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) जवाहरलाल नेहरू</div>
-      <div class="opt correct">(B) सरदार वल्लभभाई पटेल</div>
-      <div class="opt">(C) सुभाष चंद्र बोस</div>
-      <div class="opt">(D) भगत सिंह</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) सरदार पटेल = लौह पुरुष (Iron Man of India)</div>
-      <div class="mcq-trick">⚡ Hindi + GK overlap: ऐसे questions दोनों section में आते हैं</div>
-    </div>
-  </div>
-
-  <!-- H11 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H11</div>
-      <div class="mcq-question">"पंचवटी" किस समास का उदाहरण है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) बहुव्रीहि</div>
-      <div class="opt">(B) तत्पुरुष</div>
-      <div class="opt correct">(C) द्विगु</div>
-      <div class="opt">(D) कर्मधारय</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) द्विगु — पाँच वटों का समूह (संख्यापूर्वक = द्विगु)</div>
-      <div class="mcq-trick">⚡ संख्या पूर्वपद + समूह/माप = हमेशा द्विगु</div>
-    </div>
-  </div>
-
-  <!-- H12 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num hc">H12</div>
-      <div class="mcq-question">"सूर्योदय" में संधि का प्रकार बताइए।</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt correct">(A) गुण स्वर संधि</div>
-      <div class="opt">(B) दीर्घ स्वर संधि</div>
-      <div class="opt">(C) विसर्ग संधि</div>
-      <div class="opt">(D) वृद्धि संधि</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A) सूर्य+उदय → अ+उ=ओ = गुण संधि</div>
-      <div class="mcq-trick">⚡ "ओ" बने = गुण, "औ" बने = वृद्धि, "आ" बने = दीर्घ</div>
-    </div>
-  </div>
-
-</div><!-- end hindi mcq-grid -->
-
-<!-- ═══ REASONING PREDICTED ═══ -->
-<div class="ps-banner r-band">
-  <div class="ps-banner-icon">🧠</div>
-  <div><h3>Reasoning — संभावित प्रश्न</h3><p>UP 60244 Constable exam direct match + UPSI 2021 trends</p></div>
-  <div class="ps-banner-badge"><b>15 Q</b>Predicted</div>
-</div>
-<div class="mcq-grid">
-
-  <!-- R1 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R1</div>
-      <div class="mcq-question">यदि Monday को LNMCZX लिखा जाए तो FRIDAY को कैसे लिखेंगे?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) EQHCZX</div>
-      <div class="opt correct">(B) EQHCZW</div>
-      <div class="opt">(C) FQHCZX</div>
-      <div class="opt">(D) EQICZX</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) M→L(−1), O→N(−1), N→M(−1), D→C(−1), A→Z(−1), Y→X(−1); F→E,R→Q,I→H,D→C,A→Z,Y→X = EQHCZX... wait last: Y-1=X, verify: EQHCZX → (B) is EQHCZW — re-check: Friday=F,R,I,D,A,Y → −1 each → E,Q,H,C,Z,X = EQHCZX = (A). Pattern needs recheck per shift.</div>
-      <div class="mcq-trick">⚡ Trick: हर letter को −1 shift करें। Z का −1 = Y। Series check करें।</div>
-    </div>
-  </div>
-
-  <!-- R2 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R2</div>
-      <div class="mcq-question">सीता, राम की बहन है। मोहन, राम का भाई है। गीता, मोहन की माँ है। सीता का गीता से क्या सम्बंध है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) बेटी</div>
-      <div class="opt">(B) माँ</div>
-      <div class="opt correct">(C) पुत्री</div>
-      <div class="opt">(D) बहन</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) गीता = मोहन की माँ = राम की भी माँ = सीता की भी माँ; अतः सीता = गीता की पुत्री</div>
-      <div class="mcq-trick">⚡ Tree: गीता→(माँ)→मोहन/राम→(भाई-बहन)→सीता. गीता is grandmother level? No — गीता=राम+मोहन की माँ = सीता की माँ = Daughter relation</div>
-    </div>
-  </div>
-
-  <!-- R3 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R3</div>
-      <div class="mcq-question">राहुल उत्तर की ओर 8 km चला, फिर दायें मुड़कर 6 km, फिर दायें मुड़कर 8 km चला। वह प्रारंभिक स्थान से कितनी दूर और किस दिशा में है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 6 km पश्चिम</div>
-      <div class="opt correct">(B) 6 km पूर्व</div>
-      <div class="opt">(C) 8 km दक्षिण</div>
-      <div class="opt">(D) 14 km उत्तर-पूर्व</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) उत्तर 8km → पूर्व 6km → दक्षिण 8km. उत्तर-दक्षिण cancel → केवल पूर्व 6km = 6km पूर्व</div>
-      <div class="mcq-trick">⚡ Opposite directions cancel: उत्तर+दक्षिण cancel, पूर्व+पश्चिम cancel। बचा हुआ = answer</div>
-    </div>
-  </div>
-
-  <!-- R4 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R4</div>
-      <div class="mcq-question">श्रृंखला पूरी करें: 3, 7, 15, 31, 63, ?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 115</div>
-      <div class="opt">(B) 121</div>
-      <div class="opt correct">(C) 127</div>
-      <div class="opt">(D) 131</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) Pattern: ×2+1 → 3×2+1=7, 7×2+1=15, 15×2+1=31, 31×2+1=63, 63×2+1=127</div>
-      <div class="mcq-trick">⚡ Trick: Difference देखें → 4,8,16,32,64 = powers of 2. Next diff=64 → 63+64=127</div>
-    </div>
-  </div>
-
-  <!-- R5 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R5</div>
-      <div class="mcq-question">घड़ी में 4:20 बजे हैं। घंटे और मिनट की सुई के बीच कोण क्या होगा?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 5°</div>
-      <div class="opt">(B) 8°</div>
-      <div class="opt correct">(C) 10°</div>
-      <div class="opt">(D) 12°</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) |30H − 5.5M| = |30×4 − 5.5×20| = |120 − 110| = 10°</div>
-      <div class="mcq-trick">⚡ Formula: |30H − 5.5M| — हमेशा यही use करें। H=घंटे, M=मिनट</div>
-    </div>
-  </div>
-
-  <!-- R6 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R6</div>
-      <div class="mcq-question">निम्नलिखित में विषम (Odd One Out) कौन सा है?<br>Rose, Lotus, Marigold, Mango</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) Rose</div>
-      <div class="opt">(B) Lotus</div>
-      <div class="opt">(C) Marigold</div>
-      <div class="opt correct">(D) Mango</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (D) Mango — बाकी तीन फूल हैं, Mango फल है</div>
-      <div class="mcq-trick">⚡ Category logic: 3 एक group में, 1 बाहर = Odd One Out</div>
-    </div>
-  </div>
-
-  <!-- R7 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R7</div>
-      <div class="mcq-question">यदि किसी माह की 5 तारीख को बुधवार है, तो उस माह की 19 तारीख को कौन सा दिन होगा?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) सोमवार</div>
-      <div class="opt correct">(B) बुधवार</div>
-      <div class="opt">(C) शुक्रवार</div>
-      <div class="opt">(D) गुरुवार</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) 19−5=14 दिन = 2 सप्ताह = same day → बुधवार</div>
-      <div class="mcq-trick">⚡ 7 का गुणज = same day. 14÷7=2 (exact) → same day = Wednesday</div>
-    </div>
-  </div>
-
-  <!-- R8 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R8</div>
-      <div class="mcq-question">Pen : Write :: Knife : ?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) Sharp</div>
-      <div class="opt correct">(B) Cut</div>
-      <div class="opt">(C) Steel</div>
-      <div class="opt">(D) Cook</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) Cut — Pen का काम = Write, Knife का काम = Cut (Tool : Purpose)</div>
-      <div class="mcq-trick">⚡ Analogy type = Tool:Function. Same relationship apply करें</div>
-    </div>
-  </div>
-
-  <!-- R9 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R9</div>
-      <div class="mcq-question">6 व्यक्ति एक वृत्त में बैठे हैं। A, B के दायें है। C, D के बायें है। B, D के सामने है। E, A के सामने है। F, C के दायें है। E के दायें कौन है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) A</div>
-      <div class="opt correct">(B) D</div>
-      <div class="opt">(C) C</div>
-      <div class="opt">(D) F</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) Circular arrangement diagram बनाएँ: B−D opposite, A−E opposite, C−F adjacent. E के दायें = D</div>
-      <div class="mcq-trick">⚡ Circular: एक fix करो, opposites पहले place करो, फिर बाकी</div>
-    </div>
-  </div>
-
-  <!-- R10 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R10</div>
-      <div class="mcq-question">यदि CLOUD = 59432 और RAIN = 7168, तो DRAIN = ?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 27168</div>
-      <div class="opt correct">(B) 27168</div>
-      <div class="opt">(C) 37168</div>
-      <div class="opt">(D) 28168</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ D=2(from cloUD: U=4,D=2), R=7,A=1,I=6,N=8 → DRAIN=27168</div>
-      <div class="mcq-trick">⚡ Mixed code: हर letter की value दोनों words से निकालो, फिर नया word बनाओ</div>
-    </div>
-  </div>
-
-  <!-- R11 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R11</div>
-      <div class="mcq-question">श्रृंखला: AZ, BY, CX, DW, ?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) FU</div>
-      <div class="opt correct">(B) EV</div>
-      <div class="opt">(C) EW</div>
-      <div class="opt">(D) FV</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) First letter: A,B,C,D,E (+1). Second letter: Z,Y,X,W,V (−1). = EV</div>
-      <div class="mcq-trick">⚡ Double letter series: दोनों patterns अलग-अलग देखो</div>
-    </div>
-  </div>
-
-  <!-- R12 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num rc">R12</div>
-      <div class="mcq-question">किसी mirror में 3:25 दिखता है। सही समय क्या है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 8:35</div>
-      <div class="opt correct">(B) 8:35</div>
-      <div class="opt">(C) 9:35</div>
-      <div class="opt">(D) 8:25</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A/B) Mirror time = 11:60 − 3:25 = 8:35</div>
-      <div class="mcq-trick">⚡ Clock mirror formula: 11:60 − दिखाई देने वाला समय = असली समय</div>
-    </div>
-  </div>
-
-</div><!-- end reasoning mcq-grid -->
-
-<!-- ═══ MATHS PREDICTED ═══ -->
-<div class="ps-banner m-band">
-  <div class="ps-banner-icon">🔢</div>
-  <div><h3>Mathematics — संभावित प्रश्न</h3><p>UP Constable + UPSI pattern analysis, calculation-heavy topics</p></div>
-  <div class="ps-banner-badge"><b>15 Q</b>Predicted</div>
-</div>
-<div class="mcq-grid">
-
-  <!-- M1 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M1</div>
-      <div class="mcq-question">एक दुकानदार ₹1200 में खरीदी वस्तु को ₹1500 में बेचता है। उसका लाभ प्रतिशत क्या है?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 20%</div>
-      <div class="opt correct">(B) 25%</div>
-      <div class="opt">(C) 30%</div>
-      <div class="opt">(D) 15%</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) Profit = 300; P% = 300/1200 × 100 = 25%</div>
-      <div class="mcq-trick">⚡ P% = (SP−CP)/CP × 100. CP=100 मानें तो SP=125 → 25% profit</div>
-    </div>
-  </div>
-
-  <!-- M2 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M2</div>
-      <div class="mcq-question">₹6000 पर 3 वर्ष के लिए 10% वार्षिक दर से साधारण ब्याज ज्ञात कीजिए।</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) ₹1600</div>
-      <div class="opt">(B) ₹1700</div>
-      <div class="opt correct">(C) ₹1800</div>
-      <div class="opt">(D) ₹2000</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) SI = 6000×10×3/100 = ₹1800</div>
-      <div class="mcq-trick">⚡ SI = PRT/100. Numbers सीधे multiply करो, 100 से divide</div>
-    </div>
-  </div>
-
-  <!-- M3 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M3</div>
-      <div class="mcq-question">A एक काम 15 दिन में, B 20 दिन में कर सकता है। दोनों मिलकर कितने दिन में करेंगे?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt correct">(A) 8<sup>4</sup>/<sub>7</sub> दिन</div>
-      <div class="opt">(B) 9 दिन</div>
-      <div class="opt">(C) 10 दिन</div>
-      <div class="opt">(D) 7<sup>1</sup>/<sub>2</sub> दिन</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A) = 15×20/(15+20) = 300/35 = 60/7 = 8⁴⁄₇ दिन</div>
-      <div class="mcq-trick">⚡ LCM(15,20)=60. A=4/day, B=3/day, Together=7/day. 60/7=8⁴⁄₇</div>
-    </div>
-  </div>
-
-  <!-- M4 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M4</div>
-      <div class="mcq-question">180 मीटर लंबी ट्रेन 54 km/h की गति से चल रही है। एक खड़े व्यक्ति को पार करने में कितना समय लगेगा?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt correct">(A) 12 सेकेंड</div>
-      <div class="opt">(B) 10 सेकेंड</div>
-      <div class="opt">(C) 15 सेकेंड</div>
-      <div class="opt">(D) 18 सेकेंड</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A) Speed=54×5/18=15 m/s; t=180/15=12 sec</div>
-      <div class="mcq-trick">⚡ Person को pole की तरह मानें: t=train length/speed. km/h→m/s: ×5/18</div>
-    </div>
-  </div>
-
-  <!-- M5 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M5</div>
-      <div class="mcq-question">किसी संख्या का 40% = 160 है। उस संख्या का 75% क्या होगा?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 280</div>
-      <div class="opt">(B) 290</div>
-      <div class="opt correct">(C) 300</div>
-      <div class="opt">(D) 320</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) संख्या = 160×100/40 = 400; 400×75/100 = 300</div>
-      <div class="mcq-trick">⚡ पहले full number निकालो: N=given×100/given%. फिर asked% × N/100</div>
-    </div>
-  </div>
-
-  <!-- M6 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M6</div>
-      <div class="mcq-question">A और B की आयु का अनुपात 3:5 है। 10 वर्ष बाद यह अनुपात 5:7 हो जाएगा। A की वर्तमान आयु क्या है?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 12</div>
-      <div class="opt">(B) 14</div>
-      <div class="opt correct">(C) 15</div>
-      <div class="opt">(D) 18</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) 3k+10/5k+10=5/7 → 21k+70=25k+50 → 4k=20 → k=5; A=3×5=15</div>
-      <div class="mcq-trick">⚡ A=3k, B=5k; 10 साल बाद equation बनाओ, cross multiply</div>
-    </div>
-  </div>
-
-  <!-- M7 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M7</div>
-      <div class="mcq-question">7 cm त्रिज्या और 10 cm ऊँचाई के बेलन का सम्पूर्ण पृष्ठ क्षेत्रफल क्या होगा? (π=22/7)</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 726 cm²</div>
-      <div class="opt">(B) 748 cm²</div>
-      <div class="opt correct">(C) 748 cm²</div>
-      <div class="opt">(D) 792 cm²</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) TSA = 2πr(r+h) = 2×22/7×7×(7+10) = 44×17 = 748 cm²</div>
-      <div class="mcq-trick">⚡ TSA = 2πr(r+h). r=7 → 2πr = 2×22/7×7 = 44. 44×17=748</div>
-    </div>
-  </div>
-
-  <!-- M8 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M8</div>
-      <div class="mcq-question">₹10000 पर 2 वर्ष के लिए 10% वार्षिक दर से CI और SI का अंतर ज्ञात करें।</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt correct">(A) ₹100</div>
-      <div class="opt">(B) ₹150</div>
-      <div class="opt">(C) ₹200</div>
-      <div class="opt">(D) ₹250</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A) CI−SI = P(R/100)² = 10000×(10/100)² = 10000×0.01 = ₹100</div>
-      <div class="mcq-trick">⚡ 2 साल shortcut: Diff = P×R²/10000. No need to calculate CI & SI separately</div>
-    </div>
-  </div>
-
-  <!-- M9 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M9</div>
-      <div class="mcq-question">एक नल टंकी को 6 घंटे में भर सकता है और दूसरा 12 घंटे में खाली कर सकता है। दोनों एक साथ खुले हों तो टंकी कब भरेगी?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 8 घंटे</div>
-      <div class="opt correct">(B) 12 घंटे</div>
-      <div class="opt">(C) 10 घंटे</div>
-      <div class="opt">(D) 9 घंटे</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) भरना: 1/6, खाली: 1/12. Net=1/6−1/12=1/12. Time=12 घंटे</div>
-      <div class="mcq-trick">⚡ Inlet−Outlet = Net rate. 1/6−1/12 = 2/12−1/12 = 1/12 → 12 hrs</div>
-    </div>
-  </div>
-
-  <!-- M10 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M10</div>
-      <div class="mcq-question">एक वस्तु का अंकित मूल्य ₹800 है। 20% छूट के बाद विक्रय मूल्य क्या होगा?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) ₹600</div>
-      <div class="opt correct">(B) ₹640</div>
-      <div class="opt">(C) ₹660</div>
-      <div class="opt">(D) ₹680</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (B) SP = 800×(100−20)/100 = 800×80/100 = ₹640</div>
-      <div class="mcq-trick">⚡ Discount% दिया हो → SP = MP×(100−D%)/100</div>
-    </div>
-  </div>
-
-  <!-- M11 -->
-  <div class="mcq-card">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M11</div>
-      <div class="mcq-question">यदि किसी घनाभ की लंबाई 8 cm, चौड़ाई 5 cm और ऊँचाई 3 cm है, तो उसका आयतन क्या होगा?</div>
-    </div>
-    <div class="mcq-options">
-      <div class="opt correct">(A) 120 cm³</div>
-      <div class="opt">(B) 130 cm³</div>
-      <div class="opt">(C) 150 cm³</div>
-      <div class="opt">(D) 160 cm³</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (A) V = l×b×h = 8×5×3 = 120 cm³</div>
-      <div class="mcq-trick">⚡ Cuboid: V=lbh. Simple multiplication — practice fast calculation</div>
-    </div>
-  </div>
-
-  <!-- M12 -->
-  <div class="mcq-card super">
-    <div class="mcq-top">
-      <div class="mcq-num mc">M12</div>
-      <div class="mcq-question">दो संख्याओं का अनुपात 4:5 है और उनका LCM 120 है। उनका HCF क्या होगा?</div>
-      <span class="super-badge">🔥 Super</span>
-    </div>
-    <div class="mcq-options">
-      <div class="opt">(A) 4</div>
-      <div class="opt">(B) 5</div>
-      <div class="opt correct">(C) 6</div>
-      <div class="opt">(D) 8</div>
-    </div>
-    <div class="mcq-bottom">
-      <div class="mcq-ans">✅ (C) संख्याएँ = 4k, 5k. LCM = 20k = 120 → k=6. HCF = k = 6</div>
-      <div class="mcq-trick">⚡ Ratio m:n में numbers=mk,nk; LCM=mnk (coprime ratio). HCF=k</div>
-    </div>
-  </div>
-
-</div><!-- end maths mcq-grid -->
-
-<!-- ═══ DO OR DIE ═══ -->
-<div class="dod-wrapper">
-  <div class="dod-title">🎯 Do-or-Die Topics List</div>
-  <div class="dod-sub">कल की परीक्षा में ये topics पढ़े बिना मत जाओ — Maximum ROI, Minimum Time</div>
-
-  <div class="dod-grid">
-    <!-- HINDI -->
-    <div class="dod-col">
-      <h4 style="color:#FCD34D;">📖 Hindi — 8 Must-Do Topics</h4>
-      <div class="dod-item">
-        <div class="dod-rank rank1">1</div>
-        <div class="dod-item-text"><strong>संधि</strong> — स्वर संधि के 5 rules रटें: आ/ए/ओ/ऐ/औ। 5–7 Q guaranteed</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank1">2</div>
-        <div class="dod-item-text"><strong>समास</strong> — बहुव्रीहि vs कर्मधारय पहचानना। "जिसका" = बहुव्रीहि</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank1">3</div>
-        <div class="dod-item-text"><strong>विलोम शब्द</strong> — उत्कर्ष↔अपकर्ष, साकार↔निराकार, श्रेय↔प्रेय</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">4</div>
-        <div class="dod-item-text"><strong>मुहावरे</strong> — नाक रगड़ना, अंगूठा दिखाना, दाँत खट्टे करना</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">5</div>
-        <div class="dod-item-text"><strong>रस</strong> — 9 रस+स्थायीभाव। वीर=उत्साह, श्रृंगार=रति, करुण=शोक</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">6</div>
-        <div class="dod-item-text"><strong>अलंकार</strong> — उपमा vs रूपक vs अनुप्रास पहचान trick</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank3">7</div>
-        <div class="dod-item-text"><strong>वर्तनी शुद्धि</strong> — परीक्षा, उपर्युक्त, अनुगृहीत (top 10 words)</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank3">8</div>
-        <div class="dod-item-text"><strong>साहित्य</strong> — प्रेमचंद (गोदान), तुलसी (रामचरितमानस), कबीर (दोहावली)</div>
-      </div>
-    </div>
-
-    <!-- REASONING -->
-    <div class="dod-col">
-      <h4 style="color:#6EE7B7;">🧠 Reasoning — 8 Must-Do Topics</h4>
-      <div class="dod-item">
-        <div class="dod-rank rank1">1</div>
-        <div class="dod-item-text"><strong>Coding-Decoding</strong> — +1/−1 shift, reverse alphabet. हर paper में 4–6 Q</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank1">2</div>
-        <div class="dod-item-text"><strong>Direction Sense</strong> — Opposite cancel method. Distance=Pythagoras</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank1">3</div>
-        <div class="dod-item-text"><strong>Number Series</strong> — ×2+1, difference series, n(n+1) patterns</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">4</div>
-        <div class="dod-item-text"><strong>Blood Relation</strong> — Tree method, gender first, generation count</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">5</div>
-        <div class="dod-item-text"><strong>Clock Angle</strong> — |30H−5.5M| formula. 4:20=10°, 3:15=7.5°</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">6</div>
-        <div class="dod-item-text"><strong>Calendar</strong> — 7 का multiple = same day. Odd days method</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank3">7</div>
-        <div class="dod-item-text"><strong>Seating Arrangement</strong> — Circular: fix one, opposites first</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank3">8</div>
-        <div class="dod-item-text"><strong>Mirror Image</strong> — 11:60 − time = mirror time. L-R flip rule</div>
-      </div>
-    </div>
-
-    <!-- MATHS -->
-    <div class="dod-col">
-      <h4 style="color:#93C5FD;">🔢 Maths — 8 Must-Do Topics</h4>
-      <div class="dod-item">
-        <div class="dod-rank rank1">1</div>
-        <div class="dod-item-text"><strong>Profit & Loss</strong> — CP=100 method. SP=CP×(100±P%)/100</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank1">2</div>
-        <div class="dod-item-text"><strong>SI & CI</strong> — SI=PRT/100. CI−SI(2yr)=P×R²/10000</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank1">3</div>
-        <div class="dod-item-text"><strong>Percentage</strong> — N=given×100/given%. x% of y = y% of x trick</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">4</div>
-        <div class="dod-item-text"><strong>Time & Work</strong> — LCM method. Together=ab/(a+b)</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">5</div>
-        <div class="dod-item-text"><strong>Speed-Train</strong> — t=(L+platform)/speed. km/h×5/18=m/s</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank2">6</div>
-        <div class="dod-item-text"><strong>Cylinder/Cone</strong> — V=πr²h, V=⅓πr²h, TSA=2πr(r+h)</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank3">7</div>
-        <div class="dod-item-text"><strong>Age Problems</strong> — Ratio method: a=mk, b=nk. Cross multiply</div>
-      </div>
-      <div class="dod-item">
-        <div class="dod-rank rank3">8</div>
-        <div class="dod-item-text"><strong>LCM/HCF</strong> — Ratio a:b → numbers=ak,bk; LCM=abk; HCF=k</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="dod-final-box">
-    <strong style="font-size:15px;color:#F9A8D4;">🏆 कल की परीक्षा के लिए FINAL CHECKLIST</strong><br><br>
-    🔴 <strong>रात को:</strong> Do-or-Die topics एक बार पढ़ें · Formulas mentally revise करें · 8 घंटे सोएँ<br>
-    🟡 <strong>सुबह उठकर:</strong> 5-Min Rapid Revision list (⚡ tab) पढ़ें · Muhavare + Sandhi rules देखें<br>
-    🟢 <strong>परीक्षा हॉल में:</strong> Reasoning से शुरू करें (fastest) → Hindi → GK → Maths<br>
-    ✅ <strong>No Negative Marking:</strong> कोई भी प्रश्न blank मत छोड़ें — सभी attempt करें<br>
-    🎯 <strong>Target Score:</strong> Hindi≥28 + Reasoning≥30 + Maths≥24 + GK≥26 = <strong>108/160 = 270 Marks</strong><br>
-    💪 <strong>आप कर सकते हैं! जय हिंद! 🇮🇳</strong>
-  </div>
-</div>
-
-</div><!-- end predict panel -->
-
-</div><!-- end page -->
-
-<script>
-function showTab(name) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + name).classList.add('active');
-  event.target.classList.add('active');
-  if(name==='predict') event.target.style.background='linear-gradient(135deg,#5B21B6,#9D174D)';
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-function toggle(header) {
-  const body = header.nextElementSibling;
-  header.classList.toggle('open');
-  body.classList.toggle('open');
-}
-
-// Open first topic in each panel by default (already done inline)
-// Auto-open all on print
-window.onbeforeprint = function() {
-  document.querySelectorAll('.topic-body').forEach(b => b.classList.add('open'));
-  document.querySelectorAll('.topic-header').forEach(h => h.classList.add('open'));
-};
-</script>
+  </footer>
+
+  <!-- ─── JS ─────────────────────────────────────────────────────── -->
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Fade-up intersection observer
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Ambassador slider
+    (function () {
+      const track = document.getElementById('ambTrack');
+      const dots  = document.querySelectorAll('.amb-dot');
+      const total = dots.length;
+      let current = 0;
+      let autoTimer;
+
+      function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      document.getElementById('ambPrev').addEventListener('click', () => { clearInterval(autoTimer); goTo(current - 1); startAuto(); });
+      document.getElementById('ambNext').addEventListener('click', () => { clearInterval(autoTimer); goTo(current + 1); startAuto(); });
+      dots.forEach(d => d.addEventListener('click', () => { clearInterval(autoTimer); goTo(+d.dataset.index); startAuto(); }));
+
+      // Touch / swipe support
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) { clearInterval(autoTimer); goTo(current + (diff > 0 ? 1 : -1)); startAuto(); }
+      });
+
+      function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 4500); }
+      startAuto();
+    })();
+
+    // Hamburger (mobile nav)
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.style.display === 'flex';
+      navLinks.style.cssText = open
+        ? ''
+        : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#fff;padding:16px 20px;border-bottom:1px solid var(--border);box-shadow:var(--shadow-md);gap:4px;z-index:99;';
+    });
+
+    // Active nav – highlight the link matching the current URL path
+    (function () {
+      const path = window.location.pathname.replace(/\/$/, '') || '/';
+      document.querySelectorAll('.nav-links a').forEach(function (a) {
+        if (a.getAttribute('href').replace(/\/$/, '') === path) {
+          a.classList.add('nav-active');
+        }
+      });
+    }());
+  </script>
 </body>
 </html>

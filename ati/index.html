@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATI — Innovation Resource Hub | govmates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #0B2545;
+      --navy-light: #133A6B;
+      --blue:       #1A5FB4;
+      --accent:     #2E86DE;
+      --accent-lt:  #5BA4F5;
+      --teal:       #0E9F8C;
+      --teal-lt:    #D1F5F0;
+      --sky:        #EBF4FF;
+      --light:      #F6F8FC;
+      --border:     #DDE3EE;
+      --grey:       #64748B;
+      --dark:       #1E293B;
+      --white:      #FFFFFF;
+      --shadow-sm:  0 1px 3px rgba(11,37,69,.08), 0 1px 2px rgba(11,37,69,.06);
+      --shadow-md:  0 4px 16px rgba(11,37,69,.10), 0 2px 6px rgba(11,37,69,.06);
+      --shadow-lg:  0 12px 40px rgba(11,37,69,.14), 0 4px 12px rgba(11,37,69,.08);
+      --radius:     12px;
+      --radius-lg:  20px;
+      --container:  1200px;
+      --font-head:  'Space Grotesk', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── UTILITIES ─────────────────────────────────────────────────── */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--sky);
+      border: 1px solid #C3D9F7;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(26px, 3vw, 42px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 17px;
+      line-height: 1.78;
+      color: var(--grey);
+    }
+    .section-divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-lt));
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .2s ease;
+      border: 2px solid transparent;
+    }
+    .btn-primary { background: var(--blue); color: var(--white); border-color: var(--blue); }
+    .btn-primary:hover { background: var(--navy-light); border-color: var(--navy-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline { background: transparent; color: var(--navy); border-color: var(--border); }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); background: var(--sky); }
+
+    /* ─── FADE-UP ────────────────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── TOPBAR ─────────────────────────────────────────────────────── */
+    .topbar {
+      background: var(--navy);
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 0;
+    }
+    .topbar .container { display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
+    .topbar a { display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .topbar a:hover { color: var(--white); }
+    .topbar svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ─── NAVBAR ──────────────────────────────────────────────────────── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(221,227,238,.6);
+      transition: background .3s, box-shadow .3s;
+    }
+    .navbar.scrolled { background: rgba(255,255,255,.98); box-shadow: var(--shadow-sm); }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+    .nav-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -.02em; flex-shrink: 0; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--dark); padding: 7px 14px; border-radius: 7px; transition: all .2s; }
+    .nav-links a:hover { color: var(--blue); background: var(--sky); }
+    .nav-links a.nav-cta { background: var(--blue); color: var(--white); font-weight: 600; padding: 8px 18px; }
+    .nav-links a.nav-cta:hover { background: var(--navy-light); color: var(--white); }
+    .nav-links a.nav-active { color: var(--blue); background: var(--sky); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; transition: all .3s; }
+
+    /* ─── HERO ────────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      overflow: hidden;
+      padding: 96px 0 80px;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; top: -15%; right: -8%;
+      width: 640px; height: 640px;
+      background: radial-gradient(circle, rgba(14,159,140,.18) 0%, rgba(46,134,222,.12) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 20px; font-weight: 500; }
+    .hero-breadcrumb a { color: rgba(255,255,255,.5); transition: color .2s; }
+    .hero-breadcrumb a:hover { color: var(--white); }
+    .hero-breadcrumb svg { width: 12px; height: 12px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-lt); margin-bottom: 18px; }
+    .hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent-lt); border-radius: 2px; }
+    .hero h1 { font-family: var(--font-head); font-size: clamp(36px, 4.5vw, 58px); font-weight: 700; line-height: 1.08; color: var(--white); letter-spacing: -.02em; margin-bottom: 10px; }
+    .hero h1 em { font-style: normal; color: var(--accent-lt); }
+    .hero-tagline { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 24px; }
+    .hero-desc { font-size: 17px; line-height: 1.74; color: rgba(255,255,255,.68); max-width: 480px; margin-bottom: 16px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(14,159,140,.15);
+      border: 1px solid rgba(14,159,140,.3);
+      border-radius: 8px; padding: 10px 16px; margin-bottom: 32px;
+    }
+    .hero-badge svg { width: 16px; height: 16px; color: #4DD9C6; flex-shrink: 0; }
+    .hero-badge span { font-size: 13px; color: rgba(255,255,255,.75); font-weight: 500; }
+    .scroll-indicator { display: flex; align-items: center; gap: 10px; font-size: 12px; color: rgba(255,255,255,.3); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+    .scroll-indicator .scroll-line { width: 40px; height: 1px; background: rgba(255,255,255,.15); }
+    .scroll-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.6); } }
+
+    /* Hero visual */
+    .hero-visual-wrap { position: relative; }
+    .hero-illus {
+      background: linear-gradient(135deg, rgba(255,255,255,.05) 0%, rgba(14,159,140,.1) 50%, rgba(46,134,222,.12) 100%);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-lg);
+      aspect-ratio: 4 / 3;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .hero-illus::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .hero-illus-svg { position: relative; z-index: 2; width: 72%; max-width: 280px; }
+    /* ATI partnership badge */
+    .ati-partner-badge {
+      position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 24px;
+      box-shadow: var(--shadow-md);
+      display: flex; align-items: center; gap: 12px;
+      white-space: nowrap;
+    }
+    .ati-partner-badge .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+    .ati-partner-badge span { font-size: 13px; font-weight: 600; color: var(--navy); }
+    .ati-partner-badge small { font-size: 11px; color: var(--grey); font-weight: 500; }
+
+    /* ─── WHAT IS SECTION ─────────────────────────────────────────────── */
+    .what-is {
+      background: var(--white);
+      padding: 96px 0;
+    }
+    .what-is-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .what-is-content {}
+    .what-is-content .section-divider { margin-bottom: 20px; }
+    .what-is-content .section-title { font-size: clamp(24px, 2.8vw, 38px); }
+    .what-is-body {
+      font-size: 17px;
+      line-height: 1.82;
+      color: var(--grey);
+      margin-top: 20px;
+    }
+    .what-is-body + .what-is-body { margin-top: 18px; }
+    /* Feature pills inside what-is */
+    .what-is-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .what-is-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--sky);
+      border: 1px solid #C3D9F7;
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .what-is-pill svg { width: 13px; height: 13px; color: var(--blue); }
+
+    /* YouTube embed */
+    .yt-wrap { position: relative; width: 100%; }
+    .yt-embed {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      background: #000;
+    }
+    .yt-thumb {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease, opacity .3s ease;
+      display: block;
+    }
+    .yt-embed:hover .yt-thumb { transform: scale(1.03); opacity: .88; }
+    /* Dark gradient overlay */
+    .yt-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 50%, transparent 100%);
+      pointer-events: none;
+    }
+    /* Play button */
+    .yt-play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px; height: 72px;
+      background: #FF0000;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(255,0,0,.45), 0 2px 8px rgba(0,0,0,.3);
+      transition: all .25s ease;
+      pointer-events: none;
+    }
+    .yt-embed:hover .yt-play-btn {
+      background: #CC0000;
+      transform: translate(-50%, -50%) scale(1.12);
+      box-shadow: 0 8px 32px rgba(255,0,0,.55), 0 4px 12px rgba(0,0,0,.3);
+    }
+    .yt-play-btn svg { width: 28px; height: 28px; fill: white; margin-left: 4px; }
+    /* Duration / title bar */
+    .yt-meta {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      pointer-events: none;
+    }
+    .yt-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.9);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+    }
+    .yt-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .yt-badge svg { width: 10px; height: 10px; fill: #FF0000; flex-shrink: 0; }
+    /* Active iframe state */
+    .yt-embed.playing .yt-thumb,
+    .yt-embed.playing .yt-overlay,
+    .yt-embed.playing .yt-play-btn,
+    .yt-embed.playing .yt-meta { display: none; }
+    .yt-embed.playing { cursor: default; }
+    .yt-iframe {
+      display: none;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .yt-embed.playing .yt-iframe { display: block; }
+
+    /* ─── BENEFITS ────────────────────────────────────────────────────── */
+    .benefits {
+      background: var(--light);
+      padding: 96px 0;
+    }
+    .benefits .head { margin-bottom: 56px; }
+    .benefits .head .section-title { margin-bottom: 10px; }
+    .benefits-sub { font-family: var(--font-body); font-size: 16px; font-weight: 600; color: var(--blue); margin-bottom: 0; }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .benefit-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 26px;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .benefit-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--accent));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s ease;
+    }
+    .benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: #C3D9F7; }
+    .benefit-card:hover::after { transform: scaleX(1); }
+    .benefit-icon {
+      width: 48px; height: 48px;
+      background: var(--sky);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .benefit-icon svg { width: 22px; height: 22px; color: var(--blue); }
+    .benefit-card p { font-size: 15px; line-height: 1.65; color: var(--dark); font-weight: 500; }
+
+    /* ─── ECOSYSTEM RESOURCES ─────────────────────────────────────────── */
+    .ecosystem {
+      background: var(--white);
+      padding: 96px 0;
+    }
+    .ecosystem .head { max-width: 680px; margin-bottom: 56px; }
+    .ecosystem .head .section-body { max-width: 100%; margin-top: 16px; }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .resource-pill {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all .25s;
+      cursor: default;
+    }
+    .resource-pill:hover { background: var(--sky); border-color: #C3D9F7; transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .resource-pill-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .resource-pill-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.35;
+    }
+    /* Category divider label */
+    .resource-category-label {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 8px 0 4px;
+    }
+    .resource-category-label span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .resource-category-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ─── MATCHMAKING CTA ─────────────────────────────────────────────── */
+    .matchmaking {
+      background: var(--light);
+      padding: 96px 0;
+    }
+    .matchmaking .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .match-left {}
+    .match-left .section-body { max-width: 100%; margin-top: 16px; margin-bottom: 0; }
+    .match-right {}
+    .match-panel {
+      background: var(--navy);
+      border-radius: var(--radius-lg);
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .match-panel::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .match-panel::after {
+      content: '';
+      position: absolute; top: -30%; right: -20%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(46,134,222,.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .match-panel-inner { position: relative; z-index: 2; }
+    .match-panel-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 12px;
+    }
+    .match-panel h3 {
+      font-family: var(--font-head);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .match-panel-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 32px;
+    }
+    .match-btn-stack { display: flex; flex-direction: column; gap: 10px; }
+    .match-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      border: none;
+    }
+    .match-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .match-btn-register {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .match-btn-register:hover { background: var(--accent-lt); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(46,134,222,.35); }
+    .match-btn-login {
+      background: rgba(255,255,255,.1);
+      color: rgba(255,255,255,.85);
+      border: 1px solid rgba(255,255,255,.15) !important;
+    }
+    .match-btn-login:hover { background: rgba(255,255,255,.16); }
+    .match-btn-reset {
+      background: transparent;
+      color: rgba(255,255,255,.45);
+      border: 1px solid rgba(255,255,255,.1) !important;
+      font-size: 13px;
+      justify-content: center;
+      padding: 10px 20px;
+    }
+    .match-btn-reset:hover { color: rgba(255,255,255,.72); border-color: rgba(255,255,255,.2) !important; }
+
+    /* ─── CONCIERGE SUPPORT ──────────────────────────────────────────── */
+    .concierge {
+      background: var(--white);
+      padding: 96px 0;
+    }
+    .concierge .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    /* Left column */
+    .concierge-left .section-title { margin-bottom: 16px; }
+    .concierge-left .section-body  { max-width: 100%; margin-bottom: 40px; }
+    .concierge-scenarios { display: flex; flex-direction: column; }
+    .concierge-scenario {
+      display: flex; align-items: flex-start; gap: 18px;
+      padding: 22px 0; border-bottom: 1px solid var(--border);
+      transition: all .2s;
+    }
+    .concierge-scenario:first-child { padding-top: 0; }
+    .concierge-scenario:last-child  { border-bottom: none; padding-bottom: 0; }
+    .concierge-scenario:hover .cs-icon { background: var(--blue); }
+    .concierge-scenario:hover .cs-icon svg { color: var(--white); }
+    .cs-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: var(--sky); border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s; margin-top: 1px;
+    }
+    .cs-icon svg { width: 19px; height: 19px; color: var(--blue); transition: color .2s; }
+    .cs-text { font-size: 15px; font-weight: 500; color: var(--dark); line-height: 1.58; }
+    .cs-text strong {
+      display: block; font-size: 11px; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase;
+      color: var(--grey); margin-bottom: 3px;
+    }
+    /* Right — premium dark card */
+    .concierge-card {
+      background: var(--navy); border-radius: var(--radius-lg);
+      padding: 52px 48px; position: relative; overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .concierge-card::before {
+      content: ''; position: absolute; top: -70px; right: -70px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(46,134,222,.22) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .concierge-card::after {
+      content: ''; position: absolute; bottom: -50px; left: -50px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(14,159,140,.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .concierge-card-inner { position: relative; z-index: 2; }
+    .concierge-card-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-lt); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .concierge-card-eyebrow::before {
+      content: ''; width: 20px; height: 2px;
+      background: var(--accent-lt); border-radius: 2px;
+    }
+    .concierge-card h3 {
+      font-family: var(--font-head); font-size: 26px; font-weight: 700;
+      color: var(--white); line-height: 1.2; margin-bottom: 10px;
+    }
+    .concierge-card-sub {
+      font-size: 15px; color: rgba(255,255,255,.5);
+      margin-bottom: 36px; line-height: 1.65;
+    }
+    .concierge-email-row {
+      display: flex; align-items: center; gap: 14px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius); padding: 16px 18px;
+      text-decoration: none; transition: all .25s; margin-bottom: 14px;
+    }
+    .concierge-email-row:hover {
+      background: rgba(255,255,255,.11); border-color: rgba(46,134,222,.45);
+      transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.22);
+    }
+    .concierge-email-row-icon {
+      width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px;
+      background: var(--accent); display: flex; align-items: center; justify-content: center;
+    }
+    .concierge-email-row-icon svg { width: 20px; height: 20px; color: var(--white); }
+    .concierge-email-row-body { flex: 1; min-width: 0; }
+    .concierge-email-row-body span {
+      display: block; font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255,255,255,.38); margin-bottom: 3px;
+    }
+    .concierge-email-row-body strong {
+      display: block; font-family: var(--font-head);
+      font-size: 17px; font-weight: 600; color: var(--white);
+      letter-spacing: -.01em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .concierge-email-row-arrow { color: rgba(255,255,255,.28); flex-shrink: 0; transition: all .2s; }
+    .concierge-email-row-arrow svg { width: 18px; height: 18px; }
+    .concierge-email-row:hover .concierge-email-row-arrow { color: var(--accent-lt); transform: translateX(4px); }
+    .concierge-simple {
+      text-align: center; font-size: 13px; font-style: italic;
+      color: rgba(255,255,255,.32); margin-bottom: 32px; padding-top: 2px;
+    }
+    .concierge-card-sep { height: 1px; background: rgba(255,255,255,.08); margin-bottom: 24px; }
+    .concierge-hashtag { display: flex; align-items: center; justify-content: center; }
+    .concierge-hashtag span {
+      font-family: var(--font-head); font-size: 15px; font-weight: 700;
+      color: rgba(255,255,255,.5); letter-spacing: -.01em;
+    }
+    .concierge-hashtag span em { font-style: normal; color: var(--accent-lt); }
+
+    /* ─── FOOTER ──────────────────────────────────────────────────────── */
+    footer { background: #0A1E3D; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -.02em; margin-bottom: 14px; }
+    .footer-logo span { color: var(--accent-lt); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,.5); transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; font-size: 13px; }
+    .footer-bottom a { color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero .container { grid-template-columns: 1fr; gap: 48px; }
+      .hero { padding: 72px 0 64px; }
+      .what-is-grid { grid-template-columns: 1fr; gap: 48px; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .resource-grid { grid-template-columns: repeat(3, 1fr); }
+      .matchmaking .container { grid-template-columns: 1fr; gap: 48px; }
+      .concierge .container { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .topbar { display: none; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .resource-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .concierge-card { padding: 36px 28px; }
+    }
+    @media (max-width: 480px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+      .resource-grid { grid-template-columns: 1fr; }
+      .concierge-card { padding: 28px 20px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .match-panel { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TOPBAR ──────────────────────────────────────────────────── -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:matchmaker@govmates.com">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 5.5l7.5 5 7.5-5M2.5 5.5h15v9h-15z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        matchmaker@govmates.com
+      </a>
+      <a href="tel:2028549468">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l2.5 2.5-1.5 3L7 12l3.5 3 3-1.5L16 16l-2 2c-5-1-10-6-11-11l2-4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        (202) 854-9GOV
+      </a>
+    </div>
+  </div>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">gov<span>mates</span></a>
+      <ul class="nav-links">
+        <li><a href="/membership">Membership</a></li>
+        <li><a href="/accelerator">Accelerator</a></li>
+        <li><a href="/collaborate">Collaborate</a></li>
+        <li><a href="/insights">Insights</a></li>
+        <li><a href="/ati">ATI</a></li>
+        <li><a href="/ota">OTA</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 1. HERO                                                          -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="container">
+
+      <div class="fade-up">
+        <div class="hero-breadcrumb">
+          <a href="/">Home</a>
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2l4 4-4 4"/></svg>
+          <span>ATI</span>
+        </div>
+        <div class="hero-eyebrow">Collaborate · Accelerate · Innovate</div>
+        <h1>Innovation <em>Resource Hub</em></h1>
+        <p class="hero-tagline">COLLABORATE ACCELERATE INNOVATE</p>
+        <div class="hero-badge">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 2l2.4 5.2 5.6.8-4 4 .9 5.5-5-2.7-5 2.7.9-5.5-4-4 5.6-.8z"/></svg>
+          <span>In partnership with Advanced Technology International (ATI)</span>
+        </div>
+        <p class="hero-desc">govmates has launched the Innovation Resource Hub to provide you access to the critical tools you need to thrive. We understand the needs of non-traditional defense contractors, and we've built an ecosystem of resources to help you succeed. This program is at no cost to members of the ATI Consortia.</p>
+        <a href="#resources" class="btn btn-primary" style="font-size:15px;padding:13px 28px;margin-bottom:36px;">
+          Explore Resources
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <div class="scroll-indicator">
+          <div class="scroll-line"></div>
+          <div class="scroll-dot"></div>
+          Scroll to explore
+        </div>
+      </div>
+
+      <div class="hero-visual-wrap fade-up" style="transition-delay:.15s">
+        <div class="hero-illus">
+          <!-- Innovation ecosystem SVG illustration -->
+          <svg class="hero-illus-svg" viewBox="0 0 320 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer ring -->
+            <circle cx="160" cy="120" r="100" stroke="rgba(91,164,245,.15)" stroke-width="1" stroke-dasharray="6 4"/>
+            <circle cx="160" cy="120" r="70"  stroke="rgba(91,164,245,.12)" stroke-width="1" stroke-dasharray="4 6"/>
+            <circle cx="160" cy="120" r="40"  stroke="rgba(91,164,245,.18)" stroke-width="1"/>
+            <!-- Center node -->
+            <circle cx="160" cy="120" r="14" fill="rgba(46,134,222,.25)" stroke="rgba(91,164,245,.5)" stroke-width="1.5"/>
+            <circle cx="160" cy="120" r="6"  fill="rgba(91,164,245,.8)"/>
+            <!-- Satellite nodes + lines -->
+            <line x1="160" y1="120" x2="160" y2="30"  stroke="rgba(91,164,245,.2)" stroke-width="1"/>
+            <circle cx="160" cy="24" r="8" fill="rgba(14,159,140,.3)" stroke="rgba(14,159,140,.6)" stroke-width="1.2"/>
+            <line x1="160" y1="120" x2="248" y2="72"  stroke="rgba(91,164,245,.2)" stroke-width="1"/>
+            <circle cx="254" cy="68" r="8" fill="rgba(46,134,222,.3)" stroke="rgba(91,164,245,.6)" stroke-width="1.2"/>
+            <line x1="160" y1="120" x2="248" y2="168" stroke="rgba(91,164,245,.2)" stroke-width="1"/>
+            <circle cx="254" cy="172" r="8" fill="rgba(14,159,140,.3)" stroke="rgba(14,159,140,.6)" stroke-width="1.2"/>
+            <line x1="160" y1="120" x2="160" y2="210" stroke="rgba(91,164,245,.2)" stroke-width="1"/>
+            <circle cx="160" cy="216" r="8" fill="rgba(46,134,222,.3)" stroke="rgba(91,164,245,.6)" stroke-width="1.2"/>
+            <line x1="160" y1="120" x2="72"  y2="168" stroke="rgba(91,164,245,.2)" stroke-width="1"/>
+            <circle cx="66"  cy="172" r="8" fill="rgba(14,159,140,.3)" stroke="rgba(14,159,140,.6)" stroke-width="1.2"/>
+            <line x1="160" y1="120" x2="72"  y2="72"  stroke="rgba(91,164,245,.2)" stroke-width="1"/>
+            <circle cx="66"  cy="68"  r="8" fill="rgba(46,134,222,.3)" stroke="rgba(91,164,245,.6)" stroke-width="1.2"/>
+            <!-- Cross-links -->
+            <line x1="160" y1="24"  x2="254" y2="68"  stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="254" y1="68"  x2="254" y2="172" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="254" y1="172" x2="160" y2="216" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="160" y1="216" x2="66"  y2="172" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="66"  y1="172" x2="66"  y2="68"  stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <line x1="66"  y1="68"  x2="160" y2="24"  stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+            <!-- Mid-ring nodes -->
+            <circle cx="214" cy="52"  r="5" fill="rgba(91,164,245,.4)"/>
+            <circle cx="241" cy="120" r="5" fill="rgba(14,159,140,.4)"/>
+            <circle cx="214" cy="188" r="5" fill="rgba(91,164,245,.4)"/>
+            <circle cx="106" cy="188" r="5" fill="rgba(14,159,140,.4)"/>
+            <circle cx="79"  cy="120" r="5" fill="rgba(91,164,245,.4)"/>
+            <circle cx="106" cy="52"  r="5" fill="rgba(14,159,140,.4)"/>
+          </svg>
+        </div>
+        <div class="ati-partner-badge">
+          <div class="badge-dot"></div>
+          <div>
+            <span>ATI Consortia Partner</span><br/>
+            <small>No cost to members</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 2. WHAT IS THE INNOVATION RESOURCE HUB?                         -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="what-is">
+    <div class="container">
+      <div class="what-is-grid">
+
+        <!-- Left: content -->
+        <div class="fade-up">
+          <div class="section-divider"></div>
+          <div class="tag">About the Program</div>
+          <h2 class="section-title">What is the Innovation Resource Hub?</h2>
+          <p class="what-is-body">
+            The Innovation Resource Hub is a one-stop shop center for all ATI consortia members to access resources they need to thrive. We believe true innovation originates from teaming and collaboration. And, in order for innovators to be successful, they need a healthy, well-resourced ecosystem.
+          </p>
+          <p class="what-is-body">
+            The Innovation Resource Hub is a one-stop shop center for all ATI consortia members to access resources they need to thrive. We believe true innovation originates from teaming and collaboration. And, in order for innovators to be successful, they need a healthy, well-resourced ecosystem.
+          </p>
+          <div class="what-is-pills">
+            <span class="what-is-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 1l1.9 3.9 4.1.6-3 3 .7 4.2-3.7-2-3.7 2 .7-4.2-3-3 4.1-.6z"/></svg>
+              One-Stop Resource Shop
+            </span>
+            <span class="what-is-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8z"/><path d="M8 5v3l2 2"/></svg>
+              ATI Consortia Members
+            </span>
+            <span class="what-is-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 6H9V2M3 10h4v4"/><path d="M9 2l4 4-4 4M7 14l-4-4 4-4"/></svg>
+              No Cost to Join
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: YouTube embed -->
+        <div class="yt-wrap fade-up" style="transition-delay:.15s">
+          <div class="yt-embed" id="ytEmbed">
+            <img
+              class="yt-thumb"
+              src="https://img.youtube.com/vi/J0AJnYp9y7w/maxresdefault.jpg"
+              alt="Innovation Resource Hub Overview"
+              onerror="this.src='https://img.youtube.com/vi/J0AJnYp9y7w/hqdefault.jpg'"
+            />
+            <div class="yt-overlay"></div>
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="yt-meta">
+              <span class="yt-title">Innovation Resource Hub Overview</span>
+              <span class="yt-badge">
+                <svg viewBox="0 0 16 10"><path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h9A1.5 1.5 0 0 1 12 1.5v7A1.5 1.5 0 0 1 10.5 10h-9A1.5 1.5 0 0 1 0 8.5v-7zm12 1.05L16 .5v9l-4-2.05V2.55z"/></svg>
+                Watch Now
+              </span>
+            </div>
+            <iframe
+              class="yt-iframe"
+              id="ytIframe"
+              src=""
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 3. BENEFITS                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="benefits" id="benefits">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Why Join</div>
+        <h2 class="section-title">Benefits of Joining the ATI Innovation Resource Hub</h2>
+        <p class="benefits-sub">Helping you to grow your business and support the mission</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <p>Connect and collaborate with teaming partners for procurement opportunities within ATI's consortia</p>
+        </div>
+        <div class="benefit-card fade-up" style="transition-delay:.07s">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
+          </div>
+          <p>Identify new teaming opportunities beyond the OTA consortia</p>
+        </div>
+        <div class="benefit-card fade-up" style="transition-delay:.14s">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p>Gain access to resources that are critical for growth</p>
+        </div>
+        <div class="benefit-card fade-up" style="transition-delay:.21s">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <p>Prepare your organization to operate in a federal contracts environment</p>
+        </div>
+        <div class="benefit-card fade-up" style="transition-delay:.28s">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <p>Leverage our ecosystem of tools and experts who understand federal contracting</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 4. ECOSYSTEM RESOURCES                                           -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="ecosystem" id="resources">
+    <div class="container">
+      <div class="head fade-up">
+        <div class="tag">Platform Capabilities</div>
+        <h2 class="section-title">Ecosystem Resources for ATI Consortia Members</h2>
+        <p class="section-body">govmates provides a quick and easy way for members to find resources for:</p>
+      </div>
+      <div class="resource-grid">
+
+        <div class="resource-category-label fade-up">
+          <span>Financial &amp; Compliance</span>
+        </div>
+
+        <div class="resource-pill fade-up">
+          <div class="resource-pill-dot" style="background:var(--teal)"></div>
+          <span class="resource-pill-text">Financing &amp; Access to Capital</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.04s">
+          <div class="resource-pill-dot" style="background:var(--blue)"></div>
+          <span class="resource-pill-text">CMMC/NIST Compliance (Supply Chain Security)</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.08s">
+          <div class="resource-pill-dot" style="background:var(--teal)"></div>
+          <span class="resource-pill-text">Compliance</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.12s">
+          <div class="resource-pill-dot" style="background:var(--accent)"></div>
+          <span class="resource-pill-text">Corporate Insurance</span>
+        </div>
+
+        <div class="resource-category-label fade-up" style="transition-delay:.16s">
+          <span>People &amp; Legal</span>
+        </div>
+
+        <div class="resource-pill fade-up" style="transition-delay:.20s">
+          <div class="resource-pill-dot" style="background:var(--blue)"></div>
+          <span class="resource-pill-text">Employee Retention &amp; Benefits</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.24s">
+          <div class="resource-pill-dot" style="background:var(--teal)"></div>
+          <span class="resource-pill-text">Intellectual Property Legal</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.28s">
+          <div class="resource-pill-dot" style="background:var(--accent)"></div>
+          <span class="resource-pill-text">Legal</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.32s">
+          <div class="resource-pill-dot" style="background:var(--blue)"></div>
+          <span class="resource-pill-text">Recruiting</span>
+        </div>
+
+        <div class="resource-category-label fade-up" style="transition-delay:.36s">
+          <span>Growth &amp; Operations</span>
+        </div>
+
+        <div class="resource-pill fade-up" style="transition-delay:.40s">
+          <div class="resource-pill-dot" style="background:var(--teal)"></div>
+          <span class="resource-pill-text">M&amp;A / Investment Banks</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.44s">
+          <div class="resource-pill-dot" style="background:var(--accent)"></div>
+          <span class="resource-pill-text">Proposal Support</span>
+        </div>
+        <div class="resource-pill fade-up" style="transition-delay:.48s">
+          <div class="resource-pill-dot" style="background:var(--blue)"></div>
+          <span class="resource-pill-text">SCIF Space</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 5. MATCHMAKING CTA                                               -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="matchmaking" id="matchmaking">
+    <div class="container">
+      <div class="match-left fade-up">
+        <div class="tag">Matchmaking for ATI Consortia Members</div>
+        <h2 class="section-title">Ready to Get Started?</h2>
+        <p class="section-body">Register and create a profile today to be considered for matchmaking opportunities. govmates utilizes your company profile data to facilitate teaming introductions. Our algorithms incorporate relevance scoring to rapidly identify teaming partners whose capabilities align with your needs.</p>
+      </div>
+      <div class="match-right fade-up" style="transition-delay:.18s">
+        <div class="match-panel">
+          <div class="match-panel-inner">
+            <div class="match-panel-eyebrow">ATI Consortia · Matchmaking</div>
+            <h3>Ready to Get Started?</h3>
+            <p class="match-panel-desc">Create your profile and let our relevance-scoring algorithm connect you with the right teaming partners.</p>
+            <div class="match-btn-stack">
+              <button class="match-btn match-btn-register">
+                Register
+                <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="match-btn match-btn-login">
+                Login
+                <svg viewBox="0 0 16 16" fill="none"><path d="M10 3h4v10h-4M6 11l4-3-4-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="match-btn match-btn-reset">
+                Reset your password
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 6. CONCIERGE SUPPORT                                            -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="concierge" id="access">
+    <div class="container">
+
+      <!-- LEFT: heading + scenarios -->
+      <div class="concierge-left fade-up">
+        <div class="section-divider"></div>
+        <div class="tag">Concierge Support</div>
+        <h2 class="section-title">Need Access to Resources?</h2>
+        <p class="section-body">We can help. Send us an email with your need &mdash; it&rsquo;s that simple.</p>
+
+        <div class="concierge-scenarios">
+          <div class="concierge-scenario">
+            <div class="cs-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="cs-text">
+              <strong>Teaming &amp; Partners</strong>
+              Need a teaming partner?
+            </div>
+          </div>
+          <div class="concierge-scenario">
+            <div class="cs-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="cs-text">
+              <strong>Secure Facilities</strong>
+              In search of SCIF space for a new contract award?
+            </div>
+          </div>
+          <div class="concierge-scenario">
+            <div class="cs-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="cs-text">
+              <strong>Intellectual Property</strong>
+              Need legal advice for your Intellectual Property?
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: dark contact card -->
+      <div class="fade-up" style="transition-delay:.18s">
+        <div class="concierge-card">
+          <div class="concierge-card-inner">
+            <div class="concierge-card-eyebrow">We Can Help</div>
+            <h3>Need Access to Resources?</h3>
+            <p class="concierge-card-sub">
+              Send us an email with your need at the address below.
+            </p>
+
+            <a href="mailto:ati@govmates.com" class="concierge-email-row">
+              <div class="concierge-email-row-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 7 10-7"/></svg>
+              </div>
+              <div class="concierge-email-row-body">
+                <span>Email Us Directly</span>
+                <strong>ati@govmates.com</strong>
+              </div>
+              <div class="concierge-email-row-arrow">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10h12M12 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </a>
+
+            <p class="concierge-simple">It&rsquo;s that simple.</p>
+
+            <div class="concierge-card-sep"></div>
+
+            <div class="concierge-hashtag">
+              <span>#<em>NotYourMothers</em>Matchmaking</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">gov<span>mates</span></div>
+          <p>A technology scouting platform merging best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="/membership">Membership</a></li>
+            <li><a href="/accelerator">Accelerator</a></li>
+            <li><a href="/collaborate">Collaborate</a></li>
+            <li><a href="/insights">Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/ati">ATI</a></li>
+            <li><a href="/ota">OTA</a></li>
+            <li><a href="mailto:matchmaker@govmates.com">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>@ govmates llc 2026. All Rights Reserved.</span>
+        <span>
+          <a href="mailto:matchmaker@govmates.com">matchmaker@govmates.com</a>
+          &nbsp;·&nbsp;
+          <a href="tel:2028549468">(202) 854-9GOV</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JS ─────────────────────────────────────────────────────── -->
+  <script>
+    // YouTube click-to-play
+    (function () {
+      const embed  = document.getElementById('ytEmbed');
+      const iframe = document.getElementById('ytIframe');
+      if (!embed || !iframe) return;
+      embed.addEventListener('click', function () {
+        if (embed.classList.contains('playing')) return;
+        iframe.src = 'https://www.youtube.com/embed/J0AJnYp9y7w?autoplay=1&rel=0&modestbranding=1';
+        embed.classList.add('playing');
+      });
+    })();
+
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Fade-up observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      const open = navLinks.style.display === 'flex';
+      navLinks.style.cssText = open
+        ? ''
+        : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#fff;padding:16px 20px;border-bottom:1px solid var(--border);box-shadow:0 4px 16px rgba(11,37,69,.1);gap:4px;z-index:99;';
+    });
+
+    // Active nav – highlight the link matching the current URL path
+    (function () {
+      const path = window.location.pathname.replace(/\/$/, '') || '/';
+      document.querySelectorAll('.nav-links a').forEach(function (a) {
+        if (a.getAttribute('href').replace(/\/$/, '') === path) {
+          a.classList.add('nav-active');
+        }
+      });
+    }());
+  </script>
+</body>
+</html>

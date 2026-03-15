@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership — Join govmates | govmates</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:       #0B2545;
+      --navy-light: #133A6B;
+      --blue:       #1A5FB4;
+      --accent:     #2E86DE;
+      --accent-lt:  #5BA4F5;
+      --sky:        #EBF4FF;
+      --light:      #F6F8FC;
+      --border:     #DDE3EE;
+      --grey:       #64748B;
+      --dark:       #1E293B;
+      --white:      #FFFFFF;
+      --shadow-sm:  0 1px 3px rgba(11,37,69,.08), 0 1px 2px rgba(11,37,69,.06);
+      --shadow-md:  0 4px 16px rgba(11,37,69,.10), 0 2px 6px rgba(11,37,69,.06);
+      --shadow-lg:  0 12px 40px rgba(11,37,69,.14), 0 4px 12px rgba(11,37,69,.08);
+      --shadow-xl:  0 24px 64px rgba(11,37,69,.18), 0 8px 24px rgba(11,37,69,.1);
+      --radius:     12px;
+      --radius-lg:  20px;
+      --container:  1200px;
+      --font-head:  'Space Grotesk', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── UTILITIES ────────────────────────────────────────────────── */
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 32px; }
+    .tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); background: var(--sky);
+      border: 1px solid #C3D9F7;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .section-divider {
+      width: 36px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-lt));
+      border-radius: 3px; margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700; line-height: 1.15;
+      color: var(--navy); margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 17px; line-height: 1.75;
+      color: var(--grey); max-width: 640px;
+    }
+
+    /* ─── FADE-UP ──────────────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── TOPBAR ───────────────────────────────────────────────────── */
+    .topbar {
+      background: var(--navy);
+      color: rgba(255,255,255,.72);
+      font-size: 13px; font-weight: 500; padding: 8px 0;
+    }
+    .topbar .container { display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
+    .topbar a { display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .topbar a:hover { color: var(--white); }
+    .topbar svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ─── NAVBAR ───────────────────────────────────────────────────── */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(221,227,238,.6);
+      transition: background .3s, box-shadow .3s;
+    }
+    .navbar.scrolled { background: rgba(255,255,255,.98); box-shadow: var(--shadow-sm); }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+    .nav-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -.02em; flex-shrink: 0; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--dark); padding: 7px 14px; border-radius: 7px; transition: all .2s; }
+    .nav-links a:hover { color: var(--blue); background: var(--sky); }
+    .nav-links a.nav-cta { background: var(--blue); color: var(--white); font-weight: 600; padding: 8px 18px; }
+    .nav-links a.nav-cta:hover { background: var(--navy-light); color: var(--white); }
+    .nav-links a.nav-active { color: var(--blue); background: var(--sky); font-weight: 600; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; transition: all .3s; }
+
+    /* ─── HERO ─────────────────────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--navy) 0%, #0D2E5A 50%, #0B3571 100%);
+      padding: 88px 0 100px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; top: -20%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(46,134,222,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero .container {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent-lt); margin-bottom: 22px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 28px; height: 2px;
+      background: var(--accent-lt); border-radius: 2px;
+    }
+    .hero-breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: rgba(255,255,255,.4); margin-bottom: 18px;
+    }
+    .hero-breadcrumb a { color: rgba(255,255,255,.4); transition: color .2s; }
+    .hero-breadcrumb a:hover { color: var(--accent-lt); }
+    .hero-breadcrumb svg { width: 10px; height: 10px; opacity: .5; }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(36px, 4.5vw, 58px);
+      font-weight: 700; line-height: 1.1;
+      color: var(--white); letter-spacing: -.02em; margin-bottom: 22px;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent-lt); }
+    .hero-desc {
+      font-size: 17px; line-height: 1.75;
+      color: rgba(255,255,255,.68); max-width: 440px; margin-bottom: 36px;
+    }
+    .hero-desc strong { color: var(--white); font-weight: 700; }
+    .hero-trust {
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .hero-trust-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,.55);
+    }
+    .hero-trust-item svg { width: 14px; height: 14px; color: var(--accent-lt); }
+
+    /* ─── REGISTRATION CARD ────────────────────────────────────────── */
+    .reg-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+    }
+    .reg-card-header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--accent) 100%);
+      padding: 28px 36px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .reg-card-header-left {}
+    .reg-card-title {
+      font-family: var(--font-head);
+      font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 4px;
+    }
+    .reg-card-sub {
+      font-size: 13px; color: rgba(255,255,255,.7); font-weight: 500;
+    }
+    .reg-free-badge {
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-family: var(--font-head);
+      font-size: 13px; font-weight: 700;
+      color: var(--white); letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .reg-card-body { padding: 36px; }
+    .reg-tabs {
+      display: flex; gap: 0;
+      background: var(--light); border-radius: 10px;
+      padding: 4px; margin-bottom: 28px;
+    }
+    .reg-tab {
+      flex: 1; padding: 10px 16px;
+      border: none; background: transparent; cursor: pointer;
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: var(--grey); border-radius: 8px;
+      transition: all .2s;
+    }
+    .reg-tab.active {
+      background: var(--white);
+      color: var(--blue);
+      box-shadow: var(--shadow-sm);
+    }
+    .reg-tab:hover:not(.active) { color: var(--dark); }
+    .reg-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-size: 13px; font-weight: 600; color: var(--dark); letter-spacing: .02em;
+    }
+    .form-input {
+      width: 100%; padding: 11px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-family: var(--font-body); font-size: 15px; color: var(--dark);
+      background: var(--white); outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(46,134,222,.12); }
+    .form-input::placeholder { color: #A8B4C4; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-register {
+      width: 100%; padding: 14px 24px; margin-top: 4px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--accent) 100%);
+      color: var(--white); border: none; border-radius: 9px;
+      font-family: var(--font-body); font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all .25s; letter-spacing: .01em;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-register:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,134,222,.38); filter: brightness(1.06); }
+    .btn-register svg { width: 16px; height: 16px; }
+    .reg-reset {
+      text-align: center; margin-top: 16px;
+      font-size: 13px; color: var(--grey);
+    }
+    .reg-reset a { color: var(--accent); font-weight: 600; transition: color .2s; }
+    .reg-reset a:hover { color: var(--blue); }
+    .reg-divider {
+      display: flex; align-items: center; gap: 12px; margin: 4px 0;
+    }
+    .reg-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .reg-divider-text { font-size: 12px; color: var(--grey); font-weight: 500; white-space: nowrap; }
+
+    /* ─── BENEFITS SECTION ─────────────────────────────────────────── */
+    .benefits-section {
+      padding: 96px 0;
+      background: var(--white);
+    }
+    .benefits-header {
+      text-align: center; max-width: 600px;
+      margin: 0 auto 60px;
+    }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .benefit-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      position: relative; overflow: hidden;
+      transition: all .25s;
+    }
+    .benefit-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-lt));
+      opacity: 0; transition: opacity .25s;
+    }
+    .benefit-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: rgba(46,134,222,.25); }
+    .benefit-card:hover::before { opacity: 1; }
+    .benefit-icon {
+      width: 52px; height: 52px;
+      background: var(--sky); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; transition: background .25s;
+    }
+    .benefit-card:hover .benefit-icon { background: var(--blue); }
+    .benefit-icon svg { width: 24px; height: 24px; color: var(--blue); transition: color .25s; }
+    .benefit-card:hover .benefit-icon svg { color: var(--white); }
+    .benefit-title {
+      font-family: var(--font-head);
+      font-size: 16px; font-weight: 700;
+      color: var(--navy); line-height: 1.3; margin-bottom: 10px;
+    }
+    .benefit-desc {
+      font-size: 14px; line-height: 1.65; color: var(--grey);
+    }
+
+    /* ─── ECOSYSTEM BLOCK ──────────────────────────────────────────── */
+    .ecosystem-section {
+      background: var(--light);
+      padding: 96px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ecosystem-inner {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .ecosystem-inner .section-divider { margin: 0 auto 20px; }
+    .ecosystem-body {
+      font-size: 18px; line-height: 1.82;
+      color: var(--grey); margin-bottom: 24px;
+    }
+    .ecosystem-body + .ecosystem-body { margin-bottom: 0; }
+    .ecosystem-stat-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 48px; margin-top: 52px; flex-wrap: wrap;
+    }
+    .eco-stat {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .eco-stat-num {
+      font-family: var(--font-head);
+      font-size: 42px; font-weight: 700;
+      color: var(--navy); letter-spacing: -.03em; line-height: 1;
+    }
+    .eco-stat-num span { color: var(--accent); }
+    .eco-stat-label {
+      font-size: 13px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--grey);
+    }
+    .eco-divider { width: 1px; height: 52px; background: var(--border); }
+
+    /* ─── CAPABILITY DIRECTORY ─────────────────────────────────────── */
+    .capability-section {
+      padding: 96px 0;
+      background: var(--white);
+    }
+    .capability-header {
+      text-align: center; max-width: 680px; margin: 0 auto 64px;
+    }
+    .capability-header .section-divider { margin: 0 auto 20px; }
+    .capability-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .cap-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      transition: all .2s;
+      display: flex; flex-direction: column; gap: 12px;
+      position: relative; overflow: hidden;
+    }
+    .cap-card::after {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-lt));
+      opacity: 0; transition: opacity .2s;
+    }
+    .cap-card:hover { box-shadow: var(--shadow-md); border-color: rgba(46,134,222,.22); transform: translateY(-2px); }
+    .cap-card:hover::after { opacity: 1; }
+    .cap-card-header {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .cap-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--sky); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .cap-card:hover .cap-icon { background: var(--blue); }
+    .cap-icon svg { width: 18px; height: 18px; color: var(--blue); transition: color .2s; }
+    .cap-card:hover .cap-icon svg { color: var(--white); }
+    .cap-title {
+      font-family: var(--font-head);
+      font-size: 16px; font-weight: 700; color: var(--navy);
+    }
+    .cap-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .cap-tag {
+      display: inline-flex;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 12px; font-weight: 500; color: var(--grey);
+      transition: all .15s; white-space: nowrap;
+    }
+    .cap-card:hover .cap-tag { border-color: rgba(46,134,222,.2); background: var(--sky); color: var(--blue); }
+
+    /* Wide card spanning 2 columns */
+    .cap-card-wide { grid-column: span 2; }
+    .cap-card-wide .cap-tags { flex-direction: row; flex-wrap: wrap; }
+
+    /* ─── CLOSING BANNER ───────────────────────────────────────────── */
+    .closing-section {
+      background: linear-gradient(135deg, var(--navy) 0%, #0D2E5A 60%, #0B3571 100%);
+      padding: 96px 0;
+      position: relative; overflow: hidden;
+    }
+    .closing-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,134,222,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,134,222,.05) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none;
+    }
+    .closing-section::after {
+      content: ''; position: absolute; bottom: -30%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(46,134,222,.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .closing-inner {
+      max-width: 760px; margin: 0 auto; text-align: center;
+      position: relative; z-index: 2;
+    }
+    .closing-inner .section-divider { margin: 0 auto 24px; background: linear-gradient(90deg, var(--accent-lt), var(--accent)); }
+    .closing-body {
+      font-size: 20px; line-height: 1.75;
+      color: rgba(255,255,255,.75); margin-bottom: 40px;
+    }
+    .closing-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: var(--white);
+      border: 2px solid var(--accent);
+      font-family: var(--font-body); font-size: 15px; font-weight: 700;
+      padding: 14px 32px; border-radius: 9px;
+      transition: all .25s; letter-spacing: .01em;
+    }
+    .closing-cta:hover { background: var(--accent-lt); border-color: var(--accent-lt); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,134,222,.38); }
+    .closing-cta svg { width: 16px; height: 16px; }
+    .closing-questions {
+      margin-top: 28px; font-size: 14px; color: rgba(255,255,255,.45);
+    }
+    .closing-questions a { color: var(--accent-lt); font-weight: 600; transition: color .2s; }
+    .closing-questions a:hover { color: var(--white); }
+    .closing-hashtag {
+      margin-top: 40px; padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .closing-hashtag span {
+      font-family: var(--font-head); font-size: 20px; font-weight: 700;
+      color: rgba(255,255,255,.35); letter-spacing: -.01em;
+    }
+    .closing-hashtag span em { font-style: normal; color: var(--accent-lt); }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────── */
+    footer { background: #0A1E3D; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 64px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -.02em; margin-bottom: 14px; }
+    .footer-logo span { color: var(--accent-lt); }
+    .footer-brand p { font-size: 14px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--white); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,.5); transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 28px; font-size: 13px; }
+    .footer-bottom a { color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero .container { grid-template-columns: 1fr; gap: 52px; }
+      .hero { padding: 72px 0 80px; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .capability-grid { grid-template-columns: 1fr 1fr; }
+      .cap-card-wide { grid-column: span 1; }
+    }
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .topbar { display: none; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+      .capability-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .eco-stat-row { gap: 28px; }
+      .eco-divider { display: none; }
+    }
+    @media (max-width: 480px) {
+      .benefits-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .reg-card-body { padding: 24px 20px; }
+      .reg-card-header { padding: 22px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── TOPBAR ──────────────────────────────────────────────────── -->
+  <div class="topbar">
+    <div class="container">
+      <a href="mailto:matchmaker@govmates.com">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 5.5l7.5 5 7.5-5M2.5 5.5h15v9h-15z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        matchmaker@govmates.com
+      </a>
+      <a href="tel:2028549468">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l2.5 2.5-1.5 3L7 12l3.5 3 3-1.5L16 16l-2 2c-5-1-10-6-11-11l2-4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        (202) 854-9GOV
+      </a>
+    </div>
+  </div>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────────── -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo">gov<span>mates</span></a>
+      <ul class="nav-links">
+        <li><a href="/membership">Membership</a></li>
+        <li><a href="/accelerator">Accelerator</a></li>
+        <li><a href="/collaborate">Collaborate</a></li>
+        <li><a href="/insights">Insights</a></li>
+        <li><a href="/ati">ATI</a></li>
+        <li><a href="/ota">OTA</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 1. HERO / MEMBERSHIP CONVERSION BANNER                          -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="container">
+
+      <!-- Left: messaging -->
+      <div class="fade-up">
+        <div class="hero-breadcrumb">
+          <a href="/">Home</a>
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2l4 4-4 4"/></svg>
+          <span>Membership</span>
+        </div>
+        <div class="hero-eyebrow">Join the Network</div>
+        <h1><em>Membership</em></h1>
+        <p class="hero-desc">Our goal is to minimize barriers to entry for non-traditional defense contractors in the federal community. Becoming a member of govmates is <strong>free</strong>.</p>
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2l2.4 4.9 5.4.8-3.9 3.8.9 5.3L10 14.3l-4.8 2.5.9-5.3L2.2 7.7l5.4-.8z"/></svg>
+            Free to join
+          </div>
+          <div class="hero-trust-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 20H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v10a2 2 0 0 1-2 2z"/><path d="M13 3v5h5M9 12h2m-2 3h4"/></svg>
+            7,000+ non-traditional members
+          </div>
+          <div class="hero-trust-item">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+            Instant ecosystem access
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: registration card -->
+      <div class="fade-up" style="transition-delay:.2s">
+        <div class="reg-card">
+          <div class="reg-card-header">
+            <div class="reg-card-header-left">
+              <div class="reg-card-title">Join govmates</div>
+              <div class="reg-card-sub">Create your free member account</div>
+            </div>
+            <span class="reg-free-badge">FREE</span>
+          </div>
+          <div class="reg-card-body">
+            <div class="reg-tabs">
+              <button class="reg-tab active" onclick="switchTab(this,'register')">Register</button>
+              <button class="reg-tab" onclick="switchTab(this,'login')">Login</button>
+            </div>
+
+            <!-- Register form -->
+            <div id="tab-register" class="reg-form">
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="form-label">First Name</label>
+                  <input type="text" class="form-input" placeholder="Jane" autocomplete="given-name" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Last Name</label>
+                  <input type="text" class="form-input" placeholder="Smith" autocomplete="family-name" />
+                </div>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" placeholder="jane@agency.gov" autocomplete="email" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" placeholder="Create a password" autocomplete="new-password" />
+              </div>
+              <button class="btn-register" type="button">
+                Create Free Account
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 5l5 5-5 5"/></svg>
+              </button>
+            </div>
+
+            <!-- Login form (hidden) -->
+            <div id="tab-login" class="reg-form" style="display:none">
+              <div class="form-field">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" placeholder="your@email.com" autocomplete="email" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" placeholder="Your password" autocomplete="current-password" />
+              </div>
+              <button class="btn-register" type="button">
+                Sign In
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 5l5 5-5 5"/></svg>
+              </button>
+            </div>
+
+            <div class="reg-reset">
+              <a href="mailto:matchmaker@govmates.com">Reset your password</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 2. MEMBERSHIP BENEFITS                                           -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="benefits-section" id="benefits">
+    <div class="container">
+
+      <div class="benefits-header fade-up">
+        <div class="section-divider" style="margin: 0 auto 20px"></div>
+        <div class="tag">Member Access</div>
+        <h2 class="section-title">When you join, you automatically have access to:</h2>
+      </div>
+
+      <div class="benefits-grid">
+
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="benefit-title">Teaming &amp; Procurement Opportunities for Government Contractors</div>
+          <div class="benefit-desc">Connect with vetted partners and primes for teaming arrangements and procurement pipelines.</div>
+        </div>
+
+        <div class="benefit-card fade-up" style="transition-delay:.07s">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="benefit-title">Networking &amp; Industry-Government Engagement</div>
+          <div class="benefit-desc">Engage directly with government agencies and defense prime integrators through structured matchmaking and events.</div>
+        </div>
+
+        <div class="benefit-card fade-up" style="transition-delay:.13s">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <div class="benefit-title">Training &amp; Educational Events</div>
+          <div class="benefit-desc">Access OTA education series, ATI webinars, and govmates workshops covering procurement, compliance, and growth strategies.</div>
+        </div>
+
+        <div class="benefit-card fade-up" style="transition-delay:.2s">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8M12 17v4"/>
+            </svg>
+          </div>
+          <div class="benefit-title">Ecosystem Resources</div>
+          <div class="benefit-desc">Unlock a curated library of federal contracting tools, compliance guides, IP resources, and capital access networks.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 3. ENTERPRISE ECOSYSTEM EXPLANATION                              -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="ecosystem-section" id="ecosystem">
+    <div class="container">
+      <div class="ecosystem-inner fade-up">
+        <div class="section-divider"></div>
+        <div class="tag">Our Organization</div>
+        <h2 class="section-title" style="font-size: clamp(26px, 3vw, 38px); margin-bottom: 32px">Enterprise-Level Solution for the Federal Government</h2>
+        <p class="ecosystem-body">We are an organization that offers an enterprise level solution to the Federal Government. Rather than specialize in technology verticals, our 7,000 non-traditional members have capabilities spanning nearly every technology vertical, with government contractors that specialize in any service you may require.</p>
+        <p class="ecosystem-body">We have created an ecosystem for government agencies and government contractors alike, pairing each with organizations that are perfectly suited to assist them.</p>
+
+        <div class="ecosystem-stat-row">
+          <div class="eco-stat">
+            <div class="eco-stat-num">7<span>,000</span>+</div>
+            <div class="eco-stat-label">Non-Traditional Members</div>
+          </div>
+          <div class="eco-divider"></div>
+          <div class="eco-stat">
+            <div class="eco-stat-num">14<span>+</span></div>
+            <div class="eco-stat-label">Technology Verticals</div>
+          </div>
+          <div class="eco-divider"></div>
+          <div class="eco-stat">
+            <div class="eco-stat-num"><span>$</span>0</div>
+            <div class="eco-stat-label">Cost to Join</div>
+          </div>
+          <div class="eco-divider"></div>
+          <div class="eco-stat">
+            <div class="eco-stat-num">1<span>×</span>1</div>
+            <div class="eco-stat-label">Matchmaking Model</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 4. TECHNOLOGY CAPABILITY DIRECTORY                               -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="capability-section" id="capabilities">
+    <div class="container">
+
+      <div class="capability-header fade-up">
+        <div class="section-divider"></div>
+        <div class="tag">Capability Directory</div>
+        <h2 class="section-title">Technology Capability Coverage</h2>
+        <p class="section-body" style="margin: 0 auto; text-align: center">Our member network spans nearly every technology vertical — from advanced microelectronics to renewable energy systems.</p>
+      </div>
+
+      <div class="capability-grid">
+
+        <!-- Cyber -->
+        <div class="cap-card fade-up">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="cap-title">Cyber</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Electronic Warfare</span>
+            <span class="cap-tag">Defensive Cyber</span>
+            <span class="cap-tag">Offensive Cyber</span>
+            <span class="cap-tag">Battlespace Awareness</span>
+          </div>
+        </div>
+
+        <!-- Microelectronics -->
+        <div class="cap-card fade-up" style="transition-delay:.04s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="6" height="6"/><path d="M9 3H3v6M21 3h-6M3 15v6h6M15 21h6v-6M9 3v6M15 3v6M3 9h6M21 9h-6M3 15h6M21 15h-6M9 21v-6M15 21v-6"/></svg>
+            </div>
+            <div class="cap-title">Microelectronics</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Semiconductors</span>
+            <span class="cap-tag">Nanotechnology</span>
+            <span class="cap-tag">EMS Technologies</span>
+            <span class="cap-tag">Advanced Microelectronics</span>
+            <span class="cap-tag">Electromagnetic Spectrum</span>
+            <span class="cap-tag">Strategic Missions Hardware</span>
+          </div>
+        </div>
+
+        <!-- Medical Technology & BioTech -->
+        <div class="cap-card fade-up" style="transition-delay:.08s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="cap-title">Medical Technology &amp; BioTech</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Vaccines</span>
+            <span class="cap-tag">Therapeutics</span>
+            <span class="cap-tag">Diagnostics</span>
+            <span class="cap-tag">Pharmaceuticals</span>
+            <span class="cap-tag">Vector Detection Arrays</span>
+            <span class="cap-tag">Devices</span>
+            <span class="cap-tag">Treatment and Rehabilitation</span>
+            <span class="cap-tag">Operational Medicine Research</span>
+          </div>
+        </div>
+
+        <!-- Manufacturing -->
+        <div class="cap-card fade-up" style="transition-delay:.1s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <div class="cap-title">Manufacturing</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Precision Machining</span>
+            <span class="cap-tag">3D Printing</span>
+            <span class="cap-tag">Manufacturing</span>
+            <span class="cap-tag">Components</span>
+            <span class="cap-tag">Advanced and High Temperature Materials</span>
+            <span class="cap-tag">Composites</span>
+            <span class="cap-tag">Prototyping</span>
+            <span class="cap-tag">Robotics</span>
+          </div>
+        </div>
+
+        <!-- Engineering -->
+        <div class="cap-card fade-up" style="transition-delay:.13s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <div class="cap-title">Engineering</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Systems Engineering</span>
+            <span class="cap-tag">Quantum Technologies</span>
+            <span class="cap-tag">Mission Engineering</span>
+            <span class="cap-tag">Modeling and Simulation</span>
+            <span class="cap-tag">Advanced Computing</span>
+          </div>
+        </div>
+
+        <!-- Digital -->
+        <div class="cap-card fade-up" style="transition-delay:.16s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="cap-title">Digital</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Artificial Intelligence</span>
+            <span class="cap-tag">Machine Learning</span>
+            <span class="cap-tag">Data Analytics</span>
+            <span class="cap-tag">Modernization</span>
+            <span class="cap-tag">Digital Transformation</span>
+            <span class="cap-tag">NextGen Applications</span>
+            <span class="cap-tag">Modeling and Simulation</span>
+            <span class="cap-tag">Robotic Process Automation</span>
+            <span class="cap-tag">Autonomy</span>
+            <span class="cap-tag">Enterprise Resource Tools</span>
+          </div>
+        </div>
+
+        <!-- Communication & 5G — wide card -->
+        <div class="cap-card cap-card-wide fade-up" style="transition-delay:.18s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1.51 4.49A16.6 16.6 0 0 1 12 1a16.6 16.6 0 0 1 10.49 3.49M5 8a10 10 0 0 1 14 0M8.53 12a5 5 0 0 1 6.94 0M12 16v.01"/></svg>
+            </div>
+            <div class="cap-title">Communication &amp; 5G</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">C5ISR</span>
+            <span class="cap-tag">Assured Communications</span>
+            <span class="cap-tag">Networks</span>
+            <span class="cap-tag">MMIMO</span>
+            <span class="cap-tag">3D Beamforming</span>
+            <span class="cap-tag">Waveform Diversity</span>
+            <span class="cap-tag">Multifunction RF</span>
+            <span class="cap-tag">Cognitive Spectrum Sharing</span>
+            <span class="cap-tag">Device to Device Communications</span>
+            <span class="cap-tag">Ad-Hoc Networks</span>
+            <span class="cap-tag">Autonomous Navigation</span>
+            <span class="cap-tag">Wireless SDN</span>
+            <span class="cap-tag">NextGen RAN</span>
+            <span class="cap-tag">Low Power/No Power Processing and Development</span>
+          </div>
+        </div>
+
+        <!-- Cloud -->
+        <div class="cap-card fade-up" style="transition-delay:.2s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            </div>
+            <div class="cap-title">Cloud</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">DevSecOps</span>
+            <span class="cap-tag">Cloud Computing and Migrations</span>
+            <span class="cap-tag">Managed Infrastructure and Network Services</span>
+            <span class="cap-tag">Mobility</span>
+          </div>
+        </div>
+
+        <!-- Armaments, Munitions and Weapons Systems -->
+        <div class="cap-card fade-up" style="transition-delay:.22s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div class="cap-title">Armaments, Munitions &amp; Weapons Systems</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Directed Energy</span>
+            <span class="cap-tag">Demilitarization</span>
+            <span class="cap-tag">Fuzes</span>
+            <span class="cap-tag">Energetics</span>
+            <span class="cap-tag">Ammunition</span>
+            <span class="cap-tag">Precision Guidance</span>
+            <span class="cap-tag">Power Systems</span>
+            <span class="cap-tag">Lasers</span>
+            <span class="cap-tag">Propulsion</span>
+            <span class="cap-tag">Ballistics</span>
+            <span class="cap-tag">Missiles</span>
+            <span class="cap-tag">Materials</span>
+            <span class="cap-tag">Hypersonics</span>
+          </div>
+        </div>
+
+        <!-- Aerospace -->
+        <div class="cap-card fade-up" style="transition-delay:.24s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+            </div>
+            <div class="cap-title">Aerospace</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Avionics</span>
+            <span class="cap-tag">Unmanned Systems</span>
+            <span class="cap-tag">Propulsion Systems</span>
+            <span class="cap-tag">Power Systems</span>
+            <span class="cap-tag">Survivability</span>
+            <span class="cap-tag">Autonomy</span>
+            <span class="cap-tag">Aviation Ground Support Systems</span>
+          </div>
+        </div>
+
+        <!-- Space Tech -->
+        <div class="cap-card fade-up" style="transition-delay:.26s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+            <div class="cap-title">Space Tech</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Satellite Elements and Subsystems</span>
+            <span class="cap-tag">Fixed and Mobile Ground Stations</span>
+            <span class="cap-tag">Launch</span>
+            <span class="cap-tag">Mission Operations and Architecture</span>
+            <span class="cap-tag">Space Operations Electronics</span>
+            <span class="cap-tag">Low Earth Orbit</span>
+          </div>
+        </div>
+
+        <!-- Renewable & Alternative Energy -->
+        <div class="cap-card fade-up" style="transition-delay:.28s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="cap-title">Renewable &amp; Alternative Energy</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Energy Generation</span>
+            <span class="cap-tag">Clean Energy</span>
+            <span class="cap-tag">Wind</span>
+            <span class="cap-tag">Solar</span>
+            <span class="cap-tag">Microgrids</span>
+            <span class="cap-tag">Nanogrids</span>
+            <span class="cap-tag">Energy Storage</span>
+            <span class="cap-tag">Batteries</span>
+            <span class="cap-tag">EV</span>
+            <span class="cap-tag">Electrification</span>
+            <span class="cap-tag">Conservation and Efficiency</span>
+            <span class="cap-tag">Resilient Infrastructure</span>
+          </div>
+        </div>
+
+        <!-- Professional Services -->
+        <div class="cap-card fade-up" style="transition-delay:.3s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M12 12v4M10 14h4"/></svg>
+            </div>
+            <div class="cap-title">Professional Services</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Program Management</span>
+            <span class="cap-tag">Acquisition Support</span>
+            <span class="cap-tag">Financial Management</span>
+            <span class="cap-tag">Accounting Support</span>
+            <span class="cap-tag">Intellectual Property and Legal</span>
+          </div>
+        </div>
+
+        <!-- Operations & Logistics -->
+        <div class="cap-card fade-up" style="transition-delay:.32s">
+          <div class="cap-card-header">
+            <div class="cap-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div class="cap-title">Operations &amp; Logistics</div>
+          </div>
+          <div class="cap-tags">
+            <span class="cap-tag">Unmanned Systems</span>
+            <span class="cap-tag">PNT</span>
+            <span class="cap-tag">Intelligence Analysis</span>
+            <span class="cap-tag">Sensors</span>
+            <span class="cap-tag">CBRN</span>
+            <span class="cap-tag">Asymmetric Warfare</span>
+          </div>
+        </div>
+
+      </div><!-- /.capability-grid -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- 5. CLOSING MEMBERSHIP ENCOURAGEMENT                              -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="closing-section" id="join">
+    <div class="container">
+      <div class="closing-inner fade-up">
+        <div class="section-divider"></div>
+        <div class="tag" style="background:rgba(91,164,245,.12);border-color:rgba(91,164,245,.3);color:var(--accent-lt)">Join the Ecosystem</div>
+        <h2 class="section-title" style="color:var(--white);text-align:center;margin-bottom:24px">One-Stop Shop for Government Contractors</h2>
+        <p class="closing-body">Government contractors are strongly encouraged to join our network. We aim to be a one-stop shop for government contractors and governmental agencies alike, providing access to a network of specialists for the support you need.</p>
+        <a href="#top" class="closing-cta">
+          Join govmates — It's Free
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M12 5l5 5-5 5"/></svg>
+        </a>
+        <div class="closing-questions">
+          Questions? <a href="mailto:matchmaker@govmates.com">matchmaker@govmates.com</a>
+        </div>
+        <div class="closing-hashtag">
+          <span>#<em>NotYourMothers</em>Matchmaking</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">gov<span>mates</span></div>
+          <p>A technology scouting platform merging best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="/membership">Membership</a></li>
+            <li><a href="/accelerator">Accelerator</a></li>
+            <li><a href="/collaborate">Collaborate</a></li>
+            <li><a href="/insights">Insights</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/ati">ATI</a></li>
+            <li><a href="/ota">OTA</a></li>
+            <li><a href="mailto:matchmaker@govmates.com">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>@ govmates llc 2026. All Rights Reserved.</span>
+        <span><a href="mailto:matchmaker@govmates.com">matchmaker@govmates.com</a> &nbsp;·&nbsp; <a href="tel:2028549468">(202) 854-9GOV</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JS ─────────────────────────────────────────────────────── -->
+  <script>
+    // Navbar scroll
+    (function () {
+      const nav = document.getElementById('navbar');
+      window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10), { passive: true });
+    })();
+
+    // Fade-up observer
+    (function () {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+    })();
+
+    // Register / Login tab switcher
+    function switchTab(btn, tab) {
+      document.querySelectorAll('.reg-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-register').style.display = tab === 'register' ? 'flex' : 'none';
+      document.getElementById('tab-login').style.display    = tab === 'login'    ? 'flex' : 'none';
+    }
+
+    // Active nav – highlight the link matching the current URL path
+    (function () {
+      const path = window.location.pathname.replace(/\/$/, '') || '/';
+      document.querySelectorAll('.nav-links a').forEach(function (a) {
+        if (a.getAttribute('href').replace(/\/$/, '') === path) {
+          a.classList.add('nav-active');
+        }
+      });
+    }());
+  </script>
+
+</body>
+</html>
