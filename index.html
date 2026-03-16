@@ -11,20 +11,20 @@
     /* ─── RESET & BASE ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy:       #0B2545;
-      --navy-light: #133A6B;
-      --blue:       #1A5FB4;
-      --accent:     #2E86DE;
-      --accent-lt:  #5BA4F5;
-      --sky:        #EBF4FF;
-      --light:      #F6F8FC;
-      --border:     #DDE3EE;
-      --grey:       #64748B;
-      --dark:       #1E293B;
+      --navy:       #111111;
+      --navy-light: #CC0000;
+      --blue:       #E10600;
+      --accent:     #E10600;
+      --accent-lt:  #FF4D4D;
+      --sky:        #FFF0F0;
+      --light:      #F4F6F8;
+      --border:     #E6E6E6;
+      --grey:       #777777;
+      --dark:       #444444;
       --white:      #FFFFFF;
-      --shadow-sm:  0 1px 3px rgba(11,37,69,.08), 0 1px 2px rgba(11,37,69,.06);
-      --shadow-md:  0 4px 16px rgba(11,37,69,.10), 0 2px 6px rgba(11,37,69,.06);
-      --shadow-lg:  0 12px 40px rgba(11,37,69,.14), 0 4px 12px rgba(11,37,69,.08);
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
       --radius:     12px;
       --radius-lg:  20px;
       --container:  1200px;
@@ -37,7 +37,7 @@
       font-size: 16px;
       line-height: 1.6;
       color: var(--dark);
-      background: var(--white);
+      background: #FFFFFF;
       -webkit-font-smoothing: antialiased;
     }
     img { display: block; max-width: 100%; }
@@ -55,7 +55,7 @@
       text-transform: uppercase;
       color: var(--blue);
       background: var(--sky);
-      border: 1px solid #C3D9F7;
+      border: 1px solid rgba(225,6,0,.25);
       padding: 4px 12px;
       border-radius: 100px;
       margin-bottom: 16px;
@@ -143,7 +143,7 @@
       background: rgba(255,255,255,.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(221,227,238,.6);
+      border-bottom: 1px solid rgba(0,0,0,.08);
       transition: background .3s, box-shadow .3s;
     }
     .navbar.scrolled {
@@ -204,7 +204,7 @@
     /* ─── HERO ─────────────────────────────────────────────────────── */
     .hero {
       position: relative;
-      background: var(--navy);
+      background: linear-gradient(135deg, #0D0D0D 0%, #1A0000 60%, #0D0D0D 100%);
       overflow: hidden;
       padding: 100px 0 80px;
       min-height: 90vh;
@@ -217,8 +217,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+        linear-gradient(rgba(255,43,43,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,43,43,.06) 1px, transparent 1px);
       background-size: 48px 48px;
       pointer-events: none;
     }
@@ -230,7 +230,7 @@
       right: -10%;
       width: 700px;
       height: 700px;
-      background: radial-gradient(circle, rgba(46,134,222,.18) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(255,43,43,.18) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero .container {
@@ -303,7 +303,7 @@
       transition: all .2s;
       cursor: pointer;
     }
-    .btn-hero-primary:hover { background: var(--accent-lt); border-color: var(--accent-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,134,222,.35); }
+    .btn-hero-primary:hover { background: var(--accent-lt); border-color: var(--accent-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,43,43,.35); }
     .btn-hero-outline {
       background: transparent;
       color: rgba(255,255,255,.85);
@@ -337,7 +337,7 @@
     }
     .stat-card:hover {
       background: rgba(255,255,255,.1);
-      border-color: rgba(46,134,222,.4);
+      border-color: rgba(255,43,43,.4);
       transform: translateY(-3px);
       box-shadow: 0 12px 32px rgba(0,0,0,.2);
     }
@@ -361,7 +361,7 @@
     }
     .stat-icon {
       width: 36px; height: 36px;
-      background: rgba(46,134,222,.2);
+      background: rgba(255,43,43,.2);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -373,17 +373,126 @@
     /* ─── ABOUT BAND ───────────────────────────────────────────────── */
     .about-band {
       background: var(--white);
-      padding: 72px 0;
-      border-bottom: 1px solid var(--border);
+      padding: 96px 0;
     }
-    .about-band .container {
+    .about-band-grid {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 64px;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
       align-items: center;
     }
-    .about-left {}
-    .about-right .section-body { max-width: 100%; font-size: 18px; color: var(--dark); }
+    .about-band-content {}
+    .about-band-content .section-title { font-size: clamp(24px, 2.8vw, 38px); }
+    .about-band-body {
+      font-size: 17px;
+      line-height: 1.82;
+      color: var(--grey);
+      margin-top: 20px;
+    }
+    .about-band-body + .about-band-body { margin-top: 18px; }
+    .about-band-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .about-band-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--sky);
+      border: 1px solid rgba(225,6,0,.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .about-band-pill svg { width: 13px; height: 13px; color: var(--blue); }
+
+    /* YouTube embed */
+    .yt-wrap { position: relative; width: 100%; }
+    .yt-embed {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      background: #000;
+    }
+    .yt-thumb {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease, opacity .3s ease;
+      display: block;
+    }
+    .yt-embed:hover .yt-thumb { transform: scale(1.03); opacity: .88; }
+    .yt-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 50%, transparent 100%);
+      pointer-events: none;
+    }
+    .yt-play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px; height: 72px;
+      background: #FF0000;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(255,0,0,.45), 0 2px 8px rgba(0,0,0,.3);
+      transition: all .25s ease;
+      pointer-events: none;
+    }
+    .yt-embed:hover .yt-play-btn {
+      background: #CC0000;
+      transform: translate(-50%, -50%) scale(1.12);
+      box-shadow: 0 8px 32px rgba(255,0,0,.55), 0 4px 12px rgba(0,0,0,.3);
+    }
+    .yt-play-btn svg { width: 28px; height: 28px; fill: white; margin-left: 4px; }
+    .yt-meta {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      pointer-events: none;
+    }
+    .yt-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.9);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+    }
+    .yt-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .yt-badge svg { width: 10px; height: 10px; fill: #FF0000; flex-shrink: 0; }
+    .yt-embed.playing .yt-thumb,
+    .yt-embed.playing .yt-overlay,
+    .yt-embed.playing .yt-play-btn,
+    .yt-embed.playing .yt-meta { display: none; }
+    .yt-embed.playing { cursor: default; }
+    .yt-iframe {
+      display: none;
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .yt-embed.playing .yt-iframe { display: block; }
 
     /* ─── WHAT WE DO ───────────────────────────────────────────────── */
     .what-we-do {
@@ -410,7 +519,7 @@
       padding: 32px 28px;
       transition: all .3s;
     }
-    .trio-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #C3D9F7; }
+    .trio-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(255,43,43,.4); }
     .trio-icon {
       width: 48px; height: 48px;
       background: var(--sky);
@@ -478,7 +587,8 @@
     .feature {
       padding: 96px 0;
     }
-    .feature:nth-child(even) { background: var(--light); }
+    .feature#technology-scouting { background: var(--light); }
+    .feature#valley-of-death { background: var(--light); }
     .feature .container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -530,7 +640,7 @@
       position: absolute;
       bottom: -16px;
       right: -16px;
-      background: var(--white);
+      background: var(--light);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 14px 20px;
@@ -559,8 +669,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(46,134,222,.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(46,134,222,.05) 1px, transparent 1px);
+        linear-gradient(rgba(255,43,43,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,43,43,.05) 1px, transparent 1px);
       background-size: 56px 56px;
     }
     .enterprise .container { position: relative; z-index: 2; }
@@ -609,11 +719,12 @@
     .team-card {
       text-align: center;
       padding: 40px 28px;
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       transition: all .3s;
     }
-    .team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: #C3D9F7; }
+    .team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(255,43,43,.4); }
     .team-avatar {
       width: 120px; height: 120px;
       border-radius: 50%;
@@ -659,29 +770,38 @@
     .amb-slide {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 24px;
       min-width: 100%;
-      padding: 4px 2px 8px;
+      padding: 8px 4px 12px;
     }
     .ambassador-card {
       background: var(--white);
       border: 1px solid var(--border);
+      border-top: 3px solid var(--blue);
       border-radius: var(--radius);
-      padding: 28px 24px;
+      padding: 36px 28px 32px;
       transition: all .25s;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      align-items: center;
+      text-align: center;
+      gap: 0;
     }
-    .ambassador-card:hover { border-color: #C3D9F7; box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .ambassador-card:hover { border-color: rgba(225,6,0,.35); border-top-color: var(--blue); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
     .amb-card-icon {
-      width: 64px; height: 64px;
+      width: 110px; height: 110px;
       border-radius: 50%;
-      border: 2px solid var(--border);
+      border: 3px solid var(--border);
       overflow: hidden;
       background: var(--sky);
       flex-shrink: 0;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.10);
+      transition: box-shadow .25s, border-color .25s;
+    }
+    .ambassador-card:hover .amb-card-icon {
+      border-color: rgba(225,6,0,.4);
+      box-shadow: 0 6px 20px rgba(225,6,0,.15);
     }
     .amb-card-icon img {
       width: 100%; height: 100%;
@@ -691,15 +811,19 @@
     }
     .ambassador-card .amb-name {
       font-family: var(--font-head);
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
       color: var(--navy);
-      line-height: 1.35;
+      line-height: 1.3;
+      margin-bottom: 6px;
     }
     .ambassador-card .amb-org {
       font-size: 13px;
       color: var(--grey);
       font-weight: 500;
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+      width: 100%;
     }
 
     /* Controls */
@@ -713,7 +837,7 @@
     .amb-btn {
       width: 42px; height: 42px;
       border: 1px solid var(--border);
-      background: var(--white);
+      background: var(--light);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
@@ -721,7 +845,7 @@
       color: var(--navy);
       flex-shrink: 0;
     }
-    .amb-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .amb-btn:hover { background: var(--navy); color: var(--white); border-color: var(--white); }
     .amb-btn svg { width: 18px; height: 18px; }
     .amb-dots {
       display: flex;
@@ -745,7 +869,7 @@
 
     /* ─── HASHTAG BANNER ───────────────────────────────────────────── */
     .hashtag-banner {
-      background: linear-gradient(135deg, var(--navy) 0%, #1A3F6F 40%, var(--blue) 100%);
+      background: linear-gradient(135deg, var(--navy) 0%, #1A0000 40%, var(--blue) 100%);
       padding: 64px 0;
       text-align: center;
       position: relative;
@@ -785,7 +909,7 @@
     .contact-left .section-body { max-width: 100%; margin-bottom: 32px; }
     .contact-right {}
     .contact-card {
-      background: var(--light);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 40px;
@@ -834,7 +958,7 @@
       font-size: 13px;
       font-weight: 600;
       color: var(--dark);
-      background: var(--white);
+      background: var(--light);
       transition: all .2s;
       cursor: pointer;
     }
@@ -843,7 +967,7 @@
 
     /* ─── FOOTER ───────────────────────────────────────────────────── */
     footer {
-      background: #0A1E3D;
+      background: #0F0F0F;
       color: rgba(255,255,255,.55);
       padding: 64px 0 32px;
     }
@@ -918,7 +1042,7 @@
       .topbar { display: none; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      .about-band .container { grid-template-columns: 1fr; gap: 32px; }
+      .about-band-grid { grid-template-columns: 1fr; gap: 48px; }
       .features-trio { grid-template-columns: 1fr; }
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar { border-right: none !important; }
@@ -1026,15 +1150,63 @@
   </section>
 
   <!-- ─── ABOUT BAND ─────────────────────────────────────────────── -->
-  <section class="about-band fade-up">
+  <section class="about-band">
     <div class="container">
-      <div class="about-left">
-        <div class="section-divider"></div>
-        <div class="section-label">About govmates</div>
-        <p style="font-family:var(--font-head);font-size:15px;color:var(--grey);line-height:1.6;max-width:220px;">A federal technology ecosystem built on trust.</p>
-      </div>
-      <div class="about-right">
-        <p class="section-body">Govmates is a technology scouting platform. We merge the best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
+      <div class="about-band-grid">
+
+        <!-- Left: content -->
+        <div class="fade-up">
+          <div class="section-divider"></div>
+          <div class="tag">About govmates</div>
+          <h2 class="section-title">A Federal Technology Ecosystem Built on Trust</h2>
+          <p class="about-band-body">Govmates is a technology scouting platform. We merge the best practices of technology and the human element to promote non-traditional defense contractors within the federal community.</p>
+          <p class="about-band-body">We operate a managed ecosystem of over 8,000 non-traditional federal contractors, facilitating matches between innovative companies and U.S. Federal Government customers — from market research to technology transition.</p>
+          <div class="about-band-pills">
+            <span class="about-band-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 1l1.9 3.9 4.1.6-3 3 .7 4.2-3.7-2-3.7 2 .7-4.2-3-3 4.1-.6z"/></svg>
+              8,000+ Member Ecosystem
+            </span>
+            <span class="about-band-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8z"/><path d="M8 5v3l2 2"/></svg>
+              41,000+ Matches Facilitated
+            </span>
+            <span class="about-band-pill">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 6H9V2M3 10h4v4"/><path d="M9 2l4 4-4 4M7 14l-4-4 4-4"/></svg>
+              Non-Traditional Outreach
+            </span>
+          </div>
+        </div>
+
+        <!-- Right: YouTube embed -->
+        <div class="yt-wrap fade-up" style="transition-delay:.15s">
+          <div class="yt-embed" id="ytEmbed">
+            <img
+              class="yt-thumb"
+              src="https://img.youtube.com/vi/kJqxAY2Wtm0/hqdefault.jpg"
+              alt="Govmates Overview"
+              onerror="(function(el){el.onerror=function(){el.onerror=null;el.style.opacity='0';};el.src='https://img.youtube.com/vi/kJqxAY2Wtm0/mqdefault.jpg';})(this)"
+            />
+            <div class="yt-overlay"></div>
+            <div class="yt-play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="yt-meta">
+              <span class="yt-title">Govmates Overview</span>
+              <span class="yt-badge">
+                <svg viewBox="0 0 16 10"><path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h9A1.5 1.5 0 0 1 12 1.5v7A1.5 1.5 0 0 1 10.5 10h-9A1.5 1.5 0 0 1 0 8.5v-7zm12 1.05L16 .5v9l-4-2.05V2.55z"/></svg>
+                Watch Now
+              </span>
+            </div>
+            <iframe
+              class="yt-iframe"
+              id="ytIframe"
+              src=""
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1118,100 +1290,10 @@
     </div>
   </section>
 
-  <!-- ─── FEATURE: TECHNOLOGY SCOUTING TOOL ────────────────────── -->
-  <section class="feature" id="technology-scouting">
-    <div class="container">
-      <div class="feature-content fade-up">
-        <div class="tag">Technology Scouting Tool</div>
-        <h2 class="section-title">Rapidly Identify the Right Technologies</h2>
-        <p class="section-body">The platform enables federal stakeholders to rapidly identify desired technologies through unbiased algorithms and relevance scoring, applying formulaic and methodical approaches to solving U.S. Federal Government challenges.</p>
-        <br/>
-        <a href="/membership" class="btn btn-primary">
-          Learn About Membership
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual fade-up" style="transition-delay:.15s">
-        <div class="visual-box">
-          <div class="visual-box-inner">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="32" cy="32" r="28"/><circle cx="32" cy="32" r="16"/><circle cx="32" cy="32" r="6"/><line x1="32" y1="4" x2="32" y2="16"/><line x1="32" y1="48" x2="32" y2="60"/><line x1="4" y1="32" x2="16" y2="32"/><line x1="48" y1="32" x2="60" y2="32"/></svg>
-            <span>Technology Scouting Platform</span>
-          </div>
-        </div>
-        <div class="visual-badge">
-          <div>
-            <div class="visual-badge-num">8,003</div>
-            <div class="visual-badge-label">Active Members</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── FEATURE: MATCHMAKING EVENTS ──────────────────────────── -->
-  <section class="feature reverse" id="matchmaking">
-    <div class="container">
-      <div class="feature-content fade-up">
-        <div class="tag">Collaborative Matchmaking Events</div>
-        <h2 class="section-title">The Bridge Between Government and Industry</h2>
-        <p class="section-body">Operating as the bridge between Government and Industry, govmates maintains extensive relationships with non-traditional contractors, large systems integrators, defense primes, and commercial enterprises, fostering collaboration and community that has generated over 39,000 successful matches.</p>
-        <br/>
-        <a href="/collaborate" class="btn btn-primary">
-          Explore Collaborate
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual fade-up" style="transition-delay:.15s">
-        <div class="visual-box" style="background:linear-gradient(135deg,#0B2545 0%,#1A5FB4 60%,#2E86DE 100%)">
-          <div class="visual-box-inner">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="32" r="8"/><circle cx="32" cy="12" r="8"/><circle cx="52" cy="32" r="8"/><circle cx="32" cy="52" r="8"/><line x1="20" y1="32" x2="44" y2="32"/><line x1="32" y1="20" x2="32" y2="44"/><line x1="18" y1="26" x2="26" y2="18"/><line x1="46" y1="26" x2="38" y2="18"/><line x1="18" y1="38" x2="26" y2="46"/><line x1="46" y1="38" x2="38" y2="46"/></svg>
-            <span>Matchmaking &amp; Collaboration</span>
-          </div>
-        </div>
-        <div class="visual-badge">
-          <div>
-            <div class="visual-badge-num">41,385</div>
-            <div class="visual-badge-label">Matches Made</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── FEATURE: VALLEY OF DEATH ─────────────────────────────── -->
-  <section class="feature" id="valley-of-death">
-    <div class="container">
-      <div class="feature-content fade-up">
-        <div class="tag">Valley of Death Combat</div>
-        <h2 class="section-title">Resources for the Road Ahead</h2>
-        <p class="section-body">Govmates understands the resources, assets, and capital requirements for government contracting operations. We provide training and education supporting DCAA compliance, FAR-based contract pursuit, and scalable growth generating profitable returns — helping firms survive and thrive beyond the Valley of Death.</p>
-        <br/>
-        <a href="/accelerator" class="btn btn-primary">
-          Explore Accelerator
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-      <div class="feature-visual fade-up" style="transition-delay:.15s">
-        <div class="visual-box" style="background:linear-gradient(135deg,#0B2545 0%,#133A6B 60%,#1A5FB4 100%)">
-          <div class="visual-box-inner">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 52 L20 28 L32 38 L44 16 L56 52 Z"/><polyline points="8,52 56,52"/></svg>
-            <span>Valley of Death Resources</span>
-          </div>
-        </div>
-        <div class="visual-badge">
-          <div>
-            <div class="visual-badge-num">150</div>
-            <div class="visual-badge-label">Tech Verticals</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ─── ENTERPRISE LEVEL SOLUTION ────────────────────────────── -->
   <section class="enterprise fade-up" id="enterprise">
     <div class="container">
-      <div class="tag" style="background:rgba(46,134,222,.15);border-color:rgba(91,164,245,.3);color:var(--accent-lt)">Enterprise Level Solution</div>
+      <div class="tag" style="background:rgba(255,43,43,.15);border-color:rgba(91,164,245,.3);color:var(--accent-lt)">Enterprise Level Solution</div>
       <h2 class="section-title">A Full Partnership for Government &amp; Industry</h2>
       <p class="section-body">Govmates delivers comprehensive solutions connecting industry and government with innovative small businesses, ensuring partnerships prove profitable and amicable while pairing stakeholders based on mutual needs and capabilities.</p>
       <div class="enterprise-box">
@@ -1470,6 +1552,18 @@
 
   <!-- ─── JS ─────────────────────────────────────────────────────── -->
   <script>
+    // YouTube click-to-play
+    (function () {
+      const embed  = document.getElementById('ytEmbed');
+      const iframe = document.getElementById('ytIframe');
+      if (!embed || !iframe) return;
+      embed.addEventListener('click', function () {
+        if (embed.classList.contains('playing')) return;
+        iframe.src = 'https://www.youtube.com/embed/kJqxAY2Wtm0?autoplay=1&rel=0&modestbranding=1';
+        embed.classList.add('playing');
+      });
+    })();
+
     // Navbar scroll
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -1525,7 +1619,7 @@
       const open = navLinks.style.display === 'flex';
       navLinks.style.cssText = open
         ? ''
-        : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#fff;padding:16px 20px;border-bottom:1px solid var(--border);box-shadow:var(--shadow-md);gap:4px;z-index:99;';
+        : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#FFFFFF;padding:16px 20px;border-bottom:1px solid #E6E6E6;box-shadow:0 4px 16px rgba(0,0,0,.08);gap:4px;z-index:99;';
     });
 
     // Active nav – highlight the link matching the current URL path

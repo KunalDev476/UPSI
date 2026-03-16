@@ -11,20 +11,20 @@
     /* ─── RESET & BASE ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy:       #0B2545;
-      --navy-light: #133A6B;
-      --blue:       #1A5FB4;
-      --accent:     #2E86DE;
-      --accent-lt:  #5BA4F5;
-      --sky:        #EBF4FF;
-      --light:      #F6F8FC;
-      --border:     #DDE3EE;
-      --grey:       #64748B;
-      --dark:       #1E293B;
+      --navy:       #111111;
+      --navy-light: #CC0000;
+      --blue:       #E10600;
+      --accent:     #E10600;
+      --accent-lt:  #FF4D4D;
+      --sky:        #FFF0F0;
+      --light:      #F4F6F8;
+      --border:     #E6E6E6;
+      --grey:       #777777;
+      --dark:       #444444;
       --white:      #FFFFFF;
-      --shadow-sm:  0 1px 3px rgba(11,37,69,.08), 0 1px 2px rgba(11,37,69,.06);
-      --shadow-md:  0 4px 16px rgba(11,37,69,.10), 0 2px 6px rgba(11,37,69,.06);
-      --shadow-lg:  0 12px 40px rgba(11,37,69,.14), 0 4px 12px rgba(11,37,69,.08);
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
       --radius:     12px;
       --radius-lg:  20px;
       --container:  1200px;
@@ -37,7 +37,7 @@
       font-size: 16px;
       line-height: 1.6;
       color: var(--dark);
-      background: var(--white);
+      background: #FFFFFF;
       -webkit-font-smoothing: antialiased;
     }
     img { display: block; max-width: 100%; }
@@ -55,7 +55,7 @@
       text-transform: uppercase;
       color: var(--blue);
       background: var(--sky);
-      border: 1px solid #C3D9F7;
+      border: 1px solid rgba(225,6,0,.25);
       padding: 4px 12px;
       border-radius: 100px;
       margin-bottom: 16px;
@@ -115,7 +115,7 @@
       background: rgba(255,255,255,.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(221,227,238,.6);
+      border-bottom: 1px solid rgba(0,0,0,.08);
       transition: background .3s, box-shadow .3s;
     }
     .navbar.scrolled {
@@ -177,7 +177,7 @@
     /* ─── HERO ─────────────────────────────────────────────────────── */
     .hero {
       position: relative;
-      background: var(--navy);
+      background: linear-gradient(135deg, #0D0D0D 0%, #1A0000 60%, #0D0D0D 100%);
       overflow: hidden;
       padding: 88px 0 80px;
       display: flex;
@@ -187,8 +187,8 @@
       content: '';
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+        linear-gradient(rgba(255,43,43,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,43,43,.06) 1px, transparent 1px);
       background-size: 48px 48px;
       pointer-events: none;
     }
@@ -197,7 +197,7 @@
       position: absolute;
       top: -20%; right: -8%;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(46,134,222,.2) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(255,43,43,.2) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero .container {
@@ -227,9 +227,9 @@
     }
     .hero-breadcrumb {
       display: flex; align-items: center; gap: 6px;
-      font-size: 13px; color: rgba(255,255,255,.45); margin-bottom: 20px;
+      font-size: 13px; color: rgba(255,255,255,.4); margin-bottom: 18px;
     }
-    .hero-breadcrumb a { color: rgba(255,255,255,.45); transition: color .2s; }
+    .hero-breadcrumb a { color: rgba(255,255,255,.4); transition: color .2s; }
     .hero-breadcrumb a:hover { color: var(--accent-lt); }
     .hero-breadcrumb svg { width: 10px; height: 10px; opacity: .5; }
     .hero h1 {
@@ -245,7 +245,7 @@
     .hero-desc {
       font-size: 17px;
       line-height: 1.75;
-      color: rgba(255,255,255,.68);
+      color: rgba(255,255,255,.72);
       max-width: 460px;
       margin-bottom: 36px;
     }
@@ -255,14 +255,14 @@
     .hero-pill {
       display: inline-flex; align-items: center; gap: 7px;
       background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.15);
       border-radius: 100px;
       padding: 6px 16px;
       font-size: 13px; font-weight: 500;
       color: rgba(255,255,255,.72);
       transition: all .2s;
     }
-    .hero-pill:hover { background: rgba(46,134,222,.18); border-color: rgba(91,164,245,.4); color: var(--white); }
+    .hero-pill:hover { background: rgba(255,43,43,.18); border-color: rgba(91,164,245,.4); color: var(--white); }
     .hero-pill svg { width: 13px; height: 13px; color: var(--accent-lt); }
 
     /* Right side — network graphic */
@@ -283,7 +283,7 @@
     .scroll-indicator {
       position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 6px;
-      color: rgba(255,255,255,.32); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.45); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
       z-index: 2;
       animation: scrollBob 2.4s ease-in-out infinite;
     }
@@ -362,7 +362,7 @@
     .event-card:hover {
       box-shadow: var(--shadow-md);
       transform: translateY(-3px);
-      border-color: rgba(46,134,222,.3);
+      border-color: rgba(255,43,43,.3);
     }
     .event-card:hover::before { opacity: 1; }
 
@@ -408,7 +408,7 @@
     .event-type-tag {
       display: inline-flex; align-items: center;
       background: var(--sky);
-      border: 1px solid #C3D9F7;
+      border: 1px solid rgba(225,6,0,.25);
       border-radius: 100px;
       padding: 2px 10px;
       font-size: 10px; font-weight: 700;
@@ -527,7 +527,7 @@
       content: '';
       position: absolute; top: -60px; right: -60px;
       width: 240px; height: 240px;
-      background: radial-gradient(circle, rgba(46,134,222,.25) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(255,43,43,.25) 0%, transparent 65%);
       pointer-events: none;
     }
     .matchmaking-panel::after {
@@ -560,7 +560,7 @@
     }
     .mp-num span { color: var(--accent-lt); }
     .mp-desc {
-      font-size: 14px; color: rgba(255,255,255,.5);
+      font-size: 14px; color: rgba(255,255,255,.65);
       margin-top: 6px; line-height: 1.55;
     }
 
@@ -594,7 +594,7 @@
       background: linear-gradient(90deg, var(--accent), var(--accent-lt));
       opacity: 0; transition: opacity .25s;
     }
-    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: rgba(46,134,222,.25); }
+    .feature-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: rgba(255,43,43,.25); }
     .feature-card:hover::after { opacity: 1; }
     .feature-card-icon {
       width: 52px; height: 52px;
@@ -643,8 +643,9 @@
       grid-template-columns: 44px 1fr;
       gap: 18px;
       align-items: start;
+      box-shadow: var(--shadow-sm);
     }
-    .valley-block:hover { box-shadow: var(--shadow-sm); }
+    .valley-block:hover { box-shadow: var(--shadow-md); }
     .valley-block-icon {
       width: 44px; height: 44px; flex-shrink: 0;
       background: var(--sky);
@@ -695,7 +696,7 @@
     }
     .past-event-card:hover {
       opacity: 1;
-      border-color: rgba(46,134,222,.2);
+      border-color: rgba(255,43,43,.2);
       box-shadow: var(--shadow-sm);
     }
     .past-date-badge {
@@ -755,7 +756,7 @@
     .closed-badge svg { width: 11px; height: 11px; }
 
     /* ─── FOOTER ───────────────────────────────────────────────────── */
-    footer { background: #0A1E3D; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
+    footer { background: #0F0F0F; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
@@ -906,27 +907,27 @@
             <line x1="100" y1="130" x2="80"  y2="310" stroke="rgba(91,164,245,.08)" stroke-width="1"/>
             <line x1="360" y1="130" x2="380" y2="310" stroke="rgba(91,164,245,.08)" stroke-width="1"/>
             <!-- Center hub -->
-            <circle cx="230" cy="230" r="38" fill="rgba(46,134,222,.15)" stroke="rgba(46,134,222,.4)" stroke-width="1.5"/>
-            <circle cx="230" cy="230" r="24" fill="rgba(46,134,222,.25)" stroke="rgba(91,164,245,.6)" stroke-width="1.5"/>
+            <circle cx="230" cy="230" r="38" fill="rgba(255,43,43,.15)" stroke="rgba(255,43,43,.4)" stroke-width="1.5"/>
+            <circle cx="230" cy="230" r="24" fill="rgba(255,43,43,.25)" stroke="rgba(91,164,245,.6)" stroke-width="1.5"/>
             <circle cx="230" cy="230" r="10" fill="rgba(91,164,245,.9)"/>
             <!-- Outer nodes -->
-            <circle cx="100" cy="130" r="18" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="100" cy="130" r="18" fill="rgba(255,43,43,.12)" stroke="rgba(255,43,43,.3)" stroke-width="1.5"/>
             <circle cx="100" cy="130" r="8"  fill="rgba(91,164,245,.7)"/>
-            <circle cx="360" cy="130" r="22" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="360" cy="130" r="22" fill="rgba(255,43,43,.12)" stroke="rgba(255,43,43,.3)" stroke-width="1.5"/>
             <circle cx="360" cy="130" r="10" fill="rgba(91,164,245,.7)"/>
-            <circle cx="80"  cy="310" r="16" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="80"  cy="310" r="16" fill="rgba(255,43,43,.12)" stroke="rgba(255,43,43,.3)" stroke-width="1.5"/>
             <circle cx="80"  cy="310" r="7"  fill="rgba(91,164,245,.7)"/>
-            <circle cx="380" cy="310" r="20" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="380" cy="310" r="20" fill="rgba(255,43,43,.12)" stroke="rgba(255,43,43,.3)" stroke-width="1.5"/>
             <circle cx="380" cy="310" r="9"  fill="rgba(91,164,245,.7)"/>
-            <circle cx="230" cy="70"  r="16" fill="rgba(46,134,222,.12)" stroke="rgba(46,134,222,.3)" stroke-width="1.5"/>
+            <circle cx="230" cy="70"  r="16" fill="rgba(255,43,43,.12)" stroke="rgba(255,43,43,.3)" stroke-width="1.5"/>
             <circle cx="230" cy="70"  r="7"  fill="rgba(91,164,245,.7)"/>
-            <circle cx="160" cy="380" r="13" fill="rgba(46,134,222,.1)" stroke="rgba(46,134,222,.25)" stroke-width="1"/>
+            <circle cx="160" cy="380" r="13" fill="rgba(255,43,43,.1)" stroke="rgba(255,43,43,.25)" stroke-width="1"/>
             <circle cx="160" cy="380" r="6"  fill="rgba(91,164,245,.5)"/>
-            <circle cx="310" cy="370" r="14" fill="rgba(46,134,222,.1)" stroke="rgba(46,134,222,.25)" stroke-width="1"/>
+            <circle cx="310" cy="370" r="14" fill="rgba(255,43,43,.1)" stroke="rgba(255,43,43,.25)" stroke-width="1"/>
             <circle cx="310" cy="370" r="6"  fill="rgba(91,164,245,.5)"/>
             <!-- Pulse rings -->
-            <circle cx="230" cy="230" r="55" fill="none" stroke="rgba(46,134,222,.08)" stroke-width="1" stroke-dasharray="4 4"/>
-            <circle cx="230" cy="230" r="80" fill="none" stroke="rgba(46,134,222,.05)" stroke-width="1" stroke-dasharray="3 6"/>
+            <circle cx="230" cy="230" r="55" fill="none" stroke="rgba(255,43,43,.08)" stroke-width="1" stroke-dasharray="4 4"/>
+            <circle cx="230" cy="230" r="80" fill="none" stroke="rgba(255,43,43,.05)" stroke-width="1" stroke-dasharray="3 6"/>
           </svg>
         </div>
       </div>

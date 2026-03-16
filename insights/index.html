@@ -14,23 +14,23 @@
     ═══════════════════════════════════════════════════════════════ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy:       #0B2545;
-      --navy-light: #133A6B;
-      --blue:       #1A5FB4;
-      --accent:     #2E86DE;
-      --accent-lt:  #5BA4F5;
-      --sky:        #EBF4FF;
-      --light:      #F6F8FC;
-      --border:     #DDE3EE;
-      --grey:       #64748B;
+      --navy:       #111111;
+      --navy-light: #CC0000;
+      --blue:       #E10600;
+      --accent:     #E10600;
+      --accent-lt:  #FF4D4D;
+      --sky:        #FFF0F0;
+      --light:      #F4F6F8;
+      --border:     #E6E6E6;
+      --grey:       #777777;
       --grey-lt:    #94A3B8;
-      --dark:       #1E293B;
+      --dark:       #444444;
       --white:      #FFFFFF;
       --green:      #059669;
       --green-lt:   #D1FAE5;
-      --shadow-sm:  0 1px 3px rgba(11,37,69,.07), 0 1px 2px rgba(11,37,69,.05);
-      --shadow-md:  0 4px 16px rgba(11,37,69,.09), 0 2px 6px rgba(11,37,69,.05);
-      --shadow-lg:  0 12px 40px rgba(11,37,69,.13), 0 4px 12px rgba(11,37,69,.07);
+      --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.06);
       --radius:     12px;
       --radius-lg:  20px;
       --container:  1200px;
@@ -38,7 +38,7 @@
       --font-body:  'DM Sans', sans-serif;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--dark); background: var(--white); -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--dark); background: #FFFFFF; -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
@@ -49,7 +49,7 @@
     .tag {
       display: inline-block; font-size: 11px; font-weight: 600;
       letter-spacing: .12em; text-transform: uppercase;
-      color: var(--blue); background: var(--sky); border: 1px solid #C3D9F7;
+      color: var(--blue); background: var(--sky); border: 1px solid rgba(225,6,0,.25);
       padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
     }
     .section-title {
@@ -77,7 +77,7 @@
     /* ═══════════════════════════════════════════════════════════════
        NAVBAR
     ═══════════════════════════════════════════════════════════════ */
-    .navbar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(221,227,238,.6); transition: background .3s, box-shadow .3s; }
+    .navbar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0,0,0,.08); transition: background .3s, box-shadow .3s; }
     .navbar.scrolled { background: rgba(255,255,255,.98); box-shadow: var(--shadow-sm); }
     .navbar .container { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
     .nav-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -.02em; flex-shrink: 0; }
@@ -95,20 +95,20 @@
        1. HERO
     ═══════════════════════════════════════════════════════════════ */
     .hero {
-      background: var(--navy); overflow: hidden;
+      background: linear-gradient(135deg, #0D0D0D 0%, #1A0000 60%, #0D0D0D 100%); overflow: hidden;
       padding: 88px 0 72px; position: relative;
     }
     .hero::before {
       content: ''; position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(46,134,222,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(46,134,222,.06) 1px, transparent 1px);
+        linear-gradient(rgba(255,43,43,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,43,43,.06) 1px, transparent 1px);
       background-size: 48px 48px;
     }
     .hero::after {
       content: ''; position: absolute; top: -20%; right: -5%;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(46,134,222,.17) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(255,43,43,.17) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero .container {
@@ -116,27 +116,27 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 64px; align-items: center;
     }
-    .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 18px; }
-    .hero-breadcrumb a { color: rgba(255,255,255,.5); transition: color .2s; }
-    .hero-breadcrumb a:hover { color: var(--white); }
+    .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.4); margin-bottom: 18px; }
+    .hero-breadcrumb a { color: rgba(255,255,255,.4); transition: color .2s; }
+    .hero-breadcrumb a:hover { color: var(--accent-lt); }
     .hero-breadcrumb svg { width: 12px; height: 12px; }
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-lt); margin-bottom: 18px; }
     .hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent-lt); border-radius: 2px; }
     .hero h1 { font-family: var(--font-head); font-size: clamp(38px, 4.8vw, 62px); font-weight: 700; line-height: 1.06; color: var(--white); letter-spacing: -.02em; margin-bottom: 16px; }
     .hero h1 em { font-style: normal; color: var(--accent-lt); }
-    .hero-sub { font-size: 17px; line-height: 1.72; color: rgba(255,255,255,.62); max-width: 460px; margin-bottom: 32px; }
+    .hero-sub { font-size: 17px; line-height: 1.72; color: rgba(255,255,255,.72); max-width: 460px; margin-bottom: 32px; }
     .hero-meta-row { display: flex; flex-wrap: wrap; gap: 14px; }
     .hero-meta-pill {
       display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
       border-radius: 8px; padding: 8px 14px;
-      font-size: 13px; font-weight: 500; color: rgba(255,255,255,.68);
+      font-size: 13px; font-weight: 500; color: rgba(255,255,255,.72);
     }
     .hero-meta-pill svg { width: 14px; height: 14px; color: var(--accent-lt); flex-shrink: 0; }
     /* Hero visual — editorial collage */
     .hero-visual { position: relative; }
     .hero-editorial {
-      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      background: rgba(0,0,0,.03); border: 1px solid rgba(0,0,0,.06);
       border-radius: var(--radius-lg); padding: 28px; overflow: hidden; position: relative;
     }
     .hero-editorial::before {
@@ -147,21 +147,21 @@
     }
     .hero-editorial-inner { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 10px; }
     .hero-article-preview {
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1);
+      background: rgba(0,0,0,.04); border: 1px solid rgba(0,0,0,.06);
       border-radius: 10px; padding: 14px 16px;
       display: flex; align-items: flex-start; gap: 12px;
     }
-    .hero-article-preview:first-child { background: rgba(46,134,222,.15); border-color: rgba(46,134,222,.3); }
+    .hero-article-preview:first-child { background: rgba(255,43,43,.15); border-color: rgba(255,43,43,.3); }
     .hap-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-lt); flex-shrink: 0; margin-top: 5px; }
     .hap-body {}
-    .hap-date { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 3px; }
-    .hap-title { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: rgba(255,255,255,.82); line-height: 1.4; }
+    .hap-date { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 3px; }
+    .hap-title { font-family: var(--font-head); font-size: 13px; font-weight: 600; color: rgba(255,255,255,.72); line-height: 1.4; }
     .hero-count {
       display: flex; align-items: center; justify-content: center;
       gap: 8px; padding: 10px;
-      border-top: 1px solid rgba(255,255,255,.08); margin-top: 4px;
+      border-top: 1px solid rgba(0,0,0,.06); margin-top: 4px;
     }
-    .hero-count span { font-size: 12px; color: rgba(255,255,255,.35); font-weight: 500; }
+    .hero-count span { font-size: 12px; color: rgba(255,255,255,.45); font-weight: 500; }
     .hero-count strong { font-family: var(--font-head); font-size: 18px; font-weight: 700; color: var(--accent-lt); }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -176,18 +176,22 @@
       display: flex; flex-direction: column;
       transition: all .3s; position: relative;
     }
-    .article-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: #C3D9F7; }
+    .article-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(255,43,43,.4); }
     /* Coloured top bar per card */
     .article-card-bar { height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent-lt)); }
     .article-card-bar.bar-2 { background: linear-gradient(90deg, #0E9F8C, var(--accent-lt)); }
     .article-card-bar.bar-3 { background: linear-gradient(90deg, var(--navy), var(--blue)); }
+    /* Blog card cover image */
+    .article-card-img { width: 100%; aspect-ratio: 16 / 9; overflow: hidden; flex-shrink: 0; }
+    .article-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+    .article-card:hover .article-card-img img { transform: scale(1.04); }
     .article-card-body { padding: 28px 28px 24px; flex: 1; display: flex; flex-direction: column; }
     .article-meta {
       display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
     }
     .article-cat {
       font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--blue); background: var(--sky); border: 1px solid #C3D9F7;
+      color: var(--blue); background: var(--sky); border: 1px solid rgba(225,6,0,.25);
       padding: 3px 9px; border-radius: 100px;
     }
     .article-date { font-size: 12px; color: var(--grey-lt); font-weight: 500; }
@@ -207,7 +211,7 @@
       width: 28px; height: 28px; border-radius: 50%;
       background: linear-gradient(135deg, var(--blue), var(--navy));
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-head); font-size: 10px; font-weight: 700; color: var(--white);
+      font-family: var(--font-head); font-size: 10px; font-weight: 700; color: var(--white); /* white initials on dark gradient */
     }
     .article-author-name { font-size: 12px; font-weight: 600; color: var(--dark); }
     .article-read-more {
@@ -229,7 +233,7 @@
       width: 38px; height: 38px; border-radius: 9px;
       display: flex; align-items: center; justify-content: center;
       font-size: 14px; font-weight: 600; color: var(--dark);
-      background: var(--white); border: 1px solid var(--border);
+      background: var(--light); border: 1px solid var(--border);
       cursor: pointer; transition: all .2s;
     }
     .pg-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--sky); }
@@ -278,7 +282,7 @@
     .podcast-panel::after {
       content: ''; position: absolute; top: -40px; right: -40px;
       width: 220px; height: 220px;
-      background: radial-gradient(circle, rgba(46,134,222,.25) 0%, transparent 65%);
+      background: radial-gradient(circle, rgba(255,43,43,.25) 0%, transparent 65%);
     }
     .podcast-panel-inner { position: relative; z-index: 2; }
     .podcast-logo {
@@ -334,70 +338,75 @@
     ═══════════════════════════════════════════════════════════════ */
     .education { background: var(--white); padding: 96px 0; }
     .education .head { margin-bottom: 52px; }
-    /* Featured tile */
-    .edu-featured {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 55%, var(--blue) 100%);
-      border-radius: var(--radius-lg); padding: 36px 40px;
-      display: flex; align-items: center; gap: 28px;
-      margin-bottom: 32px; position: relative; overflow: hidden;
-      transition: all .25s; cursor: pointer;
+    /* ── GovCon Education: YouTube thumbnail video cards — uniform grid ── */
+    .edu-vid-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
     }
-    .edu-featured:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-    .edu-featured::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 22px 22px;
+    .edu-vid-card {
+      position: relative; border-radius: var(--radius);
+      overflow: hidden; aspect-ratio: 16 / 9;
+      background: #111; display: block; text-decoration: none;
+      cursor: pointer; box-shadow: var(--shadow-sm);
+      transition: transform .25s, box-shadow .25s;
     }
-    .edu-featured-play {
-      width: 56px; height: 56px; flex-shrink: 0;
-      background: rgba(255,255,255,.15); border-radius: 50%;
+    .edu-vid-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .edu-vid-thumb {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s ease, opacity .3s ease;
+    }
+    .edu-vid-card:hover .edu-vid-thumb { transform: scale(1.04); opacity: .85; }
+    .edu-vid-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.1) 55%, transparent 100%);
+    }
+    /* Centered play button — same size for all cards */
+    .edu-vid-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px; height: 44px; background: #FF0000; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      border: 2px solid rgba(255,255,255,.25);
-      position: relative; z-index: 2; transition: all .2s;
+      box-shadow: 0 3px 16px rgba(255,0,0,.45), 0 2px 6px rgba(0,0,0,.3);
+      transition: all .22s; pointer-events: none;
     }
-    .edu-featured:hover .edu-featured-play { background: var(--accent); border-color: var(--accent); }
-    .edu-featured-play svg { width: 20px; height: 20px; fill: var(--white); margin-left: 3px; }
-    .edu-featured-body { position: relative; z-index: 2; flex: 1; }
-    .edu-featured-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-lt); margin-bottom: 6px; }
-    .edu-featured-title { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--white); line-height: 1.3; }
-    .edu-featured-badge {
-      position: absolute; top: 24px; right: 24px; z-index: 2;
-      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
-      border-radius: 6px; padding: 5px 12px;
-      font-size: 11px; font-weight: 700; color: rgba(255,255,255,.6); letter-spacing: .06em;
-    }
-    /* Video grid */
-    .edu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .edu-tile {
-      background: var(--light); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px 16px 14px;
-      display: flex; align-items: flex-start; gap: 12px;
-      transition: all .22s; cursor: pointer;
-    }
-    .edu-tile:hover { background: var(--sky); border-color: #C3D9F7; transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .edu-tile-play {
-      width: 30px; height: 30px; flex-shrink: 0;
-      background: var(--white); border-radius: 7px;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: var(--shadow-sm); border: 1px solid var(--border);
-      transition: all .2s;
-    }
-    .edu-tile:hover .edu-tile-play { background: var(--blue); border-color: var(--blue); }
-    .edu-tile-play svg { width: 11px; height: 11px; fill: var(--blue); transition: fill .2s; margin-left: 1px; }
-    .edu-tile:hover .edu-tile-play svg { fill: var(--white); }
-    .edu-tile-title { font-size: 13px; font-weight: 600; color: var(--dark); line-height: 1.5; }
+    .edu-vid-card:hover .edu-vid-play { background: #CC0000; transform: translate(-50%, -50%) scale(1.12); box-shadow: 0 6px 24px rgba(255,0,0,.55); }
+    .edu-vid-play svg { width: 16px; height: 16px; fill: #fff; margin-left: 2px; }
+    /* Title bar at bottom */
+    .edu-vid-meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; pointer-events: none; }
+    .edu-vid-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.92); line-height: 1.4; }
 
     /* ═══════════════════════════════════════════════════════════════
        6. PODCAST INTERVIEW SPOTLIGHT
     ═══════════════════════════════════════════════════════════════ */
-    .interview-spotlight { background: var(--light); padding: 96px 0; }
-    .interview-spotlight .head { max-width: 700px; margin-bottom: 40px; }
+    .interview-spotlight {
+      background: linear-gradient(135deg, var(--navy) 0%, #1A0000 45%, var(--blue) 100%);
+      padding: 96px 0; position: relative; overflow: hidden;
+    }
+    .interview-spotlight::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none;
+    }
+    .interview-spotlight::after {
+      content: ''; position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 700px; height: 350px;
+      background: radial-gradient(ellipse, rgba(255,43,43,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .interview-spotlight .head { max-width: 700px; margin-bottom: 40px; position: relative; z-index: 2; }
+    .interview-spotlight .section-title { color: var(--white); }
+    .interview-spotlight .tag {
+      background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); color: var(--accent-lt);
+    }
     .interview-card {
-      background: var(--white); border: 1px solid var(--border);
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
       border-radius: var(--radius-lg); padding: 48px 52px;
-      max-width: 820px; box-shadow: var(--shadow-md);
-      position: relative; overflow: hidden;
+      max-width: 820px; box-shadow: none;
+      position: relative; overflow: hidden; z-index: 2;
     }
     .interview-card::before {
       content: ''; position: absolute; top: 0; left: 0; bottom: 0;
@@ -405,67 +414,56 @@
     }
     .interview-quote-mark {
       font-family: var(--font-head); font-size: 80px; line-height: .8;
-      color: var(--sky); margin-bottom: 16px; font-weight: 700; user-select: none;
+      color: rgba(255,43,43,.3); margin-bottom: 16px; font-weight: 700; user-select: none;
     }
     .interview-card p {
-      font-size: 17px; line-height: 1.85; color: var(--dark); max-width: 700px;
+      font-size: 17px; line-height: 1.85; color: rgba(255,255,255,.82); max-width: 700px;
     }
     .interview-byline {
       display: flex; align-items: center; gap: 14px; margin-top: 28px; padding-top: 24px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255,255,255,.12);
     }
     .interview-avatars { display: flex; }
     .interview-avatar {
       width: 36px; height: 36px; border-radius: 50%;
       background: linear-gradient(135deg, var(--blue), var(--navy));
-      border: 2px solid var(--white); margin-left: -8px;
+      border: 2px solid rgba(255,255,255,.25); margin-left: -8px;
       display: flex; align-items: center; justify-content: center;
       font-family: var(--font-head); font-size: 11px; font-weight: 700; color: var(--white);
     }
     .interview-avatars .interview-avatar:first-child { margin-left: 0; }
     .interview-byline-text {}
-    .interview-byline-names { font-size: 14px; font-weight: 700; color: var(--navy); }
-    .interview-byline-role { font-size: 12px; color: var(--grey); font-weight: 500; }
+    .interview-byline-names { font-size: 14px; font-weight: 700; color: var(--white); }
+    .interview-byline-role { font-size: 12px; color: rgba(255,255,255,.55); font-weight: 500; }
     .interview-byline-source {
       margin-left: auto;
       display: flex; align-items: center; gap: 6px;
-      background: var(--light); border: 1px solid var(--border);
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
       border-radius: 7px; padding: 6px 12px;
-      font-size: 12px; font-weight: 600; color: var(--grey);
+      font-size: 12px; font-weight: 600; color: rgba(255,255,255,.6);
     }
-    .interview-byline-source svg { width: 13px; height: 13px; color: var(--accent); }
+    .interview-byline-source svg { width: 13px; height: 13px; color: var(--accent-lt); }
 
     /* ═══════════════════════════════════════════════════════════════
        7. VIDEO LIBRARY CTA
     ═══════════════════════════════════════════════════════════════ */
     .video-cta {
-      background: linear-gradient(135deg, var(--navy) 0%, #1A3F6F 45%, var(--blue) 100%);
+      background: var(--light);
       padding: 88px 0; position: relative; overflow: hidden;
     }
-    .video-cta::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-    .video-cta::after {
-      content: ''; position: absolute;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      width: 700px; height: 350px;
-      background: radial-gradient(ellipse, rgba(46,134,222,.2) 0%, transparent 65%);
-      pointer-events: none;
-    }
+    .video-cta::before { display: none; }
+    .video-cta::after { display: none; }
     .video-cta .container { position: relative; z-index: 2; text-align: center; }
     .video-cta-icon {
-      width: 64px; height: 64px; background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.18); border-radius: 18px;
+      width: 64px; height: 64px; background: var(--white);
+      border: 1px solid var(--border); border-radius: 18px;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 24px;
+      margin: 0 auto 24px; box-shadow: var(--shadow-sm);
     }
-    .video-cta-icon svg { width: 28px; height: 28px; color: var(--white); }
+    .video-cta-icon svg { width: 28px; height: 28px; color: var(--accent); }
     .video-cta h2 {
       font-family: var(--font-head); font-size: clamp(26px, 3.5vw, 44px);
-      font-weight: 700; color: var(--white); letter-spacing: -.02em;
+      font-weight: 700; color: var(--navy); letter-spacing: -.02em;
       line-height: 1.15; margin-bottom: 28px;
     }
     .btn-youtube {
@@ -480,14 +478,14 @@
     .btn-youtube svg { width: 18px; height: 18px; }
     .video-cta-hashtag {
       margin-top: 32px; font-family: var(--font-head);
-      font-size: 17px; font-weight: 700; color: rgba(255,255,255,.5);
+      font-size: 17px; font-weight: 700; color: var(--grey);
     }
-    .video-cta-hashtag em { font-style: normal; color: var(--accent-lt); }
+    .video-cta-hashtag em { font-style: normal; color: var(--accent); }
 
     /* ═══════════════════════════════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════════════════════════════ */
-    footer { background: #0A1E3D; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
+    footer { background: #0F0F0F; color: rgba(255,255,255,.55); padding: 64px 0 32px; }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.08); }
     .footer-logo { font-family: var(--font-head); font-size: 22px; font-weight: 700; color: var(--white); letter-spacing: -.02em; margin-bottom: 14px; }
     .footer-logo span { color: var(--accent-lt); }
@@ -508,7 +506,8 @@
       .hero { padding: 72px 0 60px; }
       .blog-grid { grid-template-columns: 1fr 1fr; }
       .nextgen .container { grid-template-columns: 1fr; gap: 48px; }
-      .edu-grid { grid-template-columns: repeat(3, 1fr); }
+      .edu-vid-grid { grid-template-columns: repeat(3, 1fr); }
+      .edu-vid-card.featured { grid-column: span 3; }
     }
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
@@ -516,12 +515,14 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       .blog-grid { grid-template-columns: 1fr; }
-      .edu-grid { grid-template-columns: 1fr 1fr; }
+      .edu-vid-grid { grid-template-columns: repeat(2, 1fr); }
+      .edu-vid-card.featured { grid-column: span 2; }
       .interview-card { padding: 32px 28px; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 480px) {
-      .edu-grid { grid-template-columns: 1fr; }
+      .edu-vid-grid { grid-template-columns: 1fr 1fr; }
+      .edu-vid-card.featured { grid-column: span 2; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
       .nextgen-btns { flex-direction: column; }
@@ -643,6 +644,9 @@
         <!-- Article 1 -->
         <article class="article-card fade-up">
           <div class="article-card-bar"></div>
+          <div class="article-card-img">
+            <img src="../Images/Insights/ai for govcon bd image.webp" alt="AI for GovCon BD" />
+          </div>
           <div class="article-card-body">
             <div class="article-meta">
               <span class="article-cat">News</span>
@@ -666,6 +670,9 @@
         <!-- Article 2 -->
         <article class="article-card fade-up" style="transition-delay:.08s">
           <div class="article-card-bar bar-2"></div>
+          <div class="article-card-img">
+            <img src="../Images/Insights/the future of rdt and e image.webp" alt="The future of RDT&amp;E in 2026" />
+          </div>
           <div class="article-card-body">
             <div class="article-meta">
               <span class="article-cat">News</span>
@@ -689,6 +696,9 @@
         <!-- Article 3 -->
         <article class="article-card fade-up" style="transition-delay:.16s">
           <div class="article-card-bar bar-3"></div>
+          <div class="article-card-img">
+            <img src="../Images/Insights/why now is the ime to show up image.webp" alt="Why Now Is the Time to Show Up" />
+          </div>
           <div class="article-card-body">
             <div class="article-meta">
               <span class="article-cat">News</span>
@@ -791,72 +801,124 @@
         <h2 class="section-title">GovCon Education</h2>
       </div>
 
-      <!-- Featured -->
-      <div class="edu-featured fade-up" style="transition-delay:.08s">
-        <div class="edu-featured-play">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <div class="edu-featured-body">
-          <div class="edu-featured-label">Featured Video</div>
-          <div class="edu-featured-title">GovCon Education: Win Theme | Proposals</div>
-        </div>
-        <div class="edu-featured-badge">▶ Watch Now</div>
-      </div>
+      <!-- GovCon Education: YouTube thumbnail video grid — each card opens video in new tab -->
+      <div class="edu-vid-grid">
 
-      <!-- Video grid -->
-      <div class="edu-grid">
-        <div class="edu-tile fade-up">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Breaking into GovCon from a DCAA Perspective</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.04s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Money Talks: R&amp;D Tax Credits</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.08s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">GovCon Education: The Process to Relationship Ratio</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.12s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Executive Compensation: How to Pay Your People</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.16s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Government Security and the Valley of Death</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.20s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">How to Use and Protect Your IP on Federal Contracts</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.24s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Key Employment Issues for the C-Suite</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.28s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Tech Talks | Orthoforge</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.32s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Tech Talks | Trenton Systems</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.36s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Tech Talks | Siradel</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.40s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Tech Talks | re:3D</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.44s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Tech Talks | SkyePoint Decisions</div>
-        </div>
-        <div class="edu-tile fade-up" style="transition-delay:.48s">
-          <div class="edu-tile-play"><svg viewBox="0 0 16 16"><path d="M5 3l8 5-8 5V3z"/></svg></div>
-          <div class="edu-tile-title">Tech Talks | Graphene Composites</div>
-        </div>
+        <!-- 1. Featured: Win Theme | Proposals — QUAeBfDC3lU -->
+        <a class="edu-vid-card featured fade-up" href="https://youtu.be/QUAeBfDC3lU" target="_blank" rel="noopener" style="transition-delay:.08s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/QUAeBfDC3lU/hqdefault.jpg" alt="GovCon Education: Win Theme | Proposals" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/QUAeBfDC3lU/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta">
+            <div class="edu-vid-label">Featured Video</div>
+            <div class="edu-vid-title">GovCon Education: Win Theme | Proposals</div>
+          </div>
+        </a>
+
+        <!-- 2. Breaking into GovCon from a DCAA Perspective — S8z7cfuUb8c -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/S8z7cfuUb8c" target="_blank" rel="noopener" style="transition-delay:.12s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/S8z7cfuUb8c/hqdefault.jpg" alt="Breaking into GovCon from a DCAA Perspective" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/S8z7cfuUb8c/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Breaking into GovCon from a DCAA Perspective</div></div>
+        </a>
+
+        <!-- 3. Money Talks: R&D Tax Credits — ylOAi7-exN4 -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/ylOAi7-exN4" target="_blank" rel="noopener" style="transition-delay:.16s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/ylOAi7-exN4/hqdefault.jpg" alt="Money Talks: R&D Tax Credits" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/ylOAi7-exN4/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Money Talks: R&amp;D Tax Credits</div></div>
+        </a>
+
+        <!-- 4. GovCon Education: The Process to Relationship Ratio — 13Oq0oOsUIw -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/13Oq0oOsUIw" target="_blank" rel="noopener" style="transition-delay:.20s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/13Oq0oOsUIw/hqdefault.jpg" alt="GovCon Education: The Process to Relationship Ratio" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/13Oq0oOsUIw/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">GovCon Education: The Process to Relationship Ratio</div></div>
+        </a>
+
+        <!-- 5. Executive Compensation: How to Pay Your People — eq7dE93bHnM -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/eq7dE93bHnM" target="_blank" rel="noopener" style="transition-delay:.24s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/eq7dE93bHnM/hqdefault.jpg" alt="Executive Compensation: How to Pay Your People" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/eq7dE93bHnM/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Executive Compensation: How to Pay Your People</div></div>
+        </a>
+
+        <!-- 6. Government Security and the Valley of Death — FlW8GzgaUBc -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/FlW8GzgaUBc" target="_blank" rel="noopener" style="transition-delay:.28s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/FlW8GzgaUBc/hqdefault.jpg" alt="Government Security and the Valley of Death" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/FlW8GzgaUBc/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Government Security and the Valley of Death</div></div>
+        </a>
+
+        <!-- 7. How to Use and Protect Your IP on Federal Contracts — WxTFsM8XFCA -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/WxTFsM8XFCA" target="_blank" rel="noopener" style="transition-delay:.32s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/WxTFsM8XFCA/hqdefault.jpg" alt="How to Use and Protect Your IP on Federal Contracts" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/WxTFsM8XFCA/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">How to Use and Protect Your IP on Federal Contracts</div></div>
+        </a>
+
+        <!-- 8. Key Employment Issues for the C-Suite — Hx-EINPrVRU -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/Hx-EINPrVRU" target="_blank" rel="noopener" style="transition-delay:.36s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/Hx-EINPrVRU/hqdefault.jpg" alt="Key Employment Issues for the C-Suite" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/Hx-EINPrVRU/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Key Employment Issues for the C-Suite</div></div>
+        </a>
+
+        <!-- 9. Tech Talks | Orthoforge — Xcvz-vNuIg8 -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/Xcvz-vNuIg8" target="_blank" rel="noopener" style="transition-delay:.40s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/Xcvz-vNuIg8/hqdefault.jpg" alt="Tech Talks | Orthoforge" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/Xcvz-vNuIg8/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Tech Talks | Orthoforge</div></div>
+        </a>
+
+        <!-- 10. Tech Talks | Trenton Systems — oApfsFRmSWE -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/oApfsFRmSWE" target="_blank" rel="noopener" style="transition-delay:.44s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/oApfsFRmSWE/hqdefault.jpg" alt="Tech Talks | Trenton Systems" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/oApfsFRmSWE/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Tech Talks | Trenton Systems</div></div>
+        </a>
+
+        <!-- 11. Tech Talks | Siradel — hJJb02ncrbI -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/hJJb02ncrbI" target="_blank" rel="noopener" style="transition-delay:.48s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/hJJb02ncrbI/hqdefault.jpg" alt="Tech Talks | Siradel" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/hJJb02ncrbI/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Tech Talks | Siradel</div></div>
+        </a>
+
+        <!-- 12. Tech Talks | re:3D — 9d1L4dLs60o -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/9d1L4dLs60o" target="_blank" rel="noopener" style="transition-delay:.52s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/9d1L4dLs60o/hqdefault.jpg" alt="Tech Talks | re:3D" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/9d1L4dLs60o/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Tech Talks | re:3D</div></div>
+        </a>
+
+        <!-- 13. Tech Talks | SkyePoint Decisions — LBdIJWqIycM -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/LBdIJWqIycM" target="_blank" rel="noopener" style="transition-delay:.56s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/LBdIJWqIycM/hqdefault.jpg" alt="Tech Talks | SkyePoint Decisions" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/LBdIJWqIycM/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Tech Talks | SkyePoint Decisions</div></div>
+        </a>
+
+        <!-- 14. Tech Talks | Graphene Composites — oNFvwA1a-6c -->
+        <a class="edu-vid-card fade-up" href="https://youtu.be/oNFvwA1a-6c" target="_blank" rel="noopener" style="transition-delay:.60s">
+          <img class="edu-vid-thumb" src="https://img.youtube.com/vi/oNFvwA1a-6c/hqdefault.jpg" alt="Tech Talks | Graphene Composites" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/oNFvwA1a-6c/mqdefault.jpg'">
+          <div class="edu-vid-overlay"></div>
+          <div class="edu-vid-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="edu-vid-meta"><div class="edu-vid-title">Tech Talks | Graphene Composites</div></div>
+        </a>
+
       </div>
 
     </div>
@@ -965,7 +1027,7 @@
     const navLinks  = document.querySelector('.nav-links');
     hamburger.addEventListener('click', () => {
       const open = navLinks.style.display === 'flex';
-      navLinks.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#fff;padding:16px 20px;border-bottom:1px solid #DDE3EE;box-shadow:0 4px 16px rgba(11,37,69,.1);gap:4px;z-index:99;';
+      navLinks.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#FFFFFF;padding:16px 20px;border-bottom:1px solid #E6E6E6;box-shadow:0 4px 16px rgba(0,0,0,.08);gap:4px;z-index:99;';
     });
 
     // Active nav – highlight the link matching the current URL path
