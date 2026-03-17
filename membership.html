@@ -363,10 +363,10 @@
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px 26px;
+      overflow: hidden;
       transition: all .2s;
-      display: flex; flex-direction: column; gap: 12px;
-      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      position: relative;
     }
     .cap-card::after {
       content: '';
@@ -376,11 +376,15 @@
     }
     .cap-card:hover { box-shadow: var(--shadow-md); border-color: rgba(255,43,43,.22); transform: translateY(-2px); }
     .cap-card:hover::after { opacity: 1; }
+    .cap-img { width: 100%; height: 250px; overflow: hidden; flex-shrink: 0; }
+    .cap-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+    .cap-card:hover .cap-img img { transform: scale(1.04); }
+    .cap-card-inner { padding: 20px 22px 20px; display: flex; flex-direction: column; gap: 12px; }
     .cap-card-header {
       display: flex; align-items: center; gap: 14px;
     }
     .cap-icon {
-      width: 40px; height: 40px; flex-shrink: 0;
+      width: 38px; height: 38px; flex-shrink: 0;
       background: var(--sky); border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       transition: background .2s;
@@ -477,6 +481,9 @@
       .capability-grid { grid-template-columns: 1fr 1fr; }
       .cap-card-wide { grid-column: span 1; }
     }
+    @media (max-width: 1024px) {
+      .cap-img { height: 200px; }
+    }
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
       .topbar { display: none; }
@@ -484,6 +491,7 @@
       .nav-hamburger { display: flex; }
       .benefits-grid { grid-template-columns: 1fr 1fr; }
       .capability-grid { grid-template-columns: 1fr; }
+      .cap-img { height: 180px; }
       .form-row { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
       .eco-stat-row { gap: 28px; }
@@ -632,6 +640,9 @@
     </div>
   </section>
 
+  <!-- ─── CAPABILITY DIRECTORY MAP ───────────────────────────────── -->
+  <iframe title="Iframe Example" src="https://www.arcgis.com/apps/dashboards/5d5114b4c72d49baa43ea77402d26f7d" name="iframe_a" width="100%" height="500px" style="display:block;border:none;"></iframe>
+
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- 2. MEMBERSHIP BENEFITS                                           -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -749,277 +760,319 @@
 
         <!-- Cyber -->
         <div class="cap-card fade-up">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Cyber.png" alt="Cyber" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="cap-title">Cyber</div>
             </div>
-            <div class="cap-title">Cyber</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Electronic Warfare</span>
-            <span class="cap-tag">Defensive Cyber</span>
-            <span class="cap-tag">Offensive Cyber</span>
-            <span class="cap-tag">Battlespace Awareness</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Electronic Warfare</span>
+              <span class="cap-tag">Defensive Cyber</span>
+              <span class="cap-tag">Offensive Cyber</span>
+              <span class="cap-tag">Battlespace Awareness</span>
+            </div>
           </div>
         </div>
 
         <!-- Microelectronics -->
         <div class="cap-card fade-up" style="transition-delay:.04s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="6" height="6"/><path d="M9 3H3v6M21 3h-6M3 15v6h6M15 21h6v-6M9 3v6M15 3v6M3 9h6M21 9h-6M3 15h6M21 15h-6M9 21v-6M15 21v-6"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Microelectronics.png" alt="Microelectronics" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="6" height="6"/><path d="M9 3H3v6M21 3h-6M3 15v6h6M15 21h6v-6M9 3v6M15 3v6M3 9h6M21 9h-6M3 15h6M21 15h-6M9 21v-6M15 21v-6"/></svg>
+              </div>
+              <div class="cap-title">Microelectronics</div>
             </div>
-            <div class="cap-title">Microelectronics</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Semiconductors</span>
-            <span class="cap-tag">Nanotechnology</span>
-            <span class="cap-tag">EMS Technologies</span>
-            <span class="cap-tag">Advanced Microelectronics</span>
-            <span class="cap-tag">Electromagnetic Spectrum</span>
-            <span class="cap-tag">Strategic Missions Hardware</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Semiconductors</span>
+              <span class="cap-tag">Nanotechnology</span>
+              <span class="cap-tag">EMS Technologies</span>
+              <span class="cap-tag">Advanced Microelectronics</span>
+              <span class="cap-tag">Electromagnetic Spectrum</span>
+              <span class="cap-tag">Strategic Missions Hardware</span>
+            </div>
           </div>
         </div>
 
         <!-- Medical Technology & BioTech -->
         <div class="cap-card fade-up" style="transition-delay:.08s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Medical-Technology-BioTech.png" alt="Medical Technology &amp; BioTech" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div class="cap-title">Medical Technology &amp; BioTech</div>
             </div>
-            <div class="cap-title">Medical Technology &amp; BioTech</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Vaccines</span>
-            <span class="cap-tag">Therapeutics</span>
-            <span class="cap-tag">Diagnostics</span>
-            <span class="cap-tag">Pharmaceuticals</span>
-            <span class="cap-tag">Vector Detection Arrays</span>
-            <span class="cap-tag">Devices</span>
-            <span class="cap-tag">Treatment and Rehabilitation</span>
-            <span class="cap-tag">Operational Medicine Research</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Vaccines</span>
+              <span class="cap-tag">Therapeutics</span>
+              <span class="cap-tag">Diagnostics</span>
+              <span class="cap-tag">Pharmaceuticals</span>
+              <span class="cap-tag">Vector Detection Arrays</span>
+              <span class="cap-tag">Devices</span>
+              <span class="cap-tag">Treatment and Rehabilitation</span>
+              <span class="cap-tag">Operational Medicine Research</span>
+            </div>
           </div>
         </div>
 
         <!-- Manufacturing -->
         <div class="cap-card fade-up" style="transition-delay:.1s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Manufacturing.jpg" alt="Manufacturing" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="cap-title">Manufacturing</div>
             </div>
-            <div class="cap-title">Manufacturing</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Precision Machining</span>
-            <span class="cap-tag">3D Printing</span>
-            <span class="cap-tag">Manufacturing</span>
-            <span class="cap-tag">Components</span>
-            <span class="cap-tag">Advanced and High Temperature Materials</span>
-            <span class="cap-tag">Composites</span>
-            <span class="cap-tag">Prototyping</span>
-            <span class="cap-tag">Robotics</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Precision Machining</span>
+              <span class="cap-tag">3D Printing</span>
+              <span class="cap-tag">Manufacturing</span>
+              <span class="cap-tag">Components</span>
+              <span class="cap-tag">Advanced and High Temperature Materials</span>
+              <span class="cap-tag">Composites</span>
+              <span class="cap-tag">Prototyping</span>
+              <span class="cap-tag">Robotics</span>
+            </div>
           </div>
         </div>
 
         <!-- Engineering -->
         <div class="cap-card fade-up" style="transition-delay:.13s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Engineering.png" alt="Engineering" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+              <div class="cap-title">Engineering</div>
             </div>
-            <div class="cap-title">Engineering</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Systems Engineering</span>
-            <span class="cap-tag">Quantum Technologies</span>
-            <span class="cap-tag">Mission Engineering</span>
-            <span class="cap-tag">Modeling and Simulation</span>
-            <span class="cap-tag">Advanced Computing</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Systems Engineering</span>
+              <span class="cap-tag">Quantum Technologies</span>
+              <span class="cap-tag">Mission Engineering</span>
+              <span class="cap-tag">Modeling and Simulation</span>
+              <span class="cap-tag">Advanced Computing</span>
+            </div>
           </div>
         </div>
 
         <!-- Digital -->
         <div class="cap-card fade-up" style="transition-delay:.16s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Digital.png" alt="Digital" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </div>
+              <div class="cap-title">Digital</div>
             </div>
-            <div class="cap-title">Digital</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Artificial Intelligence</span>
-            <span class="cap-tag">Machine Learning</span>
-            <span class="cap-tag">Data Analytics</span>
-            <span class="cap-tag">Modernization</span>
-            <span class="cap-tag">Digital Transformation</span>
-            <span class="cap-tag">NextGen Applications</span>
-            <span class="cap-tag">Modeling and Simulation</span>
-            <span class="cap-tag">Robotic Process Automation</span>
-            <span class="cap-tag">Autonomy</span>
-            <span class="cap-tag">Enterprise Resource Tools</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Artificial Intelligence</span>
+              <span class="cap-tag">Machine Learning</span>
+              <span class="cap-tag">Data Analytics</span>
+              <span class="cap-tag">Modernization</span>
+              <span class="cap-tag">Digital Transformation</span>
+              <span class="cap-tag">NextGen Applications</span>
+              <span class="cap-tag">Modeling and Simulation</span>
+              <span class="cap-tag">Robotic Process Automation</span>
+              <span class="cap-tag">Autonomy</span>
+              <span class="cap-tag">Enterprise Resource Tools</span>
+            </div>
           </div>
         </div>
 
         <!-- Communication & 5G — wide card -->
         <div class="cap-card cap-card-wide fade-up" style="transition-delay:.18s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1.51 4.49A16.6 16.6 0 0 1 12 1a16.6 16.6 0 0 1 10.49 3.49M5 8a10 10 0 0 1 14 0M8.53 12a5 5 0 0 1 6.94 0M12 16v.01"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Comunication-5G.png" alt="Communication &amp; 5G" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1.51 4.49A16.6 16.6 0 0 1 12 1a16.6 16.6 0 0 1 10.49 3.49M5 8a10 10 0 0 1 14 0M8.53 12a5 5 0 0 1 6.94 0M12 16v.01"/></svg>
+              </div>
+              <div class="cap-title">Communication &amp; 5G</div>
             </div>
-            <div class="cap-title">Communication &amp; 5G</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">C5ISR</span>
-            <span class="cap-tag">Assured Communications</span>
-            <span class="cap-tag">Networks</span>
-            <span class="cap-tag">MMIMO</span>
-            <span class="cap-tag">3D Beamforming</span>
-            <span class="cap-tag">Waveform Diversity</span>
-            <span class="cap-tag">Multifunction RF</span>
-            <span class="cap-tag">Cognitive Spectrum Sharing</span>
-            <span class="cap-tag">Device to Device Communications</span>
-            <span class="cap-tag">Ad-Hoc Networks</span>
-            <span class="cap-tag">Autonomous Navigation</span>
-            <span class="cap-tag">Wireless SDN</span>
-            <span class="cap-tag">NextGen RAN</span>
-            <span class="cap-tag">Low Power/No Power Processing and Development</span>
+            <div class="cap-tags">
+              <span class="cap-tag">C5ISR</span>
+              <span class="cap-tag">Assured Communications</span>
+              <span class="cap-tag">Networks</span>
+              <span class="cap-tag">MMIMO</span>
+              <span class="cap-tag">3D Beamforming</span>
+              <span class="cap-tag">Waveform Diversity</span>
+              <span class="cap-tag">Multifunction RF</span>
+              <span class="cap-tag">Cognitive Spectrum Sharing</span>
+              <span class="cap-tag">Device to Device Communications</span>
+              <span class="cap-tag">Ad-Hoc Networks</span>
+              <span class="cap-tag">Autonomous Navigation</span>
+              <span class="cap-tag">Wireless SDN</span>
+              <span class="cap-tag">NextGen RAN</span>
+              <span class="cap-tag">Low Power/No Power Processing and Development</span>
+            </div>
           </div>
         </div>
 
         <!-- Cloud -->
         <div class="cap-card fade-up" style="transition-delay:.2s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Cloud.png" alt="Cloud" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+              </div>
+              <div class="cap-title">Cloud</div>
             </div>
-            <div class="cap-title">Cloud</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">DevSecOps</span>
-            <span class="cap-tag">Cloud Computing and Migrations</span>
-            <span class="cap-tag">Managed Infrastructure and Network Services</span>
-            <span class="cap-tag">Mobility</span>
+            <div class="cap-tags">
+              <span class="cap-tag">DevSecOps</span>
+              <span class="cap-tag">Cloud Computing and Migrations</span>
+              <span class="cap-tag">Managed Infrastructure and Network Services</span>
+              <span class="cap-tag">Mobility</span>
+            </div>
           </div>
         </div>
 
         <!-- Armaments, Munitions and Weapons Systems -->
         <div class="cap-card fade-up" style="transition-delay:.22s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Armaments-Munitions-and-Weapons-Systems.png" alt="Armaments, Munitions &amp; Weapons Systems" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <div class="cap-title">Armaments, Munitions &amp; Weapons Systems</div>
             </div>
-            <div class="cap-title">Armaments, Munitions &amp; Weapons Systems</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Directed Energy</span>
-            <span class="cap-tag">Demilitarization</span>
-            <span class="cap-tag">Fuzes</span>
-            <span class="cap-tag">Energetics</span>
-            <span class="cap-tag">Ammunition</span>
-            <span class="cap-tag">Precision Guidance</span>
-            <span class="cap-tag">Power Systems</span>
-            <span class="cap-tag">Lasers</span>
-            <span class="cap-tag">Propulsion</span>
-            <span class="cap-tag">Ballistics</span>
-            <span class="cap-tag">Missiles</span>
-            <span class="cap-tag">Materials</span>
-            <span class="cap-tag">Hypersonics</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Directed Energy</span>
+              <span class="cap-tag">Demilitarization</span>
+              <span class="cap-tag">Fuzes</span>
+              <span class="cap-tag">Energetics</span>
+              <span class="cap-tag">Ammunition</span>
+              <span class="cap-tag">Precision Guidance</span>
+              <span class="cap-tag">Power Systems</span>
+              <span class="cap-tag">Lasers</span>
+              <span class="cap-tag">Propulsion</span>
+              <span class="cap-tag">Ballistics</span>
+              <span class="cap-tag">Missiles</span>
+              <span class="cap-tag">Materials</span>
+              <span class="cap-tag">Hypersonics</span>
+            </div>
           </div>
         </div>
 
         <!-- Aerospace -->
         <div class="cap-card fade-up" style="transition-delay:.24s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Aerospace.png" alt="Aerospace" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+              </div>
+              <div class="cap-title">Aerospace</div>
             </div>
-            <div class="cap-title">Aerospace</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Avionics</span>
-            <span class="cap-tag">Unmanned Systems</span>
-            <span class="cap-tag">Propulsion Systems</span>
-            <span class="cap-tag">Power Systems</span>
-            <span class="cap-tag">Survivability</span>
-            <span class="cap-tag">Autonomy</span>
-            <span class="cap-tag">Aviation Ground Support Systems</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Avionics</span>
+              <span class="cap-tag">Unmanned Systems</span>
+              <span class="cap-tag">Propulsion Systems</span>
+              <span class="cap-tag">Power Systems</span>
+              <span class="cap-tag">Survivability</span>
+              <span class="cap-tag">Autonomy</span>
+              <span class="cap-tag">Aviation Ground Support Systems</span>
+            </div>
           </div>
         </div>
 
         <!-- Space Tech -->
         <div class="cap-card fade-up" style="transition-delay:.26s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Space-Tech.png" alt="Space Tech" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              </div>
+              <div class="cap-title">Space Tech</div>
             </div>
-            <div class="cap-title">Space Tech</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Satellite Elements and Subsystems</span>
-            <span class="cap-tag">Fixed and Mobile Ground Stations</span>
-            <span class="cap-tag">Launch</span>
-            <span class="cap-tag">Mission Operations and Architecture</span>
-            <span class="cap-tag">Space Operations Electronics</span>
-            <span class="cap-tag">Low Earth Orbit</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Satellite Elements and Subsystems</span>
+              <span class="cap-tag">Fixed and Mobile Ground Stations</span>
+              <span class="cap-tag">Launch</span>
+              <span class="cap-tag">Mission Operations and Architecture</span>
+              <span class="cap-tag">Space Operations Electronics</span>
+              <span class="cap-tag">Low Earth Orbit</span>
+            </div>
           </div>
         </div>
 
         <!-- Renewable & Alternative Energy -->
         <div class="cap-card fade-up" style="transition-delay:.28s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Renewable-Alternative-Energy-.png" alt="Renewable &amp; Alternative Energy" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="cap-title">Renewable &amp; Alternative Energy</div>
             </div>
-            <div class="cap-title">Renewable &amp; Alternative Energy</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Energy Generation</span>
-            <span class="cap-tag">Clean Energy</span>
-            <span class="cap-tag">Wind</span>
-            <span class="cap-tag">Solar</span>
-            <span class="cap-tag">Microgrids</span>
-            <span class="cap-tag">Nanogrids</span>
-            <span class="cap-tag">Energy Storage</span>
-            <span class="cap-tag">Batteries</span>
-            <span class="cap-tag">EV</span>
-            <span class="cap-tag">Electrification</span>
-            <span class="cap-tag">Conservation and Efficiency</span>
-            <span class="cap-tag">Resilient Infrastructure</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Energy Generation</span>
+              <span class="cap-tag">Clean Energy</span>
+              <span class="cap-tag">Wind</span>
+              <span class="cap-tag">Solar</span>
+              <span class="cap-tag">Microgrids</span>
+              <span class="cap-tag">Nanogrids</span>
+              <span class="cap-tag">Energy Storage</span>
+              <span class="cap-tag">Batteries</span>
+              <span class="cap-tag">EV</span>
+              <span class="cap-tag">Electrification</span>
+              <span class="cap-tag">Conservation and Efficiency</span>
+              <span class="cap-tag">Resilient Infrastructure</span>
+            </div>
           </div>
         </div>
 
         <!-- Professional Services -->
         <div class="cap-card fade-up" style="transition-delay:.3s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M12 12v4M10 14h4"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Professional-Services.png" alt="Professional Services" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M12 12v4M10 14h4"/></svg>
+              </div>
+              <div class="cap-title">Professional Services</div>
             </div>
-            <div class="cap-title">Professional Services</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Program Management</span>
-            <span class="cap-tag">Acquisition Support</span>
-            <span class="cap-tag">Financial Management</span>
-            <span class="cap-tag">Accounting Support</span>
-            <span class="cap-tag">Intellectual Property and Legal</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Program Management</span>
+              <span class="cap-tag">Acquisition Support</span>
+              <span class="cap-tag">Financial Management</span>
+              <span class="cap-tag">Accounting Support</span>
+              <span class="cap-tag">Intellectual Property and Legal</span>
+            </div>
           </div>
         </div>
 
         <!-- Operations & Logistics -->
         <div class="cap-card fade-up" style="transition-delay:.32s">
-          <div class="cap-card-header">
-            <div class="cap-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <div class="cap-img"><img src="Images/capability-directory/Operations-Logistics.jpg" alt="Operations &amp; Logistics" /></div>
+          <div class="cap-card-inner">
+            <div class="cap-card-header">
+              <div class="cap-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="cap-title">Operations &amp; Logistics</div>
             </div>
-            <div class="cap-title">Operations &amp; Logistics</div>
-          </div>
-          <div class="cap-tags">
-            <span class="cap-tag">Unmanned Systems</span>
-            <span class="cap-tag">PNT</span>
-            <span class="cap-tag">Intelligence Analysis</span>
-            <span class="cap-tag">Sensors</span>
-            <span class="cap-tag">CBRN</span>
-            <span class="cap-tag">Asymmetric Warfare</span>
+            <div class="cap-tags">
+              <span class="cap-tag">Unmanned Systems</span>
+              <span class="cap-tag">PNT</span>
+              <span class="cap-tag">Intelligence Analysis</span>
+              <span class="cap-tag">Sensors</span>
+              <span class="cap-tag">CBRN</span>
+              <span class="cap-tag">Asymmetric Warfare</span>
+            </div>
           </div>
         </div>
 

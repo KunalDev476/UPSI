@@ -500,60 +500,265 @@
     /* ══════════════════════════════════════════════════════════════════
        12. OT HISTORY
     ══════════════════════════════════════════════════════════════════ */
+    /* ─── HISTORY TIMELINE ────────────────────────────────────────────── */
     .ot-history { background: var(--white); padding: 96px 0; }
-    .ot-history .head { max-width: 720px; margin-bottom: 52px; }
+    .ot-history .head { max-width: 720px; margin-bottom: 80px; }
 
-    /* 2×2 milestone cards */
-    .hist-milestone-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 64px;
-    }
-    .hist-milestone-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius-lg); padding: 32px 28px;
-      border-left: 3px solid var(--accent);
-      transition: box-shadow .25s, transform .25s;
-    }
-    .hist-milestone-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-    .hist-milestone-era {
-      font-family: var(--font-head); font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
-      display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
-    }
-    .hist-milestone-era::before { content: ''; width: 20px; height: 2px; background: var(--accent); border-radius: 2px; }
-    .hist-milestone-year {
-      font-family: var(--font-head); font-size: clamp(36px, 3.5vw, 48px);
-      font-weight: 700; color: var(--navy); letter-spacing: -.03em;
-      line-height: 1; margin-bottom: 14px;
-    }
-    .hist-milestone-card p { font-size: 14px; line-height: 1.75; color: var(--grey); }
-    .hist-born-tag {
-      display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
-      font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-      color: var(--blue); background: var(--sky); border: 1px solid rgba(225,6,0,.25);
-      border-radius: 100px; padding: 5px 14px;
+    /* No scroll — stage fills container width fully */
+    .tl-scroll-wrap { overflow: visible; }
+
+    /*
+     * New layout: all cards BELOW the timeline line.
+     * year-slot: 100px — label + year number, anchored to bottom (above line)
+     * mid-slot:   48px — dot only; baseline through its center
+     * card-slot: auto  — stem + card, staggered near/far below the line
+     *
+     * Timeline line top = year-slot (100px) + half dot-slot (24px) = 124px
+     */
+    .tl-stage {
+      display: flex;
+      width: 100%;
+      position: relative;
+      padding-bottom: 24px;
     }
 
-    /* Agency authority grid */
-    .hist-agency-section { border-top: 1px solid var(--border); padding-top: 52px; }
-    .hist-agency-lead {
-      font-size: 17px; line-height: 1.75; color: var(--dark);
-      font-weight: 500; margin-bottom: 24px;
+    /* Horizontal baseline */
+    .tl-stage::before {
+      content: '';
+      position: absolute;
+      top: calc(100px + 24px);
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
     }
-    .hist-agency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .hist-agency-card {
-      background: var(--light); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 18px 16px; transition: all .2s;
+
+    /* Each milestone column */
+    .tl-milestone {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
     }
-    .hist-agency-card:hover { border-color: rgba(255,43,43,.4); background: var(--sky); box-shadow: var(--shadow-sm); }
-    .hist-agency-abbr {
-      font-family: var(--font-head); font-size: 20px; font-weight: 700;
-      color: var(--navy); margin-bottom: 8px; line-height: 1;
+
+    /* ── Year slot: label + large year number, sits ABOVE the timeline ── */
+    .tl-year-slot {
+      height: 100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 10px;
+      text-align: center;
     }
-    .hist-agency-codes { display: flex; flex-direction: column; gap: 4px; }
-    .hist-code {
-      font-family: var(--font-mono); font-size: 10px; font-weight: 500;
-      color: var(--blue); background: var(--sky); border: 1px solid rgba(225,6,0,.25);
-      border-radius: 4px; padding: 2px 6px; display: inline-block; width: fit-content;
+
+    /* Mid slot: dot only */
+    .tl-mid-slot {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── Card slot: stem + card, all BELOW the timeline ── */
+    .tl-card-slot {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* All cards start at the same level */
+    .tl-card-slot--near .tl-stem { height: 16px; }
+    .tl-card-slot--far .tl-stem { height: 16px; }
+
+    /* Dot */
+    .tl-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--dark);
+      transition: background .22s, border-color .22s, box-shadow .22s;
+      flex-shrink: 0;
+    }
+    .tl-milestone:hover .tl-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 6px rgba(225,6,0,.12);
+    }
+
+    /* Stem connecting dot to card */
+    .tl-stem {
+      width: 2px;
+      background: var(--border);
+      flex-shrink: 0;
+      transition: background .22s;
+    }
+    .tl-milestone:hover .tl-stem { background: var(--accent); }
+
+    /* Card */
+    .tl-card {
+      width: calc(100% - 28px);
+      max-width: 270px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .22s, box-shadow .22s;
+    }
+    .tl-milestone:hover .tl-card {
+      transform: translateY(4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .tl-card-label {
+      font-family: var(--font-head); font-size: 10px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 3px;
+    }
+    .tl-card-year {
+      font-family: var(--font-head); font-size: 34px; font-weight: 700;
+      color: var(--navy); letter-spacing: -.03em;
+      line-height: 1;
+    }
+    .tl-card p {
+      font-size: 12.5px; line-height: 1.7; color: var(--grey);
+    }
+    .tl-born-tag {
+      display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;
+      font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--blue); background: var(--sky);
+      border: 1px solid rgba(225,6,0,.25); border-radius: 100px; padding: 4px 10px;
+    }
+
+    /* Authority panel */
+    .tl-authority-panel {
+      margin-top: 56px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .tl-authority-header {
+      padding: 36px 40px 32px;
+      border-bottom: 1px solid var(--border);
+      background: var(--navy);
+    }
+    .tl-authority-heading {
+      font-family: var(--font-head); font-size: 22px; font-weight: 700;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .tl-authority-sub {
+      font-size: 14px; color: rgba(255,255,255,.55);
+    }
+    /* Agency grid inside panel */
+    .tl-agency-list-wrap { padding: 28px 40px 36px; }
+    .tl-agency-list {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    }
+    .tl-agency-item {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 14px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      border-radius: var(--radius);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .tl-agency-item:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: var(--border);
+      border-top-color: var(--accent);
+    }
+    .tl-agency-name {
+      font-family: var(--font-head); font-size: 15px; font-weight: 700;
+      color: var(--navy);
+    }
+    .tl-agency-code {
+      font-family: var(--font-mono); font-size: 9px; font-weight: 500;
+      color: var(--accent);
+      background: var(--sky);
+      border: 1px solid rgba(225,6,0,.2);
+      border-radius: 3px; padding: 2px 5px;
+      display: inline-block; width: fit-content;
+    }
+
+    /* Responsive — timeline */
+    @media (max-width: 1024px) {
+      /* All cards at same level */
+      .tl-card-slot--near .tl-stem { height: 12px; }
+      .tl-card-slot--far .tl-stem { height: 12px; }
+      .tl-card { max-width: 220px; }
+      .tl-agency-list { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      /* Vertical stack — year label → dot → card, one per row */
+      .tl-stage {
+        flex-direction: column;
+        align-items: stretch;
+        padding-left: 32px;
+        padding-bottom: 0;
+      }
+      .tl-stage::before {
+        /* Vertical line running down the left edge */
+        top: 0; bottom: 0; left: 15px;
+        right: auto;
+        width: 2px; height: auto;
+      }
+      .tl-milestone {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 0 0 36px;
+        position: relative;
+      }
+      /* Dot positioned on the vertical line */
+      .tl-mid-slot {
+        position: absolute;
+        left: -32px;
+        top: 6px;
+        height: 28px; width: 28px;
+        flex-shrink: 0;
+      }
+      .tl-dot { width: 14px; height: 14px; }
+      /* Year slot becomes a compact inline header */
+      .tl-year-slot {
+        height: auto;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-bottom: 6px;
+        min-width: 80px;
+        flex-shrink: 0;
+        padding-top: 2px;
+      }
+      .tl-card-year { font-size: 26px; }
+      /* Card slot — no stagger on mobile, uniform */
+      .tl-card-slot {
+        align-items: flex-start;
+        flex: 1;
+        padding-top: 2px;
+      }
+      .tl-card-slot--near .tl-stem,
+      .tl-card-slot--far .tl-stem { display: none; }
+      .tl-card {
+        width: 100%; max-width: 100%;
+        border-top: 3px solid var(--accent);
+      }
+      .tl-authority-header { padding: 24px 20px 20px; }
+      .tl-agency-list-wrap { padding: 20px; }
+      .tl-agency-list { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .tl-agency-list { grid-template-columns: 1fr 1fr; }
     }
 
     /* ─── FOOTER ──────────────────────────────────────────────────────── */
@@ -579,7 +784,7 @@
       .consortia-wall { grid-template-columns: repeat(4, 1fr); }
       .consortia-wall--logos { grid-template-columns: repeat(3, 1fr); }
       .cmf-roles { grid-template-columns: 1fr 1fr; }
-      .hist-agency-grid { grid-template-columns: repeat(3, 1fr); }
+      .tl-agency-list { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
@@ -595,8 +800,7 @@
       .cmf-roles { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
       .comp-header { grid-template-columns: 1fr; }
-      .hist-milestone-grid { grid-template-columns: 1fr; }
-      .hist-agency-grid { grid-template-columns: repeat(2, 1fr); }
+      .tl-agency-list { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 480px) {
       .consortia-wall { grid-template-columns: repeat(2, 1fr); }
@@ -1112,125 +1316,147 @@
         <h2 class="section-title">What is the History of Other Transactions?</h2>
       </div>
 
-      <!-- Milestone cards -->
-      <div class="hist-milestone-grid">
+      <!-- Horizontal timeline — fixed-slot layout ensures dot baseline never drifts -->
+      <div class="tl-scroll-wrap fade-up" style="transition-delay:.1s">
+        <div class="tl-stage">
 
-        <div class="hist-milestone-card fade-up">
-          <div class="hist-milestone-era">Origin</div>
-          <div class="hist-milestone-year">1958</div>
-          <p>The National Aeronautics and Space Act was created by Congress to develop a national space program. NASA was granted broad authority to enter into contracts, leases, cooperative agreements, or <em>other transactions</em> as may be necessary to accomplish its mission.</p>
-          <div class="hist-born-tag">
-            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1l2 4 4 .5-3 3 .7 4L8 11l-3.7 1.5.7-4-3-3 4-.5z"/></svg>
-            Thus, the OTA was born!
+          <!-- ── 1958 — near (closer to line) ──────────────────── -->
+          <div class="tl-milestone">
+            <div class="tl-year-slot">
+              <div class="tl-card-year">1958</div>
+            </div>
+            <div class="tl-mid-slot"><div class="tl-dot"></div></div>
+            <div class="tl-card-slot tl-card-slot--near">
+              <div class="tl-stem"></div>
+              <div class="tl-card">
+                <div class="tl-born-tag">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1l2 4 4 .5-3 3 .7 4L8 11l-3.7 1.5.7-4-3-3 4-.5z"/></svg>
+                  Thus, the OTA was born!
+                </div>
+                <p>The National Aeronautics and Space Act was created by Congress to develop a national space program. NASA was granted broad authority to enter into contracts, leases, cooperative agreements, or <em>other transactions</em> as may be necessary to accomplish its mission.</p>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="hist-milestone-card fade-up" style="transition-delay:.08s">
-          <div class="hist-milestone-era">DARPA Authority</div>
-          <div class="hist-milestone-year">1989</div>
-          <p>The Defense Advanced Research Project Agency (DARPA) was first granted its authority for advanced research projects in 1989, with expanded prototype authority following by 1993.</p>
-        </div>
+          <!-- ── 1989 — far (drops lower) ────────────────────── -->
+          <div class="tl-milestone">
+            <div class="tl-year-slot">
+              <div class="tl-card-year">1989</div>
+            </div>
+            <div class="tl-mid-slot"><div class="tl-dot"></div></div>
+            <div class="tl-card-slot tl-card-slot--far">
+              <div class="tl-stem"></div>
+              <div class="tl-card">
+                <div class="tl-born-tag">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1l2 4 4 .5-3 3 .7 4L8 11l-3.7 1.5.7-4-3-3 4-.5z"/></svg>
+                  1989 · DARPA Authority
+                </div>
+                <p>The Defense Advanced Research Project Agency (DARPA) was first granted its authority for advanced research projects in 1989, with expanded prototype authority following by 1993.</p>
+              </div>
+            </div>
+          </div>
 
-        <div class="hist-milestone-card fade-up" style="transition-delay:.14s">
-          <div class="hist-milestone-era">DoD-Wide Expansion</div>
-          <div class="hist-milestone-year">1996</div>
-          <p>The rest of the DoD received authority with Section 845 of FY94 NDAA, with subsequent modifications adding follow-on production authority, a pilot program for follow-on contracting for the production of commercial items, and more.</p>
-        </div>
+          <!-- ── 1996 — near (closer to line) ──────────────────── -->
+          <div class="tl-milestone">
+            <div class="tl-year-slot">
+              <div class="tl-card-year">1996</div>
+            </div>
+            <div class="tl-mid-slot"><div class="tl-dot"></div></div>
+            <div class="tl-card-slot tl-card-slot--near">
+              <div class="tl-stem"></div>
+              <div class="tl-card">
+                <div class="tl-born-tag">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1l2 4 4 .5-3 3 .7 4L8 11l-3.7 1.5.7-4-3-3 4-.5z"/></svg>
+                  1996 · DoD-Wide Expansion
+                </div>
+                <p>The rest of the DoD received authority with Section 845 of FY94 NDAA, with subsequent modifications adding follow-on production authority, a pilot program for follow-on contracting for the production of commercial items, and more.</p>
+              </div>
+            </div>
+          </div>
 
-        <div class="hist-milestone-card fade-up" style="transition-delay:.2s">
-          <div class="hist-milestone-era">Permanent Codification</div>
-          <div class="hist-milestone-year">2015</div>
-          <p>An important milestone for OTs — the permanent codification of OTs in 10 U.S. Code 2371b, now re-named 10 U.S. Code 4022.</p>
-        </div>
+          <!-- ── 2015 — far (drops lower) ────────────────────── -->
+          <div class="tl-milestone">
+            <div class="tl-year-slot">
+              <div class="tl-card-year">2015</div>
+            </div>
+            <div class="tl-mid-slot"><div class="tl-dot"></div></div>
+            <div class="tl-card-slot tl-card-slot--far">
+              <div class="tl-stem"></div>
+              <div class="tl-card">
+                <div class="tl-born-tag">
+                  <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 1l2 4 4 .5-3 3 .7 4L8 11l-3.7 1.5.7-4-3-3 4-.5z"/></svg>
+                  2015 · Permanent Codification
+                </div>
+                <p>An important milestone for OTs — the permanent codification of OTs in 10 U.S. Code 2371b, now re-named 10 U.S. Code 4022.</p>
+              </div>
+            </div>
+          </div>
 
+        </div>
       </div>
 
-      <!-- Agency authority reference -->
-      <div class="hist-agency-section fade-up">
-        <p class="hist-agency-lead">At present, 11 agencies have OT authority to date:</p>
-        <div class="hist-agency-grid">
+      <!-- Authority panel -->
+      <div class="tl-authority-panel fade-up" style="transition-delay:.24s">
 
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">ARPA-E</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">42 U.S.C. § 16538</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">DHS</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">6 U.S.C. § 391</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">DNDO</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">6 U.S.C. § 596</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">DOD</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">10 U.S.C. § 4021</span>
-              <span class="hist-code">10 U.S.C. § 4022</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">DOE</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">42 U.S.C. § 7256</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">DOT</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">49 U.S.C. § 5312</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">FAA</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">49 U.S.C. § 106(l)</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">HHS</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">42 U.S.C. § 247-7e</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">NASA</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">51 U.S.C. § 20113(e)</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">NIH</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">42 U.S.C. § 285b-3</span>
-              <span class="hist-code">42 U.S.C. § 284n</span>
-              <span class="hist-code">42 U.S.C. § 287a</span>
-            </div>
-          </div>
-
-          <div class="hist-agency-card">
-            <div class="hist-agency-abbr">TSA</div>
-            <div class="hist-agency-codes">
-              <span class="hist-code">49 U.S.C. § 114(m)</span>
-            </div>
-          </div>
-
+        <div class="tl-authority-header">
+          <div class="tl-authority-heading">Current OTA Authorities Across Agencies</div>
+          <div class="tl-authority-sub">At present, 11 agencies have OT authority to date:</div>
         </div>
+
+        <div class="tl-agency-list-wrap">
+          <div class="tl-agency-list">
+
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">ARPA-E</span>
+              <span class="tl-agency-code">42 U.S.C. § 16538</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">DHS</span>
+              <span class="tl-agency-code">6 U.S.C. § 391</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">DNDO</span>
+              <span class="tl-agency-code">6 U.S.C. § 596</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">DOD</span>
+              <span class="tl-agency-code">10 U.S.C. § 4021</span>
+              <span class="tl-agency-code">10 U.S.C. § 4022</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">DOE</span>
+              <span class="tl-agency-code">42 U.S.C. § 7256</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">DOT</span>
+              <span class="tl-agency-code">49 U.S.C. § 5312</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">FAA</span>
+              <span class="tl-agency-code">49 U.S.C. § 106(l)</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">HHS</span>
+              <span class="tl-agency-code">42 U.S.C. § 247-7e</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">NASA</span>
+              <span class="tl-agency-code">51 U.S.C. § 20113(e)</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">NIH</span>
+              <span class="tl-agency-code">42 U.S.C. § 285b-3</span>
+              <span class="tl-agency-code">42 U.S.C. § 284n</span>
+              <span class="tl-agency-code">42 U.S.C. § 287a</span>
+            </div>
+            <div class="tl-agency-item">
+              <span class="tl-agency-name">TSA</span>
+              <span class="tl-agency-code">49 U.S.C. § 114(m)</span>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
     </div>

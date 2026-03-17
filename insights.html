@@ -211,7 +211,7 @@
       width: 28px; height: 28px; border-radius: 50%;
       background: linear-gradient(135deg, var(--blue), var(--navy));
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-head); font-size: 10px; font-weight: 700; color: var(--white); /* white initials on dark gradient */
+      font-family: var(--font-head); font-size: 10px; font-weight: 700; color: var(--white);
     }
     .article-author-name { font-size: 12px; font-weight: 600; color: var(--dark); }
     .article-read-more {
@@ -375,7 +375,7 @@
     .edu-vid-play svg { width: 16px; height: 16px; fill: #fff; margin-left: 2px; }
     /* Title bar at bottom */
     .edu-vid-meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px; pointer-events: none; }
-    .edu-vid-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,.92); line-height: 1.4; }
+    .edu-vid-title { font-size: 15px; font-weight: 700; color: rgba(255,255,255,.95); line-height: 1.4; }
 
     /* ═══════════════════════════════════════════════════════════════
        6. PODCAST INTERVIEW SPOTLIGHT
@@ -515,14 +515,13 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       .blog-grid { grid-template-columns: 1fr; }
-      .edu-vid-grid { grid-template-columns: repeat(2, 1fr); }
-      .edu-vid-card.featured { grid-column: span 2; }
+      .edu-vid-grid { grid-template-columns: 1fr 1fr; }
       .interview-card { padding: 32px 28px; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
     @media (max-width: 480px) {
       .edu-vid-grid { grid-template-columns: 1fr 1fr; }
-      .edu-vid-card.featured { grid-column: span 2; }
+      .edu-vid-card.featured { grid-column: 1 / -1; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
       .nextgen-btns { flex-direction: column; }

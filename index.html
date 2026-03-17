@@ -555,33 +555,31 @@
       overflow: hidden;
     }
     .pillar {
-      padding: 36px 32px;
       background: var(--white);
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       transition: background .25s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .pillar:nth-child(3n) { border-right: none; }
     .pillar:nth-child(4), .pillar:nth-child(5), .pillar:nth-child(6) { border-bottom: none; }
     .pillar:hover { background: var(--sky); }
+    .pillar-img { width: 100%; height: 160px; overflow: hidden; flex-shrink: 0; }
+    .pillar-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pillar-content { padding: 26px 28px 30px; flex: 1; display: flex; flex-direction: column; }
     .pillar-num {
       font-family: var(--font-head);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 12px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .14em; color: var(--accent);
+      text-transform: uppercase; margin-bottom: 10px;
     }
     .pillar h3 {
-      font-family: var(--font-head);
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--navy);
-      margin-bottom: 10px;
-      line-height: 1.35;
+      font-family: var(--font-head); font-size: 16px; font-weight: 700;
+      color: var(--navy); margin-bottom: 10px; line-height: 1.35;
     }
-    .pillar p { font-size: 14px; line-height: 1.7; color: var(--grey); }
+    .pillar p { font-size: 14px; line-height: 1.7; color: var(--grey); flex: 1; }
 
     /* ─── FEATURE SECTIONS ─────────────────────────────────────────── */
     .feature {
@@ -1257,34 +1255,52 @@
       </div>
       <div class="pillars-grid">
         <div class="pillar fade-up">
-          <div class="pillar-num">01</div>
-          <h3>Access to Innovators and Non-Traditionals</h3>
-          <p>The platform hosts over 5,000 change-makers developing innovative mission-supporting solutions, linking members with expertise and targeted support to address complex problems through an extensive network.</p>
+          <div class="pillar-img"><img src="Images/our-approach/access-to-innovators-card-image.webp" alt="Access to Innovators" /></div>
+          <div class="pillar-content">
+            <div class="pillar-num">01</div>
+            <h3>Access to Innovators and Non-Traditionals</h3>
+            <p>The platform hosts over 5,000 change-makers developing innovative mission-supporting solutions, linking members with expertise and targeted support to address complex problems through an extensive network.</p>
+          </div>
         </div>
         <div class="pillar fade-up" style="transition-delay:.05s">
-          <div class="pillar-num">02</div>
-          <h3>High Touch Collaboration</h3>
-          <p>Govmates provides concierge-level matchmaking, making introductions meaningful and facilitating progression from initial conversations through NDAs and beyond, serving as a catalyst for exponential growth.</p>
+          <div class="pillar-img"><img src="Images/our-approach/high-touch-collaboration-card-image.webp" alt="High Touch Collaboration" /></div>
+          <div class="pillar-content">
+            <div class="pillar-num">02</div>
+            <h3>High Touch Collaboration</h3>
+            <p>Govmates provides concierge-level matchmaking, making introductions meaningful and facilitating progression from initial conversations through NDAs and beyond, serving as a catalyst for exponential growth.</p>
+          </div>
         </div>
         <div class="pillar fade-up" style="transition-delay:.1s">
-          <div class="pillar-num">03</div>
-          <h3>Unbiased Algorithm</h3>
-          <p>Operating as an honest broker and transparent intermediary, maintaining no equity stakes in member companies. Matching decisions focus exclusively on what benefits the business involved.</p>
+          <div class="pillar-img"><img src="Images/our-approach/unbiased-algorithm-card-image.webp" alt="Unbiased Algorithm" /></div>
+          <div class="pillar-content">
+            <div class="pillar-num">03</div>
+            <h3>Unbiased Algorithm</h3>
+            <p>Operating as an honest broker and transparent intermediary, maintaining no equity stakes in member companies. Matching decisions focus exclusively on what benefits the business involved.</p>
+          </div>
         </div>
         <div class="pillar fade-up" style="transition-delay:.15s">
-          <div class="pillar-num">04</div>
-          <h3>Valley of Death Combat</h3>
-          <p>Understanding resource constraints facing government contracting firms, govmates provides training, education, and resources helping members build DCAA-compliant operations for FAR-based federal contracts.</p>
+          <div class="pillar-img"><img src="Images/our-approach/valley-of-death-combat-card-image.webp" alt="Valley of Death Combat" /></div>
+          <div class="pillar-content">
+            <div class="pillar-num">04</div>
+            <h3>Valley of Death Combat</h3>
+            <p>Understanding resource constraints facing government contracting firms, govmates provides training, education, and resources helping members build DCAA-compliant operations for FAR-based federal contracts.</p>
+          </div>
         </div>
         <div class="pillar fade-up" style="transition-delay:.2s">
-          <div class="pillar-num">05</div>
-          <h3>Valley of Death Resources</h3>
-          <p>Recognizing struggles with business longevity, the organization addresses common Valley of Death challenges, helping small businesses overcome initial obstacles and develop into formidable enterprises.</p>
+          <div class="pillar-img"><img src="Images/our-approach/valley-of-death-resources-card-image.webp" alt="Valley of Death Resources" /></div>
+          <div class="pillar-content">
+            <div class="pillar-num">05</div>
+            <h3>Valley of Death Resources</h3>
+            <p>Recognizing struggles with business longevity, the organization addresses common Valley of Death challenges, helping small businesses overcome initial obstacles and develop into formidable enterprises.</p>
+          </div>
         </div>
         <div class="pillar fade-up" style="transition-delay:.25s">
-          <div class="pillar-num">06</div>
-          <h3>Enterprise Level Solution</h3>
-          <p>Delivering comprehensive solutions connecting industry and government with innovative small businesses, ensuring partnerships prove profitable and amicable while pairing stakeholders based on mutual needs and capabilities.</p>
+          <div class="pillar-img"><img src="Images/our-approach/enterprise-level-solution-card-image.webp" alt="Enterprise Level Solution" /></div>
+          <div class="pillar-content">
+            <div class="pillar-num">06</div>
+            <h3>Enterprise Level Solution</h3>
+            <p>Delivering comprehensive solutions connecting industry and government with innovative small businesses, ensuring partnerships prove profitable and amicable while pairing stakeholders based on mutual needs and capabilities.</p>
+          </div>
         </div>
       </div>
     </div>
