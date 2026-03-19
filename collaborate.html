@@ -328,18 +328,21 @@
     }
     .events-header {
       text-align: center;
-      max-width: 640px;
+      max-width: 700px;
       margin: 0 auto 64px;
     }
-    .events-col {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    .events-header .section-body {
+      text-align: center;
+      max-width: 100%;
+      margin: 12px auto 0;
+    }
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
     }
 
-    /* Event card — vertical layout with image banner */
+    /* Event card — vertical layout, image top */
     .event-card {
       display: flex;
       flex-direction: column;
@@ -348,138 +351,140 @@
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
-      transition: all .25s;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
       position: relative;
+      cursor: pointer;
     }
     .event-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-3px);
-      border-color: rgba(255,43,43,.3);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+      border-color: rgba(225,6,0,.2);
     }
 
-    /* Lower area: image-date badge + body (banner removed — image lives inside badge) */
-    .event-card-lower {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 0;
-      height: 220px;
-      overflow: hidden;
-    }
-
-    /* Date badge — image as background, date text on top */
-    .event-date-badge {
+    /* Image block */
+    .event-card-image {
       position: relative;
       overflow: hidden;
+      aspect-ratio: 16 / 10;
       background: var(--navy);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .event-badge-bg {
+    .event-card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .event-card-img-overlay {
       position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover; display: block;
+      background: linear-gradient(to bottom, rgba(0,0,0,.06) 0%, rgba(0,0,0,.36) 100%);
+      pointer-events: none;
     }
-    .event-badge-overlay {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,.58);
+    .event-card-image .event-type-tag {
+      position: absolute;
+      top: 14px; left: 14px;
+      margin: 0;
+      background: var(--white) !important;
+      border-color: transparent !important;
+      color: var(--blue) !important;
     }
-    .event-badge-content {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 2px;
+
+    /* Category badge */
+    .event-type-tag {
+      display: inline-flex; align-items: center;
+      background: var(--sky);
+      border: 1px solid rgba(225,6,0,.25);
+      border-radius: 100px;
+      padding: 3px 12px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--blue);
     }
-    .event-date-month {
-      font-size: 12px; font-weight: 600;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--white);
-    }
-    .event-date-day { display: none; }
-    .event-date-year {
-      font-family: var(--font-head);
-      font-size: 26px; font-weight: 700;
-      line-height: 1; color: var(--white);
-      letter-spacing: -.01em;
-    }
+    .event-type-tag.matchmaking { background: rgba(14,159,140,.15); border-color: #A7E8DE; color: #0E9F8C; }
+    .event-type-tag.education   { background: rgba(180,83,9,.12); border-color: #F5D9A8; color: #B45309; }
+    .event-type-tag.networking  { background: rgba(109,40,217,.1); border-color: #DDD6FE; color: #6D28D9; }
 
     /* Event body */
     .event-body {
-      padding: 16px 24px 58px; /* bottom reserve = footer height (36px) + gap (6px) + base (16px) */
-      display: flex; flex-direction: column; gap: 6px;
-      border-left: 1px solid var(--border);
-      position: relative;
+      padding: 20px 22px 22px;
+      display: flex; flex-direction: column;
+      flex: 1;
+      gap: 10px;
     }
-    .event-meta {
-      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    .event-date-row {
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .event-date-line,
+    .event-time-line {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 500;
+      color: var(--grey); letter-spacing: .02em;
+    }
+    .event-date-line svg,
+    .event-time-line svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--accent); }
+    .event-subtitle {
+      font-size: 11px; font-weight: 700;
+      color: var(--accent); letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: -4px;
+    }
+    .event-title {
+      font-family: var(--font-head);
+      font-size: 17px; font-weight: 700;
+      color: var(--navy); line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .event-desc {
+      font-size: 13px; line-height: 1.65;
+      color: var(--grey);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .event-meta-row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
     }
     .event-meta-item {
       display: flex; align-items: center; gap: 5px;
       font-size: 12px; font-weight: 500;
       color: var(--grey); letter-spacing: .02em;
     }
-    .event-meta-item svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--accent); }
-    .event-type-tag {
-      display: inline-flex; align-items: center;
-      background: var(--sky);
-      border: 1px solid rgba(225,6,0,.25);
-      border-radius: 100px;
-      padding: 2px 10px;
-      font-size: 10px; font-weight: 700;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--blue);
-    }
-    .event-type-tag.matchmaking { background: #EBF9F6; border-color: #A7E8DE; color: #0E9F8C; }
-    .event-type-tag.education   { background: #FFF7EB; border-color: #F5D9A8; color: #B45309; }
-    .event-type-tag.networking  { background: #F5F3FF; border-color: #DDD6FE; color: #6D28D9; }
-    .event-title {
-      font-family: var(--font-head);
-      font-size: 17px; font-weight: 700;
-      color: var(--navy); line-height: 1.3;
-    }
-    .event-subtitle {
-      font-size: 12px; font-weight: 700;
-      color: var(--accent); letter-spacing: .02em;
-      margin-bottom: -4px;
-    }
-    .event-desc {
-      font-size: 13px; line-height: 1.65;
-      color: var(--grey);
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      flex: 1;
-      max-height: calc(13px * 1.65 * 2); /* hard cap at 2 lines */
-    }
-    .event-footer {
-      position: absolute;
-      bottom: 16px; left: 24px; right: 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: nowrap; gap: 10px;
-    }
+    .event-meta-item svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--grey); }
     .event-views {
       display: flex; align-items: center; gap: 5px;
       font-size: 12px; color: var(--grey); font-weight: 500;
     }
     .event-views svg { width: 13px; height: 13px; }
-    .event-ticket {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 12px; color: var(--grey); font-weight: 500;
+
+    /* CTA text link */
+    .event-footer {
+      display: flex; justify-content: flex-end;
+      margin-top: 2px;
     }
-    .event-ticket svg { width: 13px; height: 13px; color: var(--grey); }
     .event-register {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--blue); color: var(--white);
+      display: inline-flex; align-items: center; gap: 4px;
+      color: var(--blue);
       font-size: 13px; font-weight: 700;
-      padding: 9px 18px; border-radius: 8px;
-      text-decoration: none; transition: background .2s, gap .2s;
-      white-space: nowrap;
+      letter-spacing: .01em;
+      text-decoration: none;
+      transition: opacity .2s ease;
     }
-    .event-register:hover { background: #c00; gap: 9px; }
-    .event-register svg { width: 13px; height: 13px; }
+    .event-register::after {
+      content: '→';
+      display: inline-block;
+      transition: transform .2s ease;
+    }
+    .event-register:hover { opacity: .75; }
+    .event-register:hover::after { transform: translateX(5px); }
 
     /* Pagination */
-    .events-pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 36px; }
+    .events-pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 52px; }
     .epg-btn {
       width: 38px; height: 38px; border-radius: 9px;
       display: flex; align-items: center; justify-content: center;
@@ -692,22 +697,26 @@
     }
 
     /* ─── PAST EVENTS ──────────────────────────────────────────────── */
+    /* ─── PAST EVENTS ───────────────────────────────────────────────── */
     .past-events-section {
       background: var(--light);
       padding: 96px 0;
     }
     .past-events-header {
-      text-align: center; margin-bottom: 52px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 64px;
     }
-    .past-events-col {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    .past-events-header .section-body {
+      text-align: center;
+      max-width: 100%;
+      margin: 12px auto 0;
     }
-
-    /* Past event card — vertical layout with image banner */
+    .past-events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
     .past-event-card {
       display: flex;
       flex-direction: column;
@@ -716,108 +725,40 @@
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
-      transition: all .25s;
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+      cursor: pointer;
     }
     .past-event-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-      border-color: rgba(255,43,43,.25);
-    }
-
-    /* Past event lower area: image-date badge + body (matches live events) */
-    .past-event-card-lower {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 0;
-      height: 220px;
-      overflow: hidden;
-    }
-
-    /* Past date badge — image/gradient as background */
-    .past-date-badge {
-      position: relative;
-      overflow: hidden;
-      background: var(--navy);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .past-badge-bg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    .past-badge-overlay {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,.58);
-    }
-    /* Fallback: gradient overlay when no image */
-    .past-date-badge.no-img {
-      background: linear-gradient(135deg, var(--navy) 0%, #2a0000 50%, var(--blue) 100%);
-    }
-    .past-badge-content {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 2px;
-    }
-    .past-date-month {
-      font-size: 12px; font-weight: 600;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--white);
-    }
-    .past-date-day { display: none; }
-    .past-date-year {
-      font-family: var(--font-head);
-      font-size: 26px; font-weight: 700;
-      line-height: 1; color: var(--white);
-      letter-spacing: -.01em;
-    }
-    .past-event-body {
-      padding: 16px 24px 58px;
-      display: flex; flex-direction: column; gap: 6px;
-      border-left: 1px solid var(--border);
-      position: relative;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+      border-color: rgba(225,6,0,.2);
     }
     .past-event-title {
       font-family: var(--font-head);
       font-size: 17px; font-weight: 700;
       color: var(--navy); line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .past-event-subtitle {
-      font-size: 12px; font-weight: 700;
-      color: var(--accent); letter-spacing: .02em;
+      font-size: 11px; font-weight: 700;
+      color: var(--accent); letter-spacing: .06em;
+      text-transform: uppercase;
       margin-bottom: -4px;
     }
-    .past-event-meta {
-      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-    }
-    .past-event-meta span {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 12px; color: var(--grey); font-weight: 500;
-    }
-    .past-event-meta svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--accent); }
-    .past-event-footer {
-      position: absolute;
-      bottom: 16px; left: 24px; right: 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: nowrap; gap: 10px;
-    }
-    .past-event-views {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 12px; color: var(--grey); font-weight: 500;
-    }
-    .past-event-views svg { width: 13px; height: 13px; }
     .closed-badge {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 5px;
       background: var(--light); border: 1px solid var(--border);
-      border-radius: 8px; padding: 9px 18px;
-      font-size: 13px; font-weight: 700; color: var(--grey);
+      border-radius: 100px; padding: 4px 14px;
+      font-size: 11px; font-weight: 700; color: var(--grey);
+      letter-spacing: .04em; text-transform: uppercase;
       white-space: nowrap;
     }
-    .closed-badge svg { width: 13px; height: 13px; }
 
     /* Past events pagination */
-    .past-events-pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 36px; }
+    .past-events-pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 52px; }
     .pepg-btn {
       width: 38px; height: 38px; border-radius: 9px;
       display: flex; align-items: center; justify-content: center;
@@ -876,19 +817,13 @@
       .topbar { display: none; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
-      .event-card-lower { grid-template-columns: 160px 1fr; height: 210px; }
-      .past-event-card-lower { grid-template-columns: 160px 1fr; height: 210px; }
+      .events-grid, .past-events-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
       .features-grid { grid-template-columns: 1fr; }
       .stat-item { padding: 0 24px; }
     }
     @media (max-width: 480px) {
-      .event-card-lower { grid-template-columns: 120px 1fr; height: auto; min-height: 180px; }
-      .past-event-card-lower { grid-template-columns: 120px 1fr; height: auto; min-height: 180px; }
-      .event-body { padding: 14px 16px 56px; }
-      .past-event-body { padding: 14px 16px 56px; }
-      .event-footer { bottom: 14px; left: 16px; right: 16px; }
-      .past-event-footer { bottom: 14px; left: 16px; right: 16px; }
+      .events-grid, .past-events-grid { grid-template-columns: 1fr; gap: 18px; }
       .event-title { font-size: 15px; }
       .past-event-title { font-size: 15px; }
       .stats-band .container { gap: 0; }
@@ -1048,253 +983,238 @@
       <div class="events-header fade-up">
         <div class="section-divider" style="margin: 0 auto 20px"></div>
         <div class="tag">Engage &amp; Network</div>
-        <h2 class="section-title">Collaborate</h2>
+        <h2 class="section-title">Upcoming Events</h2>
+        <p class="section-body">Connect, learn, and grow with govmates — live webinars, education events, and in-person networking built for the defense contracting community.</p>
       </div>
 
-      <div class="events-col">
+      <div class="events-grid">
 
-        <!-- EVENT 2: ATI Education — Scaling in the OTA Space (Apr 21) -->
+        <!-- EVENT 1: ATI Education — Scaling in the OTA Space (Apr 21) -->
         <article class="event-card fade-up">
-          <div class="event-card-lower">
-            <div class="event-date-badge">
-              <img class="event-badge-bg" src="Images/live-events/ATI-Education.webp" alt="">
-              <div class="event-badge-overlay"></div>
-              <div class="event-badge-content">
-                <span class="event-date-month">April</span>
-                <span class="event-date-year">2026</span>
+          <div class="event-card-image">
+            <img src="Images/live-events/ATI-Education.webp" alt="Scaling in the OTA Space">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag education">Education</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Tuesday, April 21, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                --:--
               </div>
             </div>
-            <div class="event-body">
-              <div class="event-meta">
-                <span class="event-type-tag education">Education</span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Tuesday, April 21, 2026
-                </span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
-                  Virtual
-                </span>
-              </div>
-              <div class="event-subtitle">ATI Education</div>
-              <div class="event-title">Scaling in the OTA Space</div>
-              <div class="event-desc">Scaling in the OTA Space: Growth Paths for Small and Nontraditional Contractors. Focus: Moving from single-project wins to sustained growth. Key Takeaways: Leveraging OTA work for follow-on production contracts · Building past performance credibility for federal bids · Funding growth—cash flow strategies for fast-moving OTA awards.</div>
-              <div class="event-footer">
-                <span class="event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  4,411 people viewed this event
-                </span>
-                <a href="https://us02web.zoom.us/webinar/register/WN_Nznpst0QRja45qN26_z_qQ" class="event-register" target="_blank" rel="noopener">
-                  Register Here
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </a>
-              </div>
+            <div class="event-subtitle">ATI Education</div>
+            <h3 class="event-title">Scaling in the OTA Space</h3>
+            <p class="event-desc">Growth paths for small and nontraditional contractors — moving from single-project wins to sustained growth. Leveraging OTA work for follow-on production contracts and building past performance credibility.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,411 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <a href="https://us02web.zoom.us/webinar/register/WN_Nznpst0QRja45qN26_z_qQ" class="event-register" target="_blank" rel="noopener">Register</a>
             </div>
           </div>
         </article>
 
-        <!-- EVENT 6: ATI Education — Maximizing Consortia Membership Benefits (Jun 09) -->
-        <article class="event-card fade-up" style="transition-delay:.06s">
-          <div class="event-card-lower">
-            <div class="event-date-badge">
-              <img class="event-badge-bg" src="Images/live-events/ATI-Education.webp" alt="">
-              <div class="event-badge-overlay"></div>
-              <div class="event-badge-content">
-                <span class="event-date-month">June</span>
-                <span class="event-date-year">2026</span>
+        <!-- EVENT 2: ATI Education — Maximizing Consortia Membership Benefits (Jun 09) -->
+        <article class="event-card fade-up" style="transition-delay:.07s">
+          <div class="event-card-image">
+            <img src="Images/live-events/ATI-Education.webp" alt="Maximizing Consortia Membership Benefits">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag education">Education</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Tuesday, June 09, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                --:--
               </div>
             </div>
-            <div class="event-body">
-              <div class="event-meta">
-                <span class="event-type-tag education">Education</span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Tuesday, June 09, 2026
-                </span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
-                  Virtual
-                </span>
-              </div>
-              <div class="event-subtitle">ATI Education</div>
-              <div class="event-title">Maximizing Consortia Membership Benefits</div>
-              <div class="event-desc">ATI offers a suite of member benefits as part of a consortia membership. In this webinar we will discuss how to best utilize these benefits including: Which consortia do I join? · How do I collaborate? · What are the tools at my disposal? · What collaboration opportunities are there? …and more!</div>
-              <div class="event-footer">
-                <span class="event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  3,369 people viewed this event
-                </span>
-                <a href="https://us02web.zoom.us/webinar/register/WN_D5sZwnJeRxmWnk55ig6i1Q" class="event-register" target="_blank" rel="noopener">
-                  Register Here
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </a>
-              </div>
+            <div class="event-subtitle">ATI Education</div>
+            <h3 class="event-title">Maximizing Consortia Membership Benefits</h3>
+            <p class="event-desc">Discover how to best utilize ATI member benefits — which consortia to join, how to collaborate, what tools are at your disposal, and the collaboration opportunities available to you.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,369 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <a href="https://us02web.zoom.us/webinar/register/WN_D5sZwnJeRxmWnk55ig6i1Q" class="event-register" target="_blank" rel="noopener">Register</a>
             </div>
           </div>
         </article>
 
-        <!-- EVENT 7: ATI Education — Mastering the OTA Pitch (Aug 18) -->
-        <article class="event-card fade-up" style="transition-delay:.1s">
-          <div class="event-card-lower">
-            <div class="event-date-badge">
-              <img class="event-badge-bg" src="Images/live-events/ATI-Education.webp" alt="">
-              <div class="event-badge-overlay"></div>
-              <div class="event-badge-content">
-                <span class="event-date-month">August</span>
-                <span class="event-date-year">2026</span>
+        <!-- EVENT 3: ATI Education — Mastering the OTA Pitch (Aug 18) -->
+        <article class="event-card fade-up" style="transition-delay:.14s">
+          <div class="event-card-image">
+            <img src="Images/live-events/ATI-Education.webp" alt="Mastering the OTA Pitch">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag education">Education</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Tuesday, August 18, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                12:00pm – 1:00pm
               </div>
             </div>
-            <div class="event-body">
-              <div class="event-meta">
-                <span class="event-type-tag education">Education</span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Tuesday, August 18, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
-                </span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
-                  Virtual
-                </span>
-              </div>
-              <div class="event-subtitle">ATI Education</div>
-              <div class="event-title">Mastering the OTA Pitch</div>
-              <div class="event-desc">Mastering the OTA Pitch: Communicating Innovation to Federal Decision Makers. As the expert in your field, you hold the keys to strategic innovation. Join ATI and govmates as we explore the art of crafting winning technical and business narratives that resonate with program managers and evaluators.</div>
-              <div class="event-footer">
-                <span class="event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  4,410 people viewed this event
-                </span>
-                <a href="https://us02web.zoom.us/webinar/register/WN_9nziLY43QzOllrP3VG-NKg" class="event-register" target="_blank" rel="noopener">
-                  Register Here
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </a>
-              </div>
+            <div class="event-subtitle">ATI Education</div>
+            <h3 class="event-title">Mastering the OTA Pitch</h3>
+            <p class="event-desc">Communicating innovation to federal decision makers. Craft winning technical and business narratives that resonate with program managers and evaluators in the OTA space.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,410 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <a href="https://us02web.zoom.us/webinar/register/WN_9nziLY43QzOllrP3VG-NKg" class="event-register" target="_blank" rel="noopener">Register</a>
             </div>
           </div>
         </article>
 
-        <!-- EVENT 8: ATI Education — The OTA Advantage (Sep 15) -->
-        <article class="event-card fade-up" style="transition-delay:.13s">
-          <div class="event-card-lower">
-            <div class="event-date-badge">
-              <img class="event-badge-bg" src="Images/live-events/ATI-Education.webp" alt="">
-              <div class="event-badge-overlay"></div>
-              <div class="event-badge-content">
-                <span class="event-date-month">September</span>
-                <span class="event-date-year">2026</span>
+        <!-- EVENT 4: ATI Education — The OTA Advantage (Sep 15) -->
+        <article class="event-card fade-up" style="transition-delay:.21s">
+          <div class="event-card-image">
+            <img src="Images/live-events/ATI-Education.webp" alt="The OTA Advantage">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag education">Education</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Tuesday, September 15, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                12:00pm – 1:00pm
               </div>
             </div>
-            <div class="event-body">
-              <div class="event-meta">
-                <span class="event-type-tag education">Education</span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Tuesday, September 15, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
-                </span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
-                  Virtual
-                </span>
-              </div>
-              <div class="event-subtitle">ATI Education</div>
-              <div class="event-title">The OTA Advantage</div>
-              <div class="event-desc">The OTA Advantage: Turning Flexibility Into Competitive Edge. OTAs stand proudly by their characteristics of speed and flexibility. Join govmates and ATI as we talk about how to leverage the unique benefits of OTAs—speed, flexibility, and innovation—to outmaneuver traditional contractors.</div>
-              <div class="event-footer">
-                <span class="event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  4,412 people viewed this event
-                </span>
-                <a href="https://us02web.zoom.us/webinar/register/WN_CJ6DWLHVSXqwwO2e2vltxw" class="event-register" target="_blank" rel="noopener">
-                  Register Here
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </a>
-              </div>
+            <div class="event-subtitle">ATI Education</div>
+            <h3 class="event-title">The OTA Advantage</h3>
+            <p class="event-desc">Turning flexibility into competitive edge. Leverage the unique benefits of OTAs — speed, flexibility, and innovation — to outmaneuver traditional contractors in the federal market.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,412 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <a href="https://us02web.zoom.us/webinar/register/WN_CJ6DWLHVSXqwwO2e2vltxw" class="event-register" target="_blank" rel="noopener">Register</a>
             </div>
           </div>
         </article>
 
-        <!-- EVENT 9: Fiscal Year End Fiesta (Sep 30) -->
-        <article class="event-card fade-up" style="transition-delay:.16s">
-          <div class="event-card-lower">
-            <div class="event-date-badge">
-              <img class="event-badge-bg" src="Images/live-events/fiscal year end.webp" alt="">
-              <div class="event-badge-overlay"></div>
-              <div class="event-badge-content">
-                <span class="event-date-month">September</span>
-                <span class="event-date-year">2026</span>
+        <!-- EVENT 5: Fiscal Year End Fiesta (Sep 30) -->
+        <article class="event-card fade-up" style="transition-delay:.28s">
+          <div class="event-card-image">
+            <img src="Images/live-events/fiscal year end.webp" alt="Fiscal Year End Fiesta">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag networking">Networking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Wednesday, September 30, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                5:30pm – 7:30pm
               </div>
             </div>
-            <div class="event-body">
-              <div class="event-meta">
-                <span class="event-type-tag networking">Networking</span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Wednesday, September 30, 2026 &nbsp;·&nbsp; 5:30pm – 7:30pm
-                </span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  Womble Bond Dickinson Office, Tysons, VA
-                </span>
-              </div>
-              <div class="event-title">Fiscal Year End Fiesta</div>
-              <div class="event-desc">govmates members (government contractors) only! Join us for our Fifth Annual Fiscal Year End Fiesta networking event with fellow members and teaming partners. We'll bring the drinks and food – you bring the business cards and get ready to mingle! We'll also be joined by representatives from large defense primes and integrators. Location: Womble Bond Dickinson Office, 8350 Broad Street #Ste 1500 Tysons, VA 22102. Cost: $25. Register Here: TBD</div>
-              <div class="event-footer">
-                <span class="event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  3,262 people viewed this event
-                </span>
-                <a href="#" class="event-register" target="_blank" rel="noopener">
-                  Register Here
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </a>
-              </div>
+            <h3 class="event-title">Fiscal Year End Fiesta</h3>
+            <p class="event-desc">Fifth Annual Fiscal Year End Fiesta — networking with fellow govmates members, teaming partners, and representatives from large defense primes and integrators. Cost: $25.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Tysons, VA
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,262 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <a href="#" class="event-register" target="_blank" rel="noopener">Register</a>
             </div>
           </div>
         </article>
 
-        <!-- EVENT 10: Holiday Bash (Dec 02) -->
-        <article class="event-card fade-up" style="transition-delay:.2s">
-          <div class="event-card-lower">
-            <div class="event-date-badge">
-              <img class="event-badge-bg" src="Images/live-events/holiday bash.webp" alt="">
-              <div class="event-badge-overlay"></div>
-              <div class="event-badge-content">
-                <span class="event-date-month">December</span>
-                <span class="event-date-year">2026</span>
+        <!-- EVENT 6: Holiday Bash (Dec 02) -->
+        <article class="event-card fade-up" style="transition-delay:.35s">
+          <div class="event-card-image">
+            <img src="Images/live-events/holiday bash.webp" alt="Holiday Bash">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag networking">Networking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Wednesday, December 02, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                5:30pm – 7:30pm
               </div>
             </div>
-            <div class="event-body">
-              <div class="event-meta">
-                <span class="event-type-tag networking">Networking</span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Wednesday, December 02, 2026 &nbsp;·&nbsp; 5:30pm – 7:30pm
-                </span>
-                <span class="event-meta-item">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  Tysons, VA
-                </span>
-              </div>
-              <div class="event-title">Holiday Bash</div>
-              <div class="event-desc">govmates members (government contractors) only! Join us for our fourth annual Holiday Bash, an evening of networking with fellow members and teaming partners. We'll bring the drinks and food – you bring the business cards and get ready to mingle! We'll also be joined by representatives from large defense primes and integrators. Cost: $25</div>
-              <div class="event-footer">
-                <span class="event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  3,369 people viewed this event
-                </span>
-                <a href="#" class="event-register" target="_blank" rel="noopener">
-                  Register Here
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </a>
-              </div>
+            <h3 class="event-title">Holiday Bash</h3>
+            <p class="event-desc">Fourth Annual Holiday Bash — an evening of networking with fellow govmates members, teaming partners, and representatives from large defense primes and integrators. Cost: $25.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Tysons, VA
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,369 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <a href="#" class="event-register" target="_blank" rel="noopener">Register</a>
             </div>
           </div>
         </article>
 
-      </div><!-- /.events-col -->
+      </div><!-- /.events-grid -->
       <div class="events-pagination" id="events-pagination">
-        <button class="epg-btn active" onclick="showEventsPage(1)">1</button>
-        <button class="epg-btn" onclick="showEventsPage(2)">2</button>
+        <button class="epg-btn active">1</button>
+        <button class="epg-btn">2</button>
+        <button class="epg-btn">3</button>
+        <button class="epg-btn">4</button>
       </div>
     </div>
   </section>
@@ -1503,358 +1423,343 @@
         <div class="section-divider" style="margin: 0 auto 20px"></div>
         <div class="tag">Archive</div>
         <h2 class="section-title">Past Events</h2>
+        <p class="section-body">A look back at our previous sessions, webinars, and networking events — browse the archive below.</p>
       </div>
 
-      <div class="past-events-col">
+      <div class="past-events-grid">
 
-        <!-- PAST EVENT 1: SECAF Matchmaking Event 2026 — fallback banner -->
+        <!-- PAST EVENT 1: SECAF Matchmaking Event 2026 -->
         <article class="past-event-card fade-up">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge no-img">
-              <div class="past-badge-content">
-                <span class="past-date-month">March</span>
-                <span class="past-date-year">2026</span>
+          <div class="event-card-image">
+            <img src="Images/general/common-red-background.png" alt="SECAF Matchmaking Event 2026">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag matchmaking">Matchmaking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Thursday, March 05, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                1:00pm – 3:00pm ET
               </div>
             </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag matchmaking">Matchmaking</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Thursday, March 05, 2026 &nbsp;·&nbsp; 1:00pm – 3:00pm ET
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
-                  Virtual
-                </span>
-              </div>
-              <div class="past-event-title">SECAF Matchmaking Event 2026</div>
-              <div class="event-desc">Save the date for Virtual SECAF Matchmaking. Ticket: SECAF Virtual Matchmaking Event — $0.00</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  2,404 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
+            <h3 class="past-event-title">SECAF Matchmaking Event 2026</h3>
+            <p class="event-desc">Virtual SECAF Matchmaking event connecting government agencies and small businesses for 1×1 sessions. Ticket: SECAF Virtual Matchmaking Event — $0.00.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                2,404 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
             </div>
           </div>
         </article>
 
-        <!-- PAST EVENT 2: Cracking the OTA Code (ATI Education) -->
-        <article class="past-event-card fade-up" style="transition-delay:.05s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge">
-              <img class="past-badge-bg" src="Images/past-events/ATI-Education.webp" alt="">
-              <div class="past-badge-overlay"></div>
-              <div class="past-badge-content">
-                <span class="past-date-month">March</span>
-                <span class="past-date-year">2026</span>
+        <!-- PAST EVENT 2: Cracking the OTA Code -->
+        <article class="past-event-card fade-up" style="transition-delay:.07s">
+          <div class="event-card-image">
+            <img src="Images/past-events/ATI-Education.webp" alt="Cracking the OTA Code">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag education">Education</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Tuesday, March 03, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                12:00pm – 1:00pm
               </div>
             </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag education">Education</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Tuesday, March 03, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
-                  Virtual
-                </span>
-              </div>
-              <div class="past-event-subtitle">ATI Education</div>
-              <div class="past-event-title">Cracking the OTA Code</div>
-              <div class="event-desc">Proven Strategies to Win Your First (or Next) OTA Award. Focus: Practical, step-by-step guidance for identifying OTA opportunities, crafting competitive proposals, and positioning your business for selection.</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  4,393 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
+            <div class="past-event-subtitle">ATI Education</div>
+            <h3 class="past-event-title">Cracking the OTA Code</h3>
+            <p class="event-desc">Proven strategies to win your first (or next) OTA award — practical guidance for identifying opportunities, crafting competitive proposals, and positioning your business for selection.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,393 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
             </div>
           </div>
         </article>
 
-        <!-- PAST EVENT 3: BioMaP-Consortium Matchmaking — fallback banner -->
-        <article class="past-event-card fade-up" style="transition-delay:.08s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge no-img">
-              <div class="past-badge-content">
-                <span class="past-date-month">February</span>
-                <span class="past-date-year">2026</span>
+        <!-- PAST EVENT 3: BioMaP-Consortium Matchmaking -->
+        <article class="past-event-card fade-up" style="transition-delay:.14s">
+          <div class="event-card-image">
+            <img src="Images/general/common-red-background.png" alt="BioMaP-Consortium Matchmaking Event">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag matchmaking">Matchmaking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Thursday, February 26, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                11:00am – 1:00pm ET
               </div>
             </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag matchmaking">Matchmaking</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Thursday, February 26, 2026 &nbsp;·&nbsp; 11:00am – 1:00pm ET
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  Crystal Gateway Marriott, Arlington, VA
-                </span>
-              </div>
-              <div class="past-event-title">BioMaP-Consortium Matchmaking Event</div>
-              <div class="event-desc">Join us for matchmaking at the BioMaP-Consortium General Membership Meeting in Arlington, VA. In order to participate, you must be registered for the General Membership Meeting. Ticket: BioMap Matchmaking Event — $0.00</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  3,719 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
+            <h3 class="past-event-title">BioMaP-Consortium Matchmaking Event</h3>
+            <p class="event-desc">Matchmaking at the BioMaP-Consortium General Membership Meeting in Arlington, VA. Participation requires prior registration for the General Membership Meeting.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Arlington, VA
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                3,719 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
             </div>
           </div>
         </article>
 
         <!-- PAST EVENT 4: Rocket City Rendezvous -->
-        <article class="past-event-card fade-up" style="transition-delay:.1s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge">
-              <img class="past-badge-bg" src="Images/past-events/rocky city rendezvous.webp" alt="">
-              <div class="past-badge-overlay"></div>
-              <div class="past-badge-content">
-                <span class="past-date-month">February</span>
-                <span class="past-date-year">2026</span>
+        <article class="past-event-card fade-up" style="transition-delay:.21s">
+          <div class="event-card-image">
+            <img src="Images/past-events/rocky city rendezvous.webp" alt="Rocket City Rendezvous">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag networking">Networking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Tuesday, February 24, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                5:00pm – 7:00pm CT
               </div>
             </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag networking">Networking</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Tuesday, February 24, 2026 &nbsp;·&nbsp; 5:00pm – 7:00pm CT
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  200 Davis Circle, Huntsville, AL
-                </span>
-              </div>
-              <div class="past-event-title">Rocket City Rendezvous</div>
-              <div class="event-desc">Join govmates at the Womble Bond Dickinson office in Huntsville, AL for a govcon exclusive networking event. Tickets: $25.00. Government Contractors only.</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  5,068 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
+            <h3 class="past-event-title">Rocket City Rendezvous</h3>
+            <p class="event-desc">govcon exclusive networking at the Womble Bond Dickinson office in Huntsville, AL. Government contractors only. Tickets: $25.00.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Huntsville, AL
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                5,068 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
             </div>
           </div>
         </article>
 
-        <!-- PAST EVENT 5: Building High-Impact Teams (ATI Education) -->
-        <article class="past-event-card fade-up" style="transition-delay:.12s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge">
-              <img class="past-badge-bg" src="Images/past-events/ATI-Education.webp" alt="">
-              <div class="past-badge-overlay"></div>
-              <div class="past-badge-content">
-                <span class="past-date-month">January</span>
-                <span class="past-date-year">2026</span>
+        <!-- PAST EVENT 5: Building High-Impact Teams -->
+        <article class="past-event-card fade-up" style="transition-delay:.28s">
+          <div class="event-card-image">
+            <img src="Images/past-events/ATI-Education.webp" alt="Building High-Impact Teams">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag education">Education</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Tuesday, January 20, 2026
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                12:00pm – 1:00pm
               </div>
             </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag education">Education</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Tuesday, January 20, 2026 &nbsp;·&nbsp; 12:00pm – 1:00pm
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
-                  Virtual
-                </span>
-              </div>
-              <div class="past-event-subtitle">ATI Education</div>
-              <div class="past-event-title">Building High-Impact Teams</div>
-              <div class="event-desc">From Partner to Powerhouse: Building High-Impact Teams in the OTA Ecosystem. Best practices for identifying capability gaps, negotiating teaming agreements, and IP considerations in OTAs.</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  4,273 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
+            <div class="past-event-subtitle">ATI Education</div>
+            <h3 class="past-event-title">Building High-Impact Teams</h3>
+            <p class="event-desc">From partner to powerhouse — best practices for identifying capability gaps, negotiating teaming agreements, and IP considerations in the OTA ecosystem.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="14" rx="2"/><path d="M8 10l3 2 5-5"/></svg>
+                Virtual
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                4,273 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
             </div>
           </div>
         </article>
 
         <!-- PAST EVENT 6: Holiday Bash Networking Event -->
+        <article class="past-event-card fade-up" style="transition-delay:.35s">
+          <div class="event-card-image">
+            <img src="Images/past-events/holiday bash.webp" alt="Holiday Bash Networking Event">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag networking">Networking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Wednesday, December 03, 2025
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                5:30pm – 7:30pm
+              </div>
+            </div>
+            <h3 class="past-event-title">Holiday Bash Networking Event</h3>
+            <p class="event-desc">Third annual Holiday Bash — an evening of networking with fellow govmates members, teaming partners, and large defense primes. Cost: $25. Members only.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                McLean, VA
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                11,065 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 7: MAC2025: Midwest Aerospace Conference -->
+        <article class="past-event-card fade-up">
+          <div class="event-card-image">
+            <img src="Images/general/common-red-background.png" alt="MAC2025: Midwest Aerospace Conference">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag matchmaking">Matchmaking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Thursday, October 23, 2025
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                3:00pm – 5:00pm CT
+              </div>
+            </div>
+            <h3 class="past-event-title">MAC2025: Midwest Aerospace Conference</h3>
+            <p class="event-desc">Matchmaking at the Midwest Aerospace Conference. Conference registration required to participate. Ticket: MAC 2025 Matchmaking — $0.00.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Rockford, IL
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                5,439 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 8: govmates Matchmaking at AUSA -->
+        <article class="past-event-card fade-up" style="transition-delay:.07s">
+          <div class="event-card-image">
+            <img src="Images/general/common-red-background.png" alt="govmates Matchmaking at AUSA">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag matchmaking">Matchmaking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Monday, October 13, 2025
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                2:00pm – 4:00pm ET
+              </div>
+            </div>
+            <h3 class="past-event-title">govmates Matchmaking at AUSA</h3>
+            <p class="event-desc">Attending AUSA? Register for industry matchmaking sessions at Room 209B, Walter E. Washington Convention Center, Washington DC.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Washington, DC
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                9,366 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PAST EVENT 9: Fiscal Year End Fiesta Networking -->
         <article class="past-event-card fade-up" style="transition-delay:.14s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge">
-              <img class="past-badge-bg" src="Images/past-events/holiday bash.webp" alt="">
-              <div class="past-badge-overlay"></div>
-              <div class="past-badge-content">
-                <span class="past-date-month">December</span>
-                <span class="past-date-year">2025</span>
+          <div class="event-card-image">
+            <img src="Images/general/common-red-background.png" alt="Fiscal Year End Fiesta Networking">
+            <div class="event-card-img-overlay"></div>
+            <span class="event-type-tag networking">Networking</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date-row">
+              <div class="event-date-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="16" height="15" rx="2"/><path d="M14 1v4M6 1v4M2 8h16"/></svg>
+                Wednesday, September 10, 2025
+              </div>
+              <div class="event-time-line">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
+                5:30pm – 7:30pm
               </div>
             </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag networking">Networking</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Wednesday, December 03, 2025 &nbsp;·&nbsp; 5:30pm – 7:30pm
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  McLean
-                </span>
-              </div>
-              <div class="past-event-title">Holiday Bash Networking Event</div>
-              <div class="event-desc">govmates members (government contractors) only! Third annual Holiday Bash — evening of networking with fellow members and teaming partners. Cost: $25. Location: 1676 International Drive, Penthouse.</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  11,065 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
+            <h3 class="past-event-title">Fiscal Year End Fiesta Networking</h3>
+            <p class="event-desc">Fourth Annual Fiscal Year End Fiesta — networking with fellow govmates members and teaming partners at Womble Bond Dickinson Office, Tysons, VA. Cost: $25.</p>
+            <div class="event-meta-row">
+              <span class="event-meta-item">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
+                Tysons, VA
+              </span>
+              <span class="event-views">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
+                10,792 views
+              </span>
+            </div>
+            <div class="event-footer">
+              <span class="closed-badge">Registrations Closed</span>
             </div>
           </div>
         </article>
 
-        <!-- PAST EVENT 7: MAC2025: Midwest Aerospace Conference — fallback banner -->
-        <article class="past-event-card fade-up" style="transition-delay:.16s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge no-img">
-              <div class="past-badge-content">
-                <span class="past-date-month">October</span>
-                <span class="past-date-year">2025</span>
-              </div>
-            </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag matchmaking">Matchmaking</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Thursday, October 23, 2025 &nbsp;·&nbsp; 3:00pm – 5:00pm CT
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  Embassy Suites, Rockford, IL
-                </span>
-              </div>
-              <div class="past-event-title">MAC2025: Midwest Aerospace Conference</div>
-              <div class="event-desc">Interested in matchmaking? You must first register for the Midwest Aerospace Conference. Ticket: MAC 2025 Matchmaking — $0.00</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  5,439 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- PAST EVENT 8: govmates Matchmaking at AUSA — fallback banner -->
-        <article class="past-event-card fade-up" style="transition-delay:.18s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge no-img">
-              <div class="past-badge-content">
-                <span class="past-date-month">October</span>
-                <span class="past-date-year">2025</span>
-              </div>
-            </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag matchmaking">Matchmaking</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Monday, October 13, 2025 &nbsp;·&nbsp; 2:00pm – 4:00pm ET
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  Room 209B, Walter E. Washington Convention Center
-                </span>
-              </div>
-              <div class="past-event-title">govmates Matchmaking at AUSA</div>
-              <div class="event-desc">Attending AUSA? Register for industry matchmaking here.</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  9,366 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- PAST EVENT 9: Fiscal Year End Fiesta Networking — fallback banner -->
-        <article class="past-event-card fade-up" style="transition-delay:.2s">
-          <div class="past-event-card-lower">
-            <div class="past-date-badge no-img">
-              <div class="past-badge-content">
-                <span class="past-date-month">September</span>
-                <span class="past-date-year">2025</span>
-              </div>
-            </div>
-            <div class="past-event-body">
-              <div class="past-event-meta">
-                <span class="event-type-tag networking">Networking</span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/></svg>
-                  Wednesday, September 10, 2025 &nbsp;·&nbsp; 5:30pm – 7:30pm
-                </span>
-                <span>
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 2a6 6 0 0 0-6 6c0 4 6 10 6 10s6-6 6-10a6 6 0 0 0-6-6z"/><circle cx="10" cy="8" r="2"/></svg>
-                  Womble Bond Dickinson Office, Tysons, VA
-                </span>
-              </div>
-              <div class="past-event-title">Fiscal Year End Fiesta Networking</div>
-              <div class="event-desc">govmates members (government contractors) only! Fourth Annual Fiscal Year End Fiesta networking event. Womble Bond Dickinson Office, 8350 Broad Street #Ste 1500 Tysons, VA 22102. Cost: $25.</div>
-              <div class="past-event-footer">
-                <span class="past-event-views">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10s4-7 9-7 9 7 9 7-4 7-9 7-9-7-9-7z"/><circle cx="10" cy="10" r="3"/></svg>
-                  10,792 people viewed this event
-                </span>
-                <span class="closed-badge">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2 2"/></svg>
-                  Registrations Closed
-                </span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div><!-- /.past-events-col -->
+      </div><!-- /.past-events-grid -->
       <div class="past-events-pagination" id="past-events-pagination">
-        <span class="pepg-info">Page <span id="pepg-current">1</span> of 2</span>
-        <button class="pepg-btn active" onclick="showPastPage(1)">1</button>
-        <button class="pepg-btn" onclick="showPastPage(2)">2</button>
+        <button class="pepg-btn active">1</button>
+        <button class="pepg-btn">2</button>
+        <button class="pepg-btn">3</button>
+        <button class="pepg-btn">4</button>
       </div>
     </div>
   </section>
@@ -1923,9 +1828,9 @@
 
   <script>
   (function() {
-    var eventsPerPage = 5;
+    var eventsPerPage = 6;
     function showEventsPage(page) {
-      var cards = document.querySelectorAll('.events-col .event-card');
+      var cards = document.querySelectorAll('.events-grid .event-card');
       var start = (page - 1) * eventsPerPage;
       var end = start + eventsPerPage;
       cards.forEach(function(card, i) {
@@ -1934,16 +1839,15 @@
       document.querySelectorAll('#events-pagination .epg-btn').forEach(function(btn, i) {
         btn.classList.toggle('active', i + 1 === page);
       });
-      document.getElementById('events').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     showEventsPage(1);
     window.showEventsPage = showEventsPage;
   })();
 
   (function() {
-    var pastPerPage = 5;
+    var pastPerPage = 6;
     function showPastPage(page) {
-      var cards = document.querySelectorAll('.past-events-col .past-event-card');
+      var cards = document.querySelectorAll('.past-events-grid .past-event-card');
       var start = (page - 1) * pastPerPage;
       var end = start + pastPerPage;
       cards.forEach(function(card, i) {
@@ -1952,8 +1856,6 @@
       document.querySelectorAll('#past-events-pagination .pepg-btn').forEach(function(btn, i) {
         btn.classList.toggle('active', i + 1 === page);
       });
-      document.getElementById('pepg-current').textContent = page;
-      document.getElementById('past-events').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     showPastPage(1);
     window.showPastPage = showPastPage;
